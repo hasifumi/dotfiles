@@ -448,7 +448,7 @@ nnoremap <Leader>aa :source `=expand("%")`<CR>
 "*****************
 "* typescript-vim
 "*****************
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
+"autocmd QuickFixCmdPost [^l]* nested cwindow
+"autocmd QuickFixCmdPost    l* nested lwindow
 
 
