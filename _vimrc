@@ -1,3 +1,3 @@
-if filereadable(expand('~/dotfiles/_vimrc'))
-  source ~/dotfiles/_vimrc
+if filereadable(expand('~/dotfiles/vimrc.vim'))
+  source ~/dotfiles/vimrc.vim
 endif
