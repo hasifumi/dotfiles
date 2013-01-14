@@ -70,8 +70,15 @@ NeoBundle	'Shougo/neobundle.vim'
 NeoBundle	'Shougo/neocomplcache'
 "NeoBundle 'Shougo/neocomplcache-snippets-complete'
 NeoBundle	'Shougo/neosnippet'
+NeoBundle	'honza/snipmate-snippets'
 NeoBundle	'Shougo/vimfiler'
+"NeoBundleLazy 'Shougo/vimfiler', {
+"\   'autoload' : { 'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer" ] }
+"\}
 NeoBundle	'Shougo/vimshell'
+"NeoBundleLazy 'Shougo/vimshell', {
+"\   'autoload' : { 'commands' : [ 'VimShell', "VimShellPop", "VimShellInteractive" ] }
+"\}
 NeoBundle	'Shougo/vimproc'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/echodoc'
@@ -100,7 +107,14 @@ NeoBundle 'Refactoring', { 'type' : 'nosync', 'base' : '~/vimfiles/bundle/manual
 NeoBundle 'git://github.com/tpope/vim-pathogen.git'
 NeoBundle 'ujihisa/neco-look'
 NeoBundle 'ujihisa/neco-ruby'
-NeoBundle 'tyru/open-browser.vim'
+"NeoBundle 'tyru/open-browser.vim'
+NeoBundleLazy "tyru/open-browser.vim", {
+\   'autoload' : {
+\       'functions' : "OpenBrowser",
+\       'commands'  : "OpenBrowserSearch",
+\       'mappings'  : "<Plug>(openbrowser-smart-search)"
+\   },
+\}
 NeoBundle 'kana/vim-smartchr'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'vim-jp/vimdoc-ja'
@@ -261,6 +275,8 @@ nnoremap <silent> ,utb :<C-u>Unite tab<CR>
 nnoremap <silent> ,utg :<C-u>Unite tag<CR>
 " neocomplcache
 "imap <C-h> <Plug>(neocomplcache_snippets_unite_complete)
+" snippet
+nnoremap <silent> ,us  :<C-u>Unite snippet<CR>
 
 " unite_my_settings
 autocmd FileType unite call s:unite_my_settings()
@@ -289,6 +305,7 @@ inoremap <buffer><expr> <C-l> unite#start_complete(
 "*****************
 "* neosnippet
 "*****************
+let g:neosnippet#snippets_directory = '~/vimfiles/bundle/neobundle/snipmate-snippets/snippets'
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
