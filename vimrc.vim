@@ -17,7 +17,7 @@ set nobackup
 set lines=60 columns=140
  
 "*****************
-"  日本語
+"  Japanese
 "*****************
 "set statusline=2
 "挿入モード終了時にIME状態を保存しない
@@ -68,7 +68,8 @@ endif
 
 NeoBundle	'Shougo/neobundle.vim'
 NeoBundle	'Shougo/neocomplcache'
-NeoBundle 'Shougo/neocomplcache-snippets-complete'
+"NeoBundle 'Shougo/neocomplcache-snippets-complete'
+NeoBundle	'Shougo/neosnippet'
 NeoBundle	'Shougo/vimfiler'
 NeoBundle	'Shougo/vimshell'
 NeoBundle	'Shougo/vimproc'
@@ -126,13 +127,24 @@ filetype plugin indent on
 "*****************
 " Use neocomplcache 
 let g:neocomplcache_enable_at_startup = 1
-"" SuperTab like snippets behavior.
-imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-"" Plugin key-mappings.
-imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-smap <C-k>     <Plug>(neocomplcache_snippets_expand)
-inoremap <expr><C-g>     neocomplcache#undo_completion()
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+" Define dictionary.
+let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+    \ }
+" Plugin key-mappings.
+"inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
+	
+"" SuperTab like snippets behavior.
+"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+"" Plugin key-mappings.
+"imap <C-k>     <Plug>(neocomplcache_snippets_expand)
+"smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
 "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
@@ -143,6 +155,8 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
+" AutoComplPop like behavior.
+"let g:neocomplcache_enable_auto_select = 1
 
 autocmd BufRead,BufNewFile *.coffee setlocal ft=coffee
 autocmd BufRead,BufNewFile *.ts setlocal ft=typescript
@@ -152,11 +166,75 @@ autocmd BufRead,BufNewFile *.ts setlocal ft=typescript
 "*****************
 nnoremap <silent> ,vs :VimShell<CR>
 
+let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+"let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
+let g:vimshell_enable_smart_case = 1
+let g:neocomplcache_max_list = 10
+
+if has('win32') || has('win64')
+  " Display user name on Windows.
+  let g:vimshell_prompt = $USERNAME."% "
+else
+  " Display user name on Linux.
+  let g:vimshell_prompt = $USER."% "
+
+  "call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
+  "call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
+  "let g:vimshell_execute_file_list['zip'] = 'zipinfo'
+  "call vimshell#set_execute_file('tgz,gz', 'gzcat')
+  "call vimshell#set_execute_file('tbz,bz2', 'bzcat')
+endif
+
+" Initialize execute file list.
+let g:vimshell_execute_file_list = {}
+call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
+let g:vimshell_execute_file_list['rb'] = 'ruby'
+let g:vimshell_execute_file_list['pl'] = 'perl'
+let g:vimshell_execute_file_list['py'] = 'python'
+"call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
+
+autocmd FileType vimshell
+\ call vimshell#altercmd#define('l', 'll')
+\| call vimshell#altercmd#define('ll', 'ls -l')
+"\| call vimshell#altercmd#define('g', 'git')
+"\| call vimshell#altercmd#define('i', 'iexe')
+"\| call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
+
+"function! g:my_chpwd(args, context)
+"  call vimshell#execute('ls')
+"endfunction
+
+"autocmd FileType int-* call s:interactive_settings()
+"function! s:interactive_settings()
+"endfunction
+
 "*****************
 "* vimfiler
 "*****************
 nnoremap <silent> ,vf :VimFiler -simple -winwidth=35 -no-quit<CR>
 
+call vimfiler#set_execute_file('vim', 'vim')
+call vimfiler#set_execute_file('txt', 'notepad')
+call vimfiler#set_execute_file('c', ['vim', 'notepad'])
+
+" Edit file by tabedit.
+"let g:vimfiler_edit_action = 'tabopen'
+
+let g:vimfiler_as_default_explorer = 1
+
+" Enable file operation commands.
+let g:vimfiler_safe_mode_by_default = 0
+
+" Like Textmate icons.
+let g:vimfiler_tree_leaf_icon = ' '
+"let g:vimfiler_tree_opened_icon = '笆ｾ'
+"let g:vimfiler_tree_closed_icon = '笆ｸ'
+let g:vimfiler_file_icon = '-'
+let g:vimfiler_marked_file_icon = '*'
+
+" Use trashbox.
+" Windows only and require latest vimproc.
+let g:unite_kind_file_use_trashbox = 1
 
 "*****************
 "* Unite
@@ -182,11 +260,7 @@ nnoremap <silent> ,utb :<C-u>Unite tab<CR>
 " tag
 nnoremap <silent> ,utg :<C-u>Unite tag<CR>
 " neocomplcache
-imap <C-h> <Plug>(neocomplcache_snippets_unite_complete)
-" select next line at insert-mode
-"imap <silent> n :<Plug>>(unite_select_next_line)
-" select previous line at insert-mode
-"imap <silent> p :<Plug>>(unite_select_previous_line)
+"imap <C-h> <Plug>(neocomplcache_snippets_unite_complete)
 
 " unite_my_settings
 autocmd FileType unite call s:unite_my_settings()
@@ -196,7 +270,7 @@ function! s:unite_my_settings()
   nmap <buffer> <ESC>      <Plug>(unite_exit)
   imap <buffer> jj      <Plug>(unite_insert_leave)
   "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
-
+  
   " Start insert.
   " let g:unite_enable_start_insert = 0
 endfunction
@@ -213,6 +287,23 @@ inoremap <buffer><expr> <C-l> unite#start_complete(
   \ 'input' : vimshell#get_cur_text()})
 
 "*****************
+"* neosnippet
+"*****************
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ?
+ \ "\<Plug>(neosnippet_expand_or_jump)"
+ \: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ?
+ \ "\<Plug>(neosnippet_expand_or_jump)"
+ \: "\<TAB>"
+
+"*****************
 "* VTreeExplorer
 "*****************
 let g:treeExplWinSize=45
@@ -225,12 +316,12 @@ au! BufRead,BufNewFile *.json,*.JSON set filetype=json
 
 augroup json_autocmd 
   autocmd! 
-  autocmd FileType json set autoindent 
-  autocmd FileType json set formatoptions=tcq2l 
-  autocmd FileType json set textwidth=78 shiftwidth=2 
-  autocmd FileType json set softtabstop=2 tabstop=8 
-  autocmd FileType json set expandtab 
-  autocmd FileType json set foldmethod=syntax 
+  autocmd FileType json setlocal autoindent 
+  autocmd FileType json setlocal formatoptions=tcq2l 
+  autocmd FileType json setlocal textwidth=78 shiftwidth=2 
+  autocmd FileType json setlocal softtabstop=2 tabstop=8 
+  autocmd FileType json setlocal expandtab 
+  autocmd FileType json setlocal foldmethod=syntax 
 augroup END 
 
 "*****************
@@ -338,7 +429,7 @@ nnoremap <Leader>aa :source `=expand("%")`<CR>
 "*****************
 "* coffeetag for tagbar
 "*****************
-"if executable('coffeetags')
+"if executable('coffeetags')"{{{
 "  let g:tagbar_type_coffee = {
 "        \ 'ctagsbin' : 'coffeetags',
 "        \ 'ctagsargs' : '',
@@ -352,11 +443,12 @@ nnoremap <Leader>aa :source `=expand("%")`<CR>
 "        \ 'o' : 'object',
 "        \ }
 "        \ }
-"endif
+"endif"}}}
 "
 "*****************
 "* typescript-vim
 "*****************
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
+
 
