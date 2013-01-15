@@ -240,8 +240,12 @@ autocmd FileType vimshell
 nnoremap <silent> ,vf :VimFiler -simple -winwidth=35 -no-quit<CR>
 
 call vimfiler#set_execute_file('vim', 'vim')
-call vimfiler#set_execute_file('txt', 'notepad')
-call vimfiler#set_execute_file('c', ['vim', 'notepad'])
+"call vimfiler#set_execute_file('txt', 'notepad')
+call vimfiler#set_execute_file('txt', 'vim')
+"call vimfiler#set_execute_file('c', ['vim', 'notepad'])
+call vimfiler#set_execute_file('c', 'vim')
+call vimfiler#set_execute_file('coffee', 'vim')
+call vimfiler#set_execute_file('ts', 'vim')
 
 " Edit file by tabedit.
 "let g:vimfiler_edit_action = 'tabopen'
