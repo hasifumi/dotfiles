@@ -38,6 +38,12 @@ nmap <Esc><Esc> :noh<CR>
 nnoremap <C-h> :<C-u>help<Space><C-r><C-w><CR>
 
 "*****************
+"  tab
+"*****************
+nnoremap <silent> ,tn :<C-u>tabnext<CR>
+nnoremap <silent> ,tp :<C-u>tabprevious<CR>
+
+"*****************
 "  Encording
 "*****************
 set enc=utf-8
@@ -70,7 +76,7 @@ NeoBundle	'Shougo/neobundle.vim'
 NeoBundle	'Shougo/neocomplcache'
 "NeoBundle 'Shougo/neocomplcache-snippets-complete'
 NeoBundle	'Shougo/neosnippet'
-NeoBundle	'honza/snipmate-snippets'
+NeoBundleLazy	'honza/snipmate-snippets'
 NeoBundle	'Shougo/vimfiler'
 "NeoBundleLazy 'Shougo/vimfiler', {
 "\   'autoload' : { 'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer" ] }
@@ -81,32 +87,35 @@ NeoBundle	'Shougo/vimshell'
 "\}
 NeoBundle	'Shougo/vimproc'
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/echodoc'
-NeoBundle 'Shougo/vesting'
-NeoBundle 'tsukkee/unite-tag'
-NeoBundle 'tsukkee/unite-help'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'h1mesuke/unite-outline'
-NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundleLazy 'Shougo/echodoc'
+NeoBundleLazy 'Shougo/vesting'
+NeoBundleLazy 'tsukkee/unite-tag'
+NeoBundleLazy 'tsukkee/unite-help'
+NeoBundleLazy 'thinca/vim-quickrun'
+NeoBundleLazy 'tpope/vim-fugitive'
+NeoBundleLazy 'h1mesuke/unite-outline'
+NeoBundleLazy 'ujihisa/unite-colorscheme'
 "NeoBundle 'thinca/unite-history'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'pekepeke/titanium-vim'
+NeoBundleLazy 'kchmck/vim-coffee-script', {
+	      \ 'autoload' : {
+	      \     'filetypes' : ['coffee'],
+	      \    },
+	      \ }
+NeoBundleLazy 'pekepeke/titanium-vim'
 NeoBundle 'leafgarland/typescript-vim'
 NeoBundle 'clausreinke/typescript-tools'
 NeoBundle 'kana/vim-smartinput'
 "NeoBundle 'nobuoka/typescript_completion.vim'
-NeoBundle	'FavEx'
+NeoBundleLazy	'FavEx'
 "NeoBundle 'teramako/jscomplete-vim'
-NeoBundle 'hasifumi/timobile_complete'
-NeoBundle 'hasifumi/enchant_complete'
+NeoBundleLazy 'hasifumi/timobile_complete'
+NeoBundleLazy 'hasifumi/enchant_complete'
 
-NeoBundle 'test3', { 'type' : 'nosync', 'base' : '~/vimfiles/bundle/manual/' }
-NeoBundle 'Refactoring', { 'type' : 'nosync', 'base' : '~/vimfiles/bundle/manual/' }
+NeoBundleLazy 'test3', { 'type' : 'nosync', 'base' : '~/vimfiles/bundle/manual/' }
+NeoBundleLazy 'Refactoring', { 'type' : 'nosync', 'base' : '~/vimfiles/bundle/manual/' }
 
-NeoBundle 'git://github.com/tpope/vim-pathogen.git'
-NeoBundle 'ujihisa/neco-look'
-NeoBundle 'ujihisa/neco-ruby'
+NeoBundleLazy 'ujihisa/neco-look'
+NeoBundleLazy 'ujihisa/neco-ruby'
 "NeoBundle 'tyru/open-browser.vim'
 NeoBundleLazy "tyru/open-browser.vim", {
 \   'autoload' : {
@@ -116,23 +125,23 @@ NeoBundleLazy "tyru/open-browser.vim", {
 \   },
 \}
 NeoBundle 'kana/vim-smartchr'
-NeoBundle 'tpope/vim-surround'
+NeoBundleLazy 'tpope/vim-surround'
 NeoBundle 'vim-jp/vimdoc-ja'
-NeoBundle 'taglist.vim'
+NeoBundleLazy 'taglist.vim'
 NeoBundle 'ref.vim'
-NeoBundle 'fugitive.vim'
-NeoBundle 'Source-Explorer-srcexpl.vim'
-NeoBundle 'vtreeexplorer'
-NeoBundle 'JSON.vim'
-NeoBundle 'Tagbar'
-NeoBundle 'camelcasemotion'
-NeoBundle 'EasyMotion'
-NeoBundle 'refactor'
-NeoBundle "git://github.com/tyru/caw.vim.git"
-NeoBundle 'git://github.com/tpope/vim-pathogen.git'
-if isdirectory(expand('~/.vim/bundle/neobundle/vim-pathogen'))
-	call pathogen#infect('~/.vim/bundle/pathogen')
-endif
+NeoBundleLazy 'fugitive.vim'
+NeoBundleLazy 'Source-Explorer-srcexpl.vim'
+NeoBundleLazy 'vtreeexplorer'
+NeoBundleLazy 'JSON.vim'
+NeoBundleLazy 'Tagbar'
+NeoBundleLazy 'camelcasemotion'
+NeoBundleLazy 'EasyMotion'
+NeoBundleLazy 'refactor'
+NeoBundleLazy "git://github.com/tyru/caw.vim.git"
+NeoBundleLazy 'git://github.com/tpope/vim-pathogen.git'
+"if isdirectory(expand('~/.vim/bundle/neobundle/vim-pathogen'))
+"	call pathogen#infect('~/.vim/bundle/pathogen')
+"endif
 
 filetype plugin indent on
 
@@ -179,11 +188,14 @@ autocmd BufRead,BufNewFile *.ts setlocal ft=typescript
 "* vimshell
 "*****************
 nnoremap <silent> ,vs :VimShell<CR>
+nnoremap <silent> ,vsp :VimShellPop<CR>
 
-let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+"let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+let g:vimshell_user_prompt = 'getcwd()'
 "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
 let g:vimshell_enable_smart_case = 1
 let g:neocomplcache_max_list = 10
+"let g:vimshell_cat_command = 'view'
 
 if has('win32') || has('win64')
   " Display user name on Windows.
@@ -275,8 +287,10 @@ nnoremap <silent> ,utb :<C-u>Unite tab<CR>
 nnoremap <silent> ,utg :<C-u>Unite tag<CR>
 " neocomplcache
 "imap <C-h> <Plug>(neocomplcache_snippets_unite_complete)
-" snippet
+" neosnippet
 nnoremap <silent> ,us  :<C-u>Unite snippet<CR>
+" neobundle 
+nnoremap <silent> ,unb  :<C-u>Unite neobundle<CR>
 
 " unite_my_settings
 autocmd FileType unite call s:unite_my_settings()
