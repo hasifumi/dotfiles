@@ -1,0 +1,252 @@
+"*****************
+"  Basic Setting
+"*****************
+syntax on"{{{
+set clipboard+=unnamed
+set nobackup
+set foldmethod=marker
+"}}}
+"*****************
+"  Display Setting
+"*****************
+set number"{{{
+set ruler
+set title
+set showcmd
+set showmode
+set showmatch
+set cursorline
+set lines=55
+"}}}
+"*****************
+"  Encoding Setting
+"*****************
+":set enc=utf-8"{{{
+":set fenc=utf-8
+":set fencs=iso-2022-jp,enc-jp,cp932
+"}}}
+"*****************
+"  Search Setting
+"*****************
+set hlsearch"{{{
+set incsearch
+nmap <ESC><ESC> :nohlsearch<CR><ESC>
+"}}}
+"*****************
+"  Folding Setting
+"*****************
+noremap <space>c zc"{{{
+noremap <space>C zC
+noremap <space>d zd
+noremap <space>f zf
+noremap <space>i zMzv
+noremap <space>o zo
+noremap <space>O zO
+noremap <space>r zR
+"}}}
+"*****************
+"  Edit Setting
+"*****************
+set autoindent"{{{
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set laststatus=2
+"}}}
+"*****************
+"  Completion Setting
+"*****************
+set complete+=k"{{{
+set wildmenu
+set wildchar=<TAB>
+autocmd FileType pl :set dictionary+=~/.vim/dict/perl.dict
+autocmd FileType js :set dictionary+=~/.vim/dict/javascript.dict
+"}}}
+"*****************
+"  日本語
+"*****************
+"set statusline=2"{{{
+"挿入モード終了時にIME状態を保存しない
+"inoremap <silent> <ESC> <ESC>
+"inoremap <silent> <C-[> <ESC>
+"
+""IMEモード固定
+"inoremap <silent> <C-j> <C-^>
+"}}}
+"*****************
+"* pathogen
+"*****************
+"call pathogen#runtime_append_all_bundles()"{{{
+"}}}
+"*****************
+"* neobundle
+"*****************
+set nocompatible"{{{
+filetype plugin indent off
+
+if has('vim_starting')
+  set runtimepath+=~/vimfiles/bundle/neobundle.vim/
+	call neobundle#rc(expand('~/vimfiles/bundle/'))
+endif
+
+NeoBundle	'neobundle.vim',{'type' : 'nosync'}
+NeoBundle	'neocomplcache',{'type' : 'nosync'}
+NeoBundle	'unite.vim',{'type' : 'nosync'}
+NeoBundle	'vimshell'
+NeoBundle	'vimfiler',{'type' : 'nosync'}
+NeoBundle	'vimproc'
+NeoBundle	'favex',{'type' : 'nosync'}
+NeoBundle	'vimdoc-ja' ,{'type' : 'nosync'}
+NeoBundle	'unite-tag' ,{'type' : 'nosync'}
+NeoBundle	'unite-outline' ,{'type' : 'nosync'}
+NeoBundle	'unite-help' ,{'type' : 'nosync'}
+NeoBundle	'unite-webcolorname' ,{'type' : 'nosync'}
+NeoBundle	'learn-vimscript' ,{'type' : 'nosync'}
+NeoBundle	'vim-quickrun' ,{'type' : 'nosync'}
+NeoBundle	'vim-coffee-script' ,{'type' : 'nosync'}
+NeoBundle	'enchant_complete' ,{'type' : 'nosync'}
+NeoBundle	'vesting' ,{'type' : 'nosync'}
+NeoBundle	'test' ,{'type' : 'nosync'}
+NeoBundle	'vim-ruby-refactoring' ,{'type' : 'nosync'}
+
+
+filetype plugin indent on
+
+"NeoBundle	'Shougo/neobundle.vim',{'type' : 'nosync'}
+"NeoBundle	'Shougo/neocomplcache',{'type' : 'nosync'}
+"NeoBundle	'Shougo/unite.vim',{'type' : 'nosync'}
+""NeoBundle	'Shougo/vimshell'
+"NeoBundle	'Shougo/vimfiler',{'type' : 'nosync'}
+""NeoBundle	'Shougo/vimproc'
+"NeoBundle	'favex',{'type' : 'nosync'}
+"NeoBundle	'vimdoc-ja' ,{'type' : 'nosync'}
+"NeoBundle	'unite-tag' ,{'type' : 'nosync'}
+"NeoBundle	'unite-outline' ,{'type' : 'nosync'}
+"NeoBundle	'unite-help' ,{'type' : 'nosync'}
+"NeoBundle	'unite-webcolorname' ,{'type' : 'nosync'}
+"NeoBundle	'learn-vimscript' ,{'type' : 'nosync'}
+
+"}}}
+"*****************
+"* neocomplcache
+"*****************
+" Use neocomplcache "{{{
+let g:neocomplcache_enable_at_startup = 1
+"" SuperTab like snippets behavior.
+imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+"" Plugin key-mappings.
+imap <C-k>     <Plug>(neocomplcache_snippets_expand)
+smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+autocmd BufRead,BufNew *.coffee set filetype=coffee
+autocmd FileType coffee set omnifunc=titanium#completeJs
+"autocmd FileType coffee set omnifunc=javascriptcomplete#CompleteJS
+"}}}
+"*****************
+"* vimshell
+"*****************
+nnoremap <silent> ,vs :VimShell<CR>"{{{
+"}}}
+"*****************
+"* vimfiler
+"*****************
+nnoremap <silent> ,vf :VimFiler -simple -winwidth=40 -no-quit<CR>"{{{
+
+"nnoremap <silent> ,vfe :VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
+nnoremap <silent> ,vfe :<C-u>VimFilerBufferDir<CR>
+nnoremap <silent> ,vfi :<C-u>VimFiler -simple -winwidth=35 -no-quit<CR>
+
+call vimfiler#set_execute_file('vim', 'vim')
+call vimfiler#set_execute_file('coffee', 'vim')
+call vimfiler#set_execute_file('txt', 'vim')
+"call vimfiler#set_execute_file('txt', 'notepad')
+call vimfiler#set_execute_file('c', ['vim', 'notepad'])
+call vimfiler#set_execute_file('html','C:/Users/f-hashidume/AppData/Local/Google/Chrome/Application/chrome.exe')
+
+" Edit file by tabedit.
+"let g:vimfiler_edit_action = 'tabopen'
+
+"vimデフォルトのエクスプローラをvimfilerで置き換える
+let g:vimfiler_as_default_explorer = 1
+
+" Enable file operation commands.
+"let g:vimfiler_safe_mode_by_default = 0
+
+" Like Textmate icons.
+let g:vimfiler_tree_leaf_icon = ' '
+"let g:vimfiler_tree_opened_icon = '笆ｾ'
+"let g:vimfiler_tree_closed_icon = '笆ｸ'
+let g:vimfiler_file_icon = '-'
+let g:vimfiler_marked_file_icon = '*'
+
+" Use trashbox.
+" Windows only and require latest vimproc.
+"let g:unite_kind_file_use_trashbox = 1
+"}}}
+"*****************
+"* VTreeExplorer
+"*****************
+let g:treeExplWinSize=45"{{{
+let g:treeExplVertical=1
+"}}}
+"*****************
+"* Unite
+"*****************
+" most recently used file"{{{
+nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
+" buffer , most recently used file
+nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
+" All
+nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+" tab
+nnoremap <silent> ,utb :<C-u>Unite tab<CR>
+" tag
+nnoremap <silent> ,utg :<C-u>Unite tag<CR>
+" bookmark
+nnoremap <silent> ,uc :<C-u>Unite bookmark<CR>
+" neocomplcache
+imap <C-n> <Plug>(neocomplcache_snippets_unite_complete)
+" Unite-tag
+autocmd BufEnter *
+\   if empty(&buftype)
+\|      nnoremap <buffer> u<C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+\|  endif
+" Unite-vimshell-history
+inoremap <buffer><expr> <C-l> unite#start_complete(
+  \ ['vimshell/history'], {                                                                                                                  
+  \ 'start_insert' : 0,
+  \ 'input' : vimshell#get_cur_text()})
+"}}}
+"*****************
+"* Colorscheme
+"*****************
+":colorscheme blue"{{{
+":colorscheme darkblue
+":colorscheme default
+":colorscheme delek
+":colorscheme elflord
+":colorscheme evening
+":colorscheme koehler
+":colorscheme morning
+":colorscheme murphy
+":colorscheme pablo
+":colorscheme peachpuff
+":colorscheme ron
+":colorscheme shine
+":colorscheme slate
+":colorscheme torte
+":colorscheme zellner
+"}}}
+

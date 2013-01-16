@@ -133,14 +133,14 @@ NeoBundleLazy 'Refactoring', { 'type' : 'nosync', 'base' : '~/vimfiles/bundle/ma
 
 NeoBundleLazy 'ujihisa/neco-look'
 NeoBundleLazy 'ujihisa/neco-ruby'
-"NeoBundle 'tyru/open-browser.vim'
-NeoBundleLazy "tyru/open-browser.vim", {
-\   'autoload' : {
-\       'functions' : "OpenBrowser",
-\       'commands'  : "OpenBrowserSearch",
-\       'mappings'  : "<Plug>(openbrowser-smart-search)"
-\   },
-\}
+NeoBundle 'tyru/open-browser.vim'
+"NeoBundleLazy "tyru/open-browser.vim", {
+"\   'autoload' : {
+"\       'functions' : "OpenBrowser",
+"\       'commands'  : "OpenBrowserSearch",
+"\       'mappings'  : "<Plug>(openbrowser-smart-search)"
+"\   },
+"\}
 NeoBundle 'kana/vim-smartchr'
 NeoBundleLazy 'tpope/vim-surround'
 NeoBundle 'vim-jp/vimdoc-ja'
@@ -506,4 +506,11 @@ nnoremap <Leader>aa :source `=expand("%")`<CR>
 "autocmd QuickFixCmdPost [^l]* nested cwindow
 "autocmd QuickFixCmdPost    l* nested lwindow
 
+"*****************
+"* open-browser.vim
+"*****************
+nmap ,ob  <Plug>(openbrowser-smart-search)
+vmap ,ob  <Plug>(openbrowser-smart-search)
+nmap ,obo <Plug>(openbrowser-open)
+vmap ,obo <Plug>(openbrowser-open)
 
