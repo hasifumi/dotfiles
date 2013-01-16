@@ -62,6 +62,21 @@ autocmd FileType coffee set foldmethod=marker
 "call pathogen#runtime_append_all_bundles()
 
 "*****************
+"* MyScript 
+"*****************
+function! Is_Android()
+  if filereadable("~/.vim/bundle/is_Android")
+    " true = 0
+    "let s:Android = 0
+    return 0
+  else
+    " false = 1
+    "let s:Android = 1
+    return 1
+  endif
+endfunction
+
+"*****************
 "* neobundle
 "*****************
 set nocompatible
@@ -81,7 +96,9 @@ NeoBundle	'Shougo/vimfiler'
 "NeoBundleLazy 'Shougo/vimfiler', {
 "\   'autoload' : { 'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer" ] }
 "\}
-NeoBundle	'Shougo/vimshell'
+if Is_Android()
+  NeoBundle	'Shougo/vimshell'
+endif
 "NeoBundleLazy 'Shougo/vimshell', {
 "\   'autoload' : { 'commands' : [ 'VimShell', "VimShellPop", "VimShellInteractive" ] }
 "\}
@@ -194,7 +211,7 @@ nnoremap <silent> ,vsp :VimShellPop<CR>
 let g:vimshell_user_prompt = 'getcwd()'
 "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
 let g:vimshell_enable_smart_case = 1
-let g:neocomplcache_max_list = 10
+let g:neocomplcache_max_list = 50
 "let g:vimshell_cat_command = 'view'
 
 if has('win32') || has('win64')
@@ -443,6 +460,9 @@ augroup END
 "	:e test.test
 "	:set filetype=test
 "endfunction
+function! Test5()
+  echo Is_Android()
+endfunction
 
 nnoremap <Leader>aa :source `=expand("%")`<CR>
 
