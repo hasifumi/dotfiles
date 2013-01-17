@@ -460,8 +460,10 @@ augroup END
 "	:e test.test
 "	:set filetype=test
 "endfunction
-function! Test5()
-  echo Is_Android()
+function! MyOpenBrowser()
+  let uri = expand('<cWORD>')
+  echo "URL=". uri
+  execute ":!cmd /c start ". uri
 endfunction
 
 nnoremap <Leader>aa :source `=expand("%")`<CR>
@@ -509,8 +511,11 @@ nnoremap <Leader>aa :source `=expand("%")`<CR>
 "*****************
 "* open-browser.vim
 "*****************
-nmap ,ob  <Plug>(openbrowser-smart-search)
-vmap ,ob  <Plug>(openbrowser-smart-search)
-nmap ,obo <Plug>(openbrowser-open)
-vmap ,obo <Plug>(openbrowser-open)
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+"nmap ,ob  <Plug>(openbrowser-smart-search)
+"vmap ,ob  <Plug>(openbrowser-smart-search)
+"nmap ,obo <Plug>(openbrowser-open)
+"vmap ,obo <Plug>(openbrowser-open)
 
