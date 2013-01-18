@@ -109,7 +109,7 @@ NeoBundleLazy 'Shougo/vesting'
 NeoBundleLazy 'tsukkee/unite-tag'
 NeoBundleLazy 'tsukkee/unite-help'
 NeoBundleLazy 'thinca/vim-quickrun'
-NeoBundleLazy 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-fugitive'
 NeoBundleLazy 'h1mesuke/unite-outline'
 NeoBundleLazy 'ujihisa/unite-colorscheme'
 "NeoBundle 'thinca/unite-history'
@@ -133,20 +133,21 @@ NeoBundleLazy 'Refactoring', { 'type' : 'nosync', 'base' : '~/vimfiles/bundle/ma
 
 NeoBundleLazy 'ujihisa/neco-look'
 NeoBundleLazy 'ujihisa/neco-ruby'
-NeoBundle 'tyru/open-browser.vim'
-"NeoBundleLazy "tyru/open-browser.vim", {
-"\   'autoload' : {
-"\       'functions' : "OpenBrowser",
-"\       'commands'  : "OpenBrowserSearch",
-"\       'mappings'  : "<Plug>(openbrowser-smart-search)"
-"\   },
-"\}
+"NeoBundle 'tyru/open-browser.vim'
+NeoBundleLazy "tyru/open-browser.vim", {
+\   'autoload' : {
+\       'functions' : "OpenBrowser",
+\       'commands'  : "OpenBrowserSearch",
+\       'mappings'  : "<Plug>(openbrowser-smart-search)"
+\   },
+\}
 NeoBundle 'kana/vim-smartchr'
 NeoBundleLazy 'tpope/vim-surround'
 NeoBundle 'vim-jp/vimdoc-ja'
+NeoBundleLazy 'hrsh7th/vim-versions'
+NeoBundle 'kmnk/vim-unite-giti'
 NeoBundleLazy 'taglist.vim'
 NeoBundle 'ref.vim'
-NeoBundleLazy 'fugitive.vim'
 NeoBundleLazy 'Source-Explorer-srcexpl.vim'
 NeoBundleLazy 'vtreeexplorer'
 NeoBundleLazy 'JSON.vim'
@@ -461,10 +462,15 @@ augroup END
 "	:set filetype=test
 "endfunction
 function! MyOpenBrowser()
-  let uri = expand('<cWORD>')
-  echo "URL=". uri
-  execute ":!cmd /c start ". uri
+  execute ":VimProcBang start '" . expand('<cWORD>') . "'"
+  "execute ":VimProcBang start " . expand('<cWORD>')
 endfunction
+function! MyOpenBrowserSearch()
+  execute ":VimProcBang start 'http://www.google.co.jp/search?q=" . expand('<cWORD>') . "'"
+endfunction
+command! MyOpenBrowser :call MyOpenBrowser()<CR>
+nnoremap mob :call MyOpenBrowser()<CR>
+nnoremap mobs :call MyOpenBrowserSearch()<CR>
 
 nnoremap <Leader>aa :source `=expand("%")`<CR>
 
