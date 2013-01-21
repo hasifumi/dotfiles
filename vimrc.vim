@@ -125,10 +125,7 @@ NeoBundleLazy 'kchmck/vim-coffee-script', {
 	      \    },
 	      \ }
 NeoBundleLazy 'pekepeke/titanium-vim'
-NeoBundle 'leafgarland/typescript-vim'
-NeoBundle 'clausreinke/typescript-tools'
 NeoBundle 'kana/vim-smartinput'
-"NeoBundle 'nobuoka/typescript_completion.vim'
 NeoBundleLazy	'FavEx'
 "NeoBundle 'teramako/jscomplete-vim'
 NeoBundleLazy 'hasifumi/timobile_complete'
@@ -160,9 +157,11 @@ NeoBundleLazy 'JSON.vim'
 NeoBundleLazy 'Tagbar'
 NeoBundleLazy 'camelcasemotion'
 NeoBundleLazy 'EasyMotion'
+NeoBundleLazy 'ShowMarks'
 NeoBundleLazy 'refactor'
 NeoBundleLazy "git://github.com/tyru/caw.vim.git"
 NeoBundleLazy 'git://github.com/tpope/vim-pathogen.git'
+NeoBundle 'dmitry-ilyashevich/vim-typescript'
 "if isdirectory(expand('~/.vim/bundle/neobundle/vim-pathogen'))
 "	call pathogen#infect('~/.vim/bundle/pathogen')
 "endif
@@ -206,7 +205,6 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 "let g:neocomplcache_enable_auto_select = 1
 
 autocmd BufRead,BufNewFile *.coffee setlocal ft=coffee
-autocmd BufRead,BufNewFile *.ts setlocal ft=typescript
 
 "*****************
 "* vimshell
@@ -514,12 +512,6 @@ nnoremap <Leader>aa :source `=expand("%")`<CR>
 "        \ }
 "endif"}}}
 "
-"*****************
-"* typescript-vim
-"*****************
-"autocmd QuickFixCmdPost [^l]* nested cwindow
-"autocmd QuickFixCmdPost    l* nested lwindow
-
 "*****************
 "* open-browser.vim
 "*****************
