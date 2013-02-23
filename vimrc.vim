@@ -100,18 +100,8 @@ endif
 NeoBundle	'Shougo/neobundle.vim'
 NeoBundle	'Shougo/neocomplcache'
 "NeoBundle 'Shougo/neocomplcache-snippets-complete'
-NeoBundle	'Shougo/neosnippet'
+"NeoBundle	'Shougo/neosnippet'
 NeoBundleLazy	'honza/snipmate-snippets'
-NeoBundle	'Shougo/vimfiler'
-"NeoBundleLazy 'Shougo/vimfiler', {
-"\   'autoload' : { 'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer" ] }
-"\}
-if Is_Android()
-  NeoBundle	'Shougo/vimshell'
-endif
-"NeoBundleLazy 'Shougo/vimshell', {
-"\   'autoload' : { 'commands' : [ 'VimShell', "VimShellPop", "VimShellInteractive" ] }
-"\}
 NeoBundle	'Shougo/vimproc'
 NeoBundle 'Shougo/unite.vim'
 NeoBundleLazy 'Shougo/echodoc'
@@ -165,14 +155,9 @@ NeoBundleLazy 'ShowMarks'
 NeoBundleLazy 'refactor'
 NeoBundleLazy "git://github.com/tyru/caw.vim.git"
 NeoBundleLazy 'git://github.com/tpope/vim-pathogen.git'
-NeoBundle 'dmitry-ilyashevich/vim-typescript'
-NeoBundle 'nanotech/jellybeans.vim'
+NeoBundleLazy 'dmitry-ilyashevich/vim-typescript'
+NeoBundleLazy 'nanotech/jellybeans.vim'
 NeoBundle 'w0ng/vim-hybrid'
-let g:hybrid_use_Xresources = 1
-colorscheme hybrid 
-"if isdirectory(expand('~/.vim/bundle/neobundle/vim-pathogen'))
-"	call pathogen#infect('~/.vim/bundle/pathogen')
-"endif
 
 filetype plugin indent on
 
@@ -232,56 +217,56 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 "*****************
 "* vimshell
 "*****************
+"if Is_Android()"{{{
+"  NeoBundle	'Shougo/vimshell'
+"endif"}}}
+NeoBundleLazy 'Shougo/vimshell', {
+\   'autoload' : { 'commands' : [ 'VimShell', "VimShellPop", "VimShellInteractive" ] }
+\}
+let s:bundle = neobundle#get("vimshell")
+function! s:bundle.hooks.on_source(bundle)
+  "let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+  let g:vimshell_user_prompt = 'getcwd()'
+  "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
+  let g:vimshell_enable_smart_case = 1
+  let g:neocomplcache_max_list = 50
+  "let g:vimshell_cat_command = 'view'
+  
+  if has('win32') || has('win64')
+    " Display user name on Windows.
+    let g:vimshell_prompt = $USERNAME."% "
+  else
+    " Display user name on Linux.
+    let g:vimshell_prompt = $USER."% "
+  endif
+  
+  " Initialize execute file list.
+  let g:vimshell_execute_file_list = {}
+  call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
+  let g:vimshell_execute_file_list['rb'] = 'ruby'
+  let g:vimshell_execute_file_list['pl'] = 'perl'
+  let g:vimshell_execute_file_list['py'] = 'python'
+  "call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
+  
+  autocmd FileType vimshell
+  \ call vimshell#altercmd#define('l', 'll')
+  \| call vimshell#altercmd#define('ll', 'ls -l')
+  "\| call vimshell#altercmd#define('g', 'git')
+  "\| call vimshell#altercmd#define('i', 'iexe')
+  "\| call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
+endfunction
+unlet s:bundle
+
 nnoremap <silent> ,vs :VimShell<CR>
 nnoremap <silent> ,vsp :VimShellPop<CR>
-
-"let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-let g:vimshell_user_prompt = 'getcwd()'
-"let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
-let g:vimshell_enable_smart_case = 1
-let g:neocomplcache_max_list = 50
-"let g:vimshell_cat_command = 'view'
-
-if has('win32') || has('win64')
-  " Display user name on Windows.
-  let g:vimshell_prompt = $USERNAME."% "
-else
-  " Display user name on Linux.
-  let g:vimshell_prompt = $USER."% "
-
-  "call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
-  "call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
-  "let g:vimshell_execute_file_list['zip'] = 'zipinfo'
-  "call vimshell#set_execute_file('tgz,gz', 'gzcat')
-  "call vimshell#set_execute_file('tbz,bz2', 'bzcat')
-endif
-
-" Initialize execute file list.
-let g:vimshell_execute_file_list = {}
-call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
-let g:vimshell_execute_file_list['rb'] = 'ruby'
-let g:vimshell_execute_file_list['pl'] = 'perl'
-let g:vimshell_execute_file_list['py'] = 'python'
-"call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
-
-autocmd FileType vimshell
-\ call vimshell#altercmd#define('l', 'll')
-\| call vimshell#altercmd#define('ll', 'ls -l')
-"\| call vimshell#altercmd#define('g', 'git')
-"\| call vimshell#altercmd#define('i', 'iexe')
-"\| call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
-
-"function! g:my_chpwd(args, context)
-"  call vimshell#execute('ls')
-"endfunction
-
-"autocmd FileType int-* call s:interactive_settings()
-"function! s:interactive_settings()
-"endfunction
 
 "*****************
 "* vimfiler
 "*****************
+NeoBundleLazy 'Shougo/vimfiler', {
+\   'depends' : ["Shougo/unite.vim"] , 
+\   'autoload' : { 'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer" ] }
+\}
 let s:bundle = neobundle#get("vimfiler")
 function! s:bundle.hooks.on_source(bundle)
   let g:vimfiler_as_default_explorer = 1
@@ -306,7 +291,7 @@ unlet s:bundle
 
 nnoremap <silent> ,vf :VimFiler -simple -winwidth=35 -no-quit<CR>
 
-"call vimfiler#set_execute_file('vim', 'vim')
+"call vimfiler#set_execute_file('vim', 'vim')"{{{
 ""call vimfiler#set_execute_file('txt', 'notepad')
 "call vimfiler#set_execute_file('txt', 'vim')
 ""call vimfiler#set_execute_file('c', ['vim', 'notepad'])
@@ -324,7 +309,7 @@ nnoremap <silent> ,vf :VimFiler -simple -winwidth=35 -no-quit<CR>
 "" Use trashbox.
 "" Windows only and require latest vimproc.
 "let g:unite_kind_file_use_trashbox = 1
-
+"}}}
 "*****************
 "* Unite
 "*****************
@@ -382,7 +367,21 @@ inoremap <buffer><expr> <C-l> unite#start_complete(
 "*****************
 "* neosnippet
 "*****************
-let g:neosnippet#snippets_directory = '~/vimfiles/bundle/neobundle/snipmate-snippets/snippets'
+NeoBundleLazy 'Shougo/neosnippet', {
+\   'autoload' : { 
+\       'functions' : [ "neosnippet#expandable", "neosnippet#jumpable" ],
+\       'mappings' : [ "<Plug>(neosnippet_expand_or_jump)", 
+\                      "<Plug>(neosnippet_expand_target)", 
+\                      "<Plug>(neosnippet_start_unite_snippet_target)" ],
+\       'commands' : [ "NeoSnippetMakeCache", "NeoSnippetEdit", "NeoComplCacheEdit", "NeoSnippetSource" ]
+\   }
+\}
+let s:bundle = neobundle#get("neosnippet")
+function! s:bundle.hooks.on_source(bundle)
+  let g:neosnippet#snippets_directory = '~/vimfiles/bundle/neobundle/snipmate-snippets/snippets'
+endfunction
+unlet s:bundle
+
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
