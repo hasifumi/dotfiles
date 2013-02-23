@@ -8,7 +8,6 @@ set title
 set showcmd
 syntax on
 set hlsearch
-colorscheme desert
 set autoindent
 set tabstop=2
 set expandtab
@@ -16,6 +15,11 @@ set shiftwidth=2
 set nobackup
 set lines=60 columns=140
  
+"*****************
+"  colorscheme
+"*****************
+"colorscheme desert
+
 "*****************
 "  Japanese
 "*****************
@@ -162,6 +166,10 @@ NeoBundleLazy 'refactor'
 NeoBundleLazy "git://github.com/tyru/caw.vim.git"
 NeoBundleLazy 'git://github.com/tpope/vim-pathogen.git'
 NeoBundle 'dmitry-ilyashevich/vim-typescript'
+NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'w0ng/vim-hybrid'
+let g:hybrid_use_Xresources = 1
+colorscheme hybrid 
 "if isdirectory(expand('~/.vim/bundle/neobundle/vim-pathogen'))
 "	call pathogen#infect('~/.vim/bundle/pathogen')
 "endif
