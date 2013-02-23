@@ -179,6 +179,21 @@ filetype plugin indent on
 "*****************
 "* neocomplcache
 "*****************
+"let s:bundle = neobundle#get("neocomplcache")
+"function! s:bundle.hooks.on_source(bundle)
+"  " Use neocomplcache 
+"  let g:neocomplcache_enable_at_startup = 1
+"  " Set minimum syntax keyword length.
+"  let g:neocomplcache_min_syntax_length = 3
+"  " Define dictionary.
+"  let g:neocomplcache_dictionary_filetype_lists = {
+"      \ 'default' : '',
+"      \ 'vimshell' : $HOME.'/.vimshell_hist',
+"      \ 'scheme' : $HOME.'/.gosh_completions'
+"      \ }
+"endfunction
+"unlet s:bundle
+
 " Use neocomplcache 
 let g:neocomplcache_enable_at_startup = 1
 " Set minimum syntax keyword length.
@@ -212,7 +227,7 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 " AutoComplPop like behavior.
 "let g:neocomplcache_enable_auto_select = 1
 
-autocmd BufRead,BufNewFile *.coffee setlocal ft=coffee
+"autocmd BufRead,BufNewFile *.coffee setlocal ft=coffee
 
 "*****************
 "* vimshell
@@ -267,34 +282,48 @@ autocmd FileType vimshell
 "*****************
 "* vimfiler
 "*****************
+let s:bundle = neobundle#get("vimfiler")
+function! s:bundle.hooks.on_source(bundle)
+  let g:vimfiler_as_default_explorer = 1
+  " Enable file operation commands.
+  let g:vimfiler_safe_mode_by_default = 0
+  " Like Textmate icons.
+  let g:vimfiler_tree_leaf_icon = ' '
+  let g:vimfiler_file_icon = '-'
+  let g:vimfiler_marked_file_icon = '*'
+  " Use trashbox.
+  " Windows only and require latest vimproc.
+  let g:unite_kind_file_use_trashbox = 1
+  call vimfiler#set_execute_file('vim', 'vim')
+  "call vimfiler#set_execute_file('txt', 'notepad')
+  call vimfiler#set_execute_file('txt', 'vim')
+  "call vimfiler#set_execute_file('c', ['vim', 'notepad'])
+  call vimfiler#set_execute_file('c', 'vim')
+  call vimfiler#set_execute_file('coffee', 'vim')
+  call vimfiler#set_execute_file('ts', 'vim')
+endfunction
+unlet s:bundle
+
 nnoremap <silent> ,vf :VimFiler -simple -winwidth=35 -no-quit<CR>
 
-call vimfiler#set_execute_file('vim', 'vim')
-"call vimfiler#set_execute_file('txt', 'notepad')
-call vimfiler#set_execute_file('txt', 'vim')
-"call vimfiler#set_execute_file('c', ['vim', 'notepad'])
-call vimfiler#set_execute_file('c', 'vim')
-call vimfiler#set_execute_file('coffee', 'vim')
-call vimfiler#set_execute_file('ts', 'vim')
+"call vimfiler#set_execute_file('vim', 'vim')
+""call vimfiler#set_execute_file('txt', 'notepad')
+"call vimfiler#set_execute_file('txt', 'vim')
+""call vimfiler#set_execute_file('c', ['vim', 'notepad'])
+"call vimfiler#set_execute_file('c', 'vim')
+"call vimfiler#set_execute_file('coffee', 'vim')
+"call vimfiler#set_execute_file('ts', 'vim')
 
-" Edit file by tabedit.
-"let g:vimfiler_edit_action = 'tabopen'
-
-let g:vimfiler_as_default_explorer = 1
-
-" Enable file operation commands.
-let g:vimfiler_safe_mode_by_default = 0
-
-" Like Textmate icons.
-let g:vimfiler_tree_leaf_icon = ' '
-"let g:vimfiler_tree_opened_icon = '笆ｾ'
-"let g:vimfiler_tree_closed_icon = '笆ｸ'
-let g:vimfiler_file_icon = '-'
-let g:vimfiler_marked_file_icon = '*'
-
-" Use trashbox.
-" Windows only and require latest vimproc.
-let g:unite_kind_file_use_trashbox = 1
+"let g:vimfiler_as_default_explorer = 1
+"" Enable file operation commands.
+"let g:vimfiler_safe_mode_by_default = 0
+"" Like Textmate icons.
+"let g:vimfiler_tree_leaf_icon = ' '
+"let g:vimfiler_file_icon = '-'
+"let g:vimfiler_marked_file_icon = '*'
+"" Use trashbox.
+"" Windows only and require latest vimproc.
+"let g:unite_kind_file_use_trashbox = 1
 
 "*****************
 "* Unite
