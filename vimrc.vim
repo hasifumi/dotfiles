@@ -40,6 +40,7 @@ nmap <Esc><Esc> :noh<CR>
 "  Help
 "*****************
 nnoremap <C-h> :<C-u>help<Space><C-r><C-w><CR>
+set helplang=ja
 
 "*****************
 "  tab
@@ -65,11 +66,6 @@ set fencs=iso-2022-jp,enc-jp,cp932
 "*****************
 autocmd FileType javascript set foldmethod=marker
 autocmd FileType coffee set foldmethod=marker
-
-"*****************
-"* pathogen
-"*****************
-"call pathogen#runtime_append_all_bundles()
 
 "*****************
 "* MyScript 
@@ -99,38 +95,42 @@ endif
 
 NeoBundle	'Shougo/neobundle.vim'
 NeoBundle	'Shougo/neocomplcache'
-"NeoBundle 'Shougo/neocomplcache-snippets-complete'
-"NeoBundle	'Shougo/neosnippet'
-NeoBundleLazy	'honza/snipmate-snippets'
 NeoBundle	'Shougo/vimproc'
-NeoBundle 'Shougo/unite.vim'
+NeoBundle 'kana/vim-smartinput'
+NeoBundle 'kana/vim-smartchr'
+NeoBundle 'vim-jp/vimdoc-ja'
+NeoBundle 'w0ng/vim-hybrid'
+
+"NeoBundle 'Shougo/unite.vim'
+"NeoBundle	'Shougo/neosnippet'
+"NeoBundle	'Shougo/vimfiler'
+"NeoBundle	'Shougo/vimshell'
+"NeoBundle 'thinca/unite-history'
+"NeoBundle 'teramako/jscomplete-vim'
+
 NeoBundleLazy 'Shougo/echodoc'
 NeoBundleLazy 'Shougo/vesting'
 NeoBundleLazy 'tsukkee/unite-tag'
 NeoBundleLazy 'tsukkee/unite-help'
-NeoBundleLazy 'thinca/vim-quickrun'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundleLazy 'h1mesuke/unite-outline'
 NeoBundleLazy 'ujihisa/unite-colorscheme'
-"NeoBundle 'thinca/unite-history'
+NeoBundleLazy 'h1mesuke/unite-outline'
+NeoBundleLazy 'kmnk/vim-unite-giti'
+NeoBundleLazy	'honza/snipmate-snippets'
+NeoBundleLazy 'thinca/vim-quickrun'
+NeoBundleLazy 'tpope/vim-fugitive'
 NeoBundleLazy 'kchmck/vim-coffee-script', {
 	      \ 'autoload' : {
 	      \     'filetypes' : ['coffee'],
 	      \    },
 	      \ }
 NeoBundleLazy 'pekepeke/titanium-vim'
-NeoBundle 'kana/vim-smartinput'
 NeoBundleLazy	'FavEx'
-"NeoBundle 'teramako/jscomplete-vim'
 NeoBundleLazy 'hasifumi/timobile_complete'
 NeoBundleLazy 'hasifumi/enchant_complete'
-
 NeoBundleLazy 'test3', { 'type' : 'nosync', 'base' : '~/vimfiles/bundle/manual/' }
 NeoBundleLazy 'Refactoring', { 'type' : 'nosync', 'base' : '~/vimfiles/bundle/manual/' }
-
 NeoBundleLazy 'ujihisa/neco-look'
 NeoBundleLazy 'ujihisa/neco-ruby'
-"NeoBundle 'tyru/open-browser.vim'
 NeoBundleLazy "tyru/open-browser.vim", {
 \   'autoload' : {
 \       'functions' : "OpenBrowser",
@@ -138,13 +138,9 @@ NeoBundleLazy "tyru/open-browser.vim", {
 \       'mappings'  : "<Plug>(openbrowser-smart-search)"
 \   },
 \}
-NeoBundle 'kana/vim-smartchr'
 NeoBundleLazy 'tpope/vim-surround'
-NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundleLazy 'hrsh7th/vim-versions'
-NeoBundle 'kmnk/vim-unite-giti'
 NeoBundleLazy 'taglist.vim'
-NeoBundle 'thinca/vim-ref'
 NeoBundleLazy 'Source-Explorer-srcexpl.vim'
 NeoBundleLazy 'vtreeexplorer'
 NeoBundleLazy 'JSON.vim'
@@ -157,28 +153,12 @@ NeoBundleLazy "git://github.com/tyru/caw.vim.git"
 NeoBundleLazy 'git://github.com/tpope/vim-pathogen.git'
 NeoBundleLazy 'dmitry-ilyashevich/vim-typescript'
 NeoBundleLazy 'nanotech/jellybeans.vim'
-NeoBundle 'w0ng/vim-hybrid'
 
 filetype plugin indent on
 
 "*****************
 "* neocomplcache
 "*****************
-"let s:bundle = neobundle#get("neocomplcache")
-"function! s:bundle.hooks.on_source(bundle)
-"  " Use neocomplcache 
-"  let g:neocomplcache_enable_at_startup = 1
-"  " Set minimum syntax keyword length.
-"  let g:neocomplcache_min_syntax_length = 3
-"  " Define dictionary.
-"  let g:neocomplcache_dictionary_filetype_lists = {
-"      \ 'default' : '',
-"      \ 'vimshell' : $HOME.'/.vimshell_hist',
-"      \ 'scheme' : $HOME.'/.gosh_completions'
-"      \ }
-"endfunction
-"unlet s:bundle
-
 " Use neocomplcache 
 let g:neocomplcache_enable_at_startup = 1
 " Set minimum syntax keyword length.
@@ -189,30 +169,13 @@ let g:neocomplcache_dictionary_filetype_lists = {
     \ 'vimshell' : $HOME.'/.vimshell_hist',
     \ 'scheme' : $HOME.'/.gosh_completions'
     \ }
-" Plugin key-mappings.
-"inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
-	
-"" SuperTab like snippets behavior.
-"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-"" Plugin key-mappings.
-"imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-"smap <C-k>     <Plug>(neocomplcache_snippets_expand)
 
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-" <TAB>: completion.
+" Plugin key-mappings.
+inoremap <expr><C-l>  neocomplcache#complete_common_string()
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-"inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS>   neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
-" AutoComplPop like behavior.
-"let g:neocomplcache_enable_auto_select = 1
-
-"autocmd BufRead,BufNewFile *.coffee setlocal ft=coffee
 
 "*****************
 "* vimshell
@@ -313,8 +276,30 @@ nnoremap <silent> ,vf :VimFiler -simple -winwidth=35 -no-quit<CR>
 "*****************
 "* Unite
 "*****************
-" インサートモードで開始しない
-let g:unite_enable_start_insert = 1
+NeoBundleLazy 'Shougo/unite.vim', {
+\   'autoload' : {
+\       'functions' : [ 
+\            'unite#start_complete', 
+\            'unite#version', 
+\       ],
+\       'mappings' : [ 
+\            '<Plug>(unite_exit)', 
+\            '<Plug>(unite_insert_leave)', 
+\       ],
+\       'commands' : [ 
+\            'Unite', 
+\            'UniteWithBufferDir', 
+\            'UniteWithCursorWord', 
+\       ],
+\   },
+\}
+let s:bundle = neobundle#get("unite.vim")
+function! s:bundle.hooks.on_source(bundle)
+  " インサートモードで開始しない
+  let g:unite_enable_start_insert = 1
+endfunction
+unlet s:bundle
+
 " バッファ一覧
 nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
 " ファイル一覧
@@ -333,8 +318,6 @@ nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mr
 nnoremap <silent> ,utb :<C-u>Unite tab<CR>
 " tag
 nnoremap <silent> ,utg :<C-u>Unite tag<CR>
-" neocomplcache
-"imap <C-h> <Plug>(neocomplcache_snippets_unite_complete)
 " neosnippet
 nnoremap <silent> ,us  :<C-u>Unite snippet<CR>
 " neobundle 
@@ -343,21 +326,17 @@ nnoremap <silent> ,unb  :<C-u>Unite neobundle<CR>
 " unite_my_settings
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
-  " Overwrite settings.
-
-  nmap <buffer> <ESC>      <Plug>(unite_exit)
+  nmap <buffer> <ESC>   <Plug>(unite_exit)
   imap <buffer> jj      <Plug>(unite_insert_leave)
-  "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
-  
-  " Start insert.
-  " let g:unite_enable_start_insert = 0
+  "imap <buffer> <C-w>   <Plug>(unite_delete_backward_path)
 endfunction
 
 " Unite-tag
-autocmd BufEnter *
-\   if empty(&buftype)
-\|      nnoremap <buffer> u<C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-\|  endif
+"autocmd BufEnter *
+"\   if empty(&buftype)
+"\|      nnoremap <buffer> u<C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+"\|  endif
+
 " Unite-vimshell-history
 inoremap <buffer><expr> <C-l> unite#start_complete(
   \ ['vimshell/history'], {                                                                                                                  
@@ -395,6 +374,47 @@ imap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ?
 smap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ?
  \ "\<Plug>(neosnippet_expand_or_jump)"
  \: "\<TAB>"
+
+"*****************
+"* vim-ref 
+"*****************
+NeoBundleLazy 'thinca/vim-ref', {
+\   'autoload' : { 
+\       'commands' : [ 'Ref' ],
+\   }
+\}
+let s:bundle = neobundle#get("vim-ref")
+function! s:bundle.hooks.on_source(bundle)
+  let g:ref_source_webdict_cmd = 'lynx -dump %s'
+  "webdictサイトの設定
+  let g:ref_source_webdict_sites = {
+  \   'je': {
+  \     'url': 'http://dictionary.infoseek.ne.jp/jeword/%s',
+  \   },
+  \   'ej': {
+  \     'url': 'http://dictionary.infoseek.ne.jp/ejword/%s',
+  \   },
+  \   'wiki': {
+  \     'url': 'http://ja.wikipedia.org/wiki/%s',
+  \   },
+  \ }
+  "デフォルトサイト
+  let g:ref_source_webdict_sites.default = 'ej'
+  "出力に対するフィルタ。最初の数行を削除
+  function! g:ref_source_webdict_sites.je.filter(output)
+    return join(split(a:output, "\n")[15 :], "\n")
+  endfunction
+  function! g:ref_source_webdict_sites.ej.filter(output)
+    return join(split(a:output, "\n")[15 :], "\n")
+  endfunction
+  function! g:ref_source_webdict_sites.wiki.filter(output)
+    return join(split(a:output, "\n")[17 :], "\n")
+  endfunction
+endfunction
+unlet s:bundle
+ 
+nmap <Leader>rj :<C-u>Ref webdict je<Space>
+nmap <Leader>re :<C-u>Ref webdict ej<Space>
 
 "*****************
 "* VTreeExplorer
@@ -559,36 +579,3 @@ vmap gx <Plug>(openbrowser-smart-search)
 "nmap ,obo <Plug>(openbrowser-open)
 "vmap ,obo <Plug>(openbrowser-open)
 
-"*****************
-"* vim-ref 
-"*****************
-let g:ref_source_webdict_cmd = 'lynx -dump %s'
-"webdictサイトの設定
-let g:ref_source_webdict_sites = {
-\   'je': {
-\     'url': 'http://dictionary.infoseek.ne.jp/jeword/%s',
-\   },
-\   'ej': {
-\     'url': 'http://dictionary.infoseek.ne.jp/ejword/%s',
-\   },
-\   'wiki': {
-\     'url': 'http://ja.wikipedia.org/wiki/%s',
-\   },
-\ }
- 
-"デフォルトサイト
-let g:ref_source_webdict_sites.default = 'ej'
- 
-"出力に対するフィルタ。最初の数行を削除
-function! g:ref_source_webdict_sites.je.filter(output)
-  return join(split(a:output, "\n")[15 :], "\n")
-endfunction
-function! g:ref_source_webdict_sites.ej.filter(output)
-  return join(split(a:output, "\n")[15 :], "\n")
-endfunction
-function! g:ref_source_webdict_sites.wiki.filter(output)
-  return join(split(a:output, "\n")[17 :], "\n")
-endfunction
- 
-nmap <Leader>rj :<C-u>Ref webdict je<Space>
-nmap <Leader>re :<C-u>Ref webdict ej<Space>
