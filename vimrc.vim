@@ -14,6 +14,7 @@ set expandtab
 set shiftwidth=2
 set nobackup
 set lines=60 columns=140
+set nocompatible
 inoremap <silent> jj <ESC>
  
 "*****************
