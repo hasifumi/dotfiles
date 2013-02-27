@@ -14,6 +14,7 @@ set expandtab
 set shiftwidth=2
 set nobackup
 set lines=60 columns=140
+inoremap <silent> jj <ESC>
  
 "*****************
 "  colorscheme
@@ -68,6 +69,27 @@ autocmd FileType javascript set foldmethod=marker
 autocmd FileType coffee set foldmethod=marker
 
 "*****************
+"  Window  
+"*****************
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+
+"*****************
+"  Motion(Insert-Mode)
+"*****************
+"inoremap <C-j> <Down>
+"inoremap <C-k> <Up>
+"inoremap <C-l> <Right>
+"inoremap <C-h> <Left>
+
+"*****************
+"  Clipboard
+"*****************
+set clipboard+=unnamedplus,unnamed
+
+"*****************
 "* MyScript 
 "*****************
 function! Is_Android()
@@ -100,6 +122,8 @@ NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kana/vim-smartchr'
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'YankRing.vim'
+nmap   ,y :YRShow<CR>
 
 "NeoBundle 'Shougo/unite.vim'
 "NeoBundle	'Shougo/neosnippet'
@@ -147,6 +171,7 @@ NeoBundleLazy 'JSON.vim'
 NeoBundleLazy 'Tagbar'
 NeoBundleLazy 'camelcasemotion'
 NeoBundleLazy 'EasyMotion'
+"NeoBundle 'ShowMarks'
 NeoBundleLazy 'ShowMarks'
 NeoBundleLazy 'refactor'
 NeoBundleLazy "git://github.com/tyru/caw.vim.git"
@@ -154,7 +179,7 @@ NeoBundleLazy 'git://github.com/tpope/vim-pathogen.git'
 NeoBundleLazy 'dmitry-ilyashevich/vim-typescript'
 NeoBundleLazy 'nanotech/jellybeans.vim'
 
-filetype plugin indent on
+"filetype plugin indent on
 
 "*****************
 "* neocomplcache
@@ -579,3 +604,4 @@ vmap gx <Plug>(openbrowser-smart-search)
 "nmap ,obo <Plug>(openbrowser-open)
 "vmap ,obo <Plug>(openbrowser-open)
 
+filetype plugin indent on
