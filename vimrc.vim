@@ -80,30 +80,15 @@ nnoremap <C-h> <C-w>h
 "*****************
 "  Motion(Insert-Mode)
 "*****************
-"inoremap <C-j> <Down>
+"inoremap <C-j> <Down>"{{{
 "inoremap <C-k> <Up>
 "inoremap <C-l> <Right>
-"inoremap <C-h> <Left>
+"inoremap <C-h> <Left>"}}}
 
 "*****************
 "  Clipboard
 "*****************
 set clipboard+=unnamedplus,unnamed
-
-"*****************
-"* MyScript 
-"*****************
-function! Is_Android()
-  if filereadable("~/.vim/bundle/is_Android")
-    " true = 0
-    "let s:Android = 0
-    return 0
-  else
-    " false = 1
-    "let s:Android = 1
-    return 1
-  endif
-endfunction
 
 "*****************
 "* neobundle
@@ -123,9 +108,8 @@ NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kana/vim-smartchr'
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'YankRing.vim'
-nmap   ,y :YRShow<CR>
-NeoBundle 'supermomonga/shaberu.vim'
+"NeoBundle 'YankRing.vim'
+"NeoBundle 'supermomonga/shaberu.vim'
 
 "NeoBundle 'Shougo/unite.vim'
 "NeoBundle	'Shougo/neosnippet'
@@ -149,14 +133,11 @@ NeoBundleLazy 'kchmck/vim-coffee-script', {
 	      \     'filetypes' : ['coffee'],
 	      \    },
 	      \ }
-NeoBundleLazy 'pekepeke/titanium-vim'
-NeoBundleLazy	'FavEx'
-NeoBundleLazy 'hasifumi/timobile_complete'
-NeoBundleLazy 'hasifumi/enchant_complete'
-NeoBundleLazy 'test3', { 'type' : 'nosync', 'base' : '~/vimfiles/bundle/manual/' }
-NeoBundleLazy 'Refactoring', { 'type' : 'nosync', 'base' : '~/vimfiles/bundle/manual/' }
-NeoBundleLazy 'ujihisa/neco-look'
-NeoBundleLazy 'ujihisa/neco-ruby'
+"NeoBundleLazy 'pekepeke/titanium-vim'
+"NeoBundleLazy 'hasifumi/timobile_complete'
+"NeoBundleLazy 'hasifumi/enchant_complete'
+"NeoBundleLazy 'test3', { 'type' : 'nosync', 'base' : '~/vimfiles/bundle/manual/' }
+"NeoBundleLazy 'Refactoring', { 'type' : 'nosync', 'base' : '~/vimfiles/bundle/manual/' }
 NeoBundleLazy "tyru/open-browser.vim", {
 \   'autoload' : {
 \       'functions' : "OpenBrowser",
@@ -166,18 +147,19 @@ NeoBundleLazy "tyru/open-browser.vim", {
 \}
 NeoBundleLazy 'tpope/vim-surround'
 NeoBundleLazy 'hrsh7th/vim-versions'
-NeoBundleLazy 'taglist.vim'
-NeoBundleLazy 'Source-Explorer-srcexpl.vim'
-NeoBundleLazy 'vtreeexplorer'
-NeoBundleLazy 'JSON.vim'
-NeoBundleLazy 'Tagbar'
-NeoBundleLazy 'camelcasemotion'
-NeoBundleLazy 'EasyMotion'
-"NeoBundle 'ShowMarks'
-NeoBundleLazy 'ShowMarks'
-NeoBundleLazy 'refactor'
-NeoBundleLazy "git://github.com/tyru/caw.vim.git"
-NeoBundleLazy 'git://github.com/tpope/vim-pathogen.git'
+"NeoBundleLazy 'ujihisa/neco-look'
+"NeoBundleLazy 'ujihisa/neco-ruby'
+"NeoBundleLazy 'taglist.vim'
+"NeoBundleLazy 'Source-Explorer-srcexpl.vim'
+"NeoBundleLazy 'vtreeexplorer'
+"NeoBundleLazy 'JSON.vim'
+"NeoBundleLazy 'Tagbar'
+"NeoBundleLazy 'camelcasemotion'
+"NeoBundleLazy 'EasyMotion'
+"NeoBundleLazy 'ShowMarks'
+"NeoBundleLazy 'refactor'
+"NeoBundleLazy "git://github.com/tyru/caw.vim.git"
+"NeoBundleLazy 'git://github.com/tpope/vim-pathogen.git'
 NeoBundleLazy 'dmitry-ilyashevich/vim-typescript'
 NeoBundleLazy 'nanotech/jellybeans.vim'
 
@@ -444,27 +426,6 @@ nmap <Leader>rj :<C-u>Ref webdict je<Space>
 nmap <Leader>re :<C-u>Ref webdict ej<Space>
 
 "*****************
-"* VTreeExplorer
-"*****************
-let g:treeExplWinSize=45
-let g:treeExplVertical=1
-
-"*****************
-"* JSON
-"*****************
-au! BufRead,BufNewFile *.json,*.JSON set filetype=json 
-
-augroup json_autocmd 
-  autocmd! 
-  autocmd FileType json setlocal autoindent 
-  autocmd FileType json setlocal formatoptions=tcq2l 
-  autocmd FileType json setlocal textwidth=78 shiftwidth=2 
-  autocmd FileType json setlocal softtabstop=2 tabstop=8 
-  autocmd FileType json setlocal expandtab 
-  autocmd FileType json setlocal foldmethod=syntax 
-augroup END 
-
-"*****************
 "* echodoc
 "*****************
 "let g:echodoc_enable_at_startup=1
@@ -472,78 +433,6 @@ augroup END
 "*****************
 "* MyScripts
 "*****************
-":function! GetJsonURL()"{{{
-"  "let ret = {}
-"  let ret = ""
-"	"let val = []
-"	let org = &enc
-"	" nullをあらかじめ定義
-"	let null = []
-"	let &enc = "utf-8"
-"	"let ret = system("curl -k -u user:pass -s \"" . a:url . "\"")
-"	let inputfile = "c:/users/fumio/Downloads/api2.json"
-"	for line in readfile(inputfile)
-"		"let ret = ret + line
-"	  let line = substitute(line, '\\u\([0-9a-zA-Z]\{4\}\)', '\=nr2char("0x".submatch(1))', 'g')
-"		"call add(ret, line)
-"    let ret = ret.line
-"	endfor
-"	"let ret = substitute(ret, '\\u\([0-9a-zA-Z]\{4\}\)', '\=nr2char("0x".submatch(1))', 'g')
-"	"exe "let val = " . iconv(ret, "utf-8", org)
-"	"echo ret
-"	echo eval("ret")
-"	let &enc = org
-"	"return val
-":endfunction
-"
-"function! Titanium_echodoc()
-"  if g:loaded_echodoc
-"		call echodoc#register('titanium_echodoc', s:doc_dict)
-"		let s:ti_text = s:getfile("c:/Users/fumio/vimfiles/plugin/timobile_for_echodoc.txt")
-"	endif
-"endfunction
-"
-"function! s:getfile(inputfile)
-"  let org = &enc
-"  let &enc = "utf-8"
-"
-"  let ret = ""
-"  let ret2 = {}
-"	"let inputfile = "c:/Users/fumio/Downloads/api.json"
-"  "for line in readfile("c:/Users/fumio/vimfiles/plugin/timobile_for_echodoc.txt")
-"  for line in readfile(a:inputfile)
-"    let ret = ret . line
-"  endfor
-"  let ret2 = eval(ret)
-"
-"  let &enc = org
-"  return ret2
-"endfunction
-"
-"let s:doc_dict = {
-"      \ 'name' : 'titanium_echodoc',
-"      \ 'rank' : 5,
-"      \ 'filetypes' : { 'coffee' : 1, 'javascript' : 1 },
-"      \ }
-"
-"function! s:doc_dict.search(cur_text)
-"	"let l:test_text = {
-"	"  \ "text1" : " Text1",
-"	"  \ "text2" : " Text2",
-"	"  \ "text3" : " Text3",
-"	"  \ "Ti.API.info" : " Ti.API.infoi(message)",
-"	"  \ "Ti.API.addEventListener" : " Ti.API.addEventListener(name, callback)",
-"	"  \ }
-"	let ret = []
-"	"if has_key(l:test_text, a:cur_text)
-"	if has_key(s:ti_text, a:cur_text)
-"		call add(ret, { 'text' : 'Usage: ', 'highlight' : 'Identifier' })
-"	  "call add(ret, { 'text' : l:test_text[a:cur_text] })
-"	  call add(ret, { 'text' : s:ti_text[a:cur_text] })
-"  endif
-"	return ret
-"endfunction
-""}}}"}}}
 "function! Test()
 "	:e test.test
 "	:set filetype=test
@@ -561,6 +450,19 @@ nnoremap mobs :call MyOpenBrowserSearch()<CR>
 
 nnoremap <Leader>aa :source `=expand("%")`<CR>
 
+function! Is_Android()
+  if filereadable("~/.vim/bundle/is_Android")
+    " true = 0
+    "let s:Android = 0
+    return 0
+  else
+    " false = 1
+    "let s:Android = 1
+    return 1
+  endif
+endfunction
+
+
 "*****************
 "* titanium.vim
 "*****************
@@ -576,25 +478,6 @@ nnoremap <Leader>aa :source `=expand("%")`<CR>
 "*****************
 "let g:quicktigame2d_complete_startup = 1
 
-"*****************
-"* coffeetag for tagbar
-"*****************
-"if executable('coffeetags')"{{{
-"  let g:tagbar_type_coffee = {
-"        \ 'ctagsbin' : 'coffeetags',
-"        \ 'ctagsargs' : '',
-"        \ 'kinds' : [
-"        \ 'f:functions',
-"        \ 'o:object',
-"        \ ],
-"        \ 'sro' : ".",
-"        \ 'kind2scope' : {
-"        \ 'f' : 'object',
-"        \ 'o' : 'object',
-"        \ }
-"        \ }
-"endif"}}}
-"
 "*****************
 "* open-browser.vim
 "*****************
@@ -628,11 +511,57 @@ nmap <F3>    :call visualmark#Vm_goto_next_sign()<CR>
 nmap <C-F3>  :call visualmark#Vm_goto_prev_sign()<CR>
 
 "*****************
+"* shaberu.vim
+"*****************
+NeoBundleLazy 'supermomonga/shaberu.vim', {
+\   'autoload' : { 
+\       'commands' : [ "ShaberuSay", 
+\                      "ShaberuMuteOn", 
+\                      "ShaberuMuteOff", 
+\                      "ShaberuMuteToggle" ],
+\   }
+\}
+
+"*****************
+"* YankRing
+"*****************
+NeoBundle 'YankRing.vim'
+"  At Lazy-mode, I can't notice Yank buffer.
+"NeoBundleLazy 'YankRing.vim', {
+"\   'autoload' : { 
+"\       'commands' : [ "YRShow", 
+"\                      "YRSearch", 
+"\                      "YRClear", 
+"\                      "YRToggle" ],
+"\   }
+"\}
+
+" Plugin key-mappings.
+nmap   ,y :YRShow<CR>
+
+"*****************
+"* tcomment.vim
+"*****************
+NeoBundle 'tomtom/tcomment_vim'
+"NeoBundleLazy 'tomtom/tcomment_vim', {
+"\   'autoload' : { 
+"\       'commands' : [ "TComment", 
+"\                      "TCommentAs", 
+"\                      "TCommentInline", 
+"\                      "TCommentRight", 
+"\                      "Comment" ],
+"\   }
+"\}
+
+"*****************
 "* plugin neobundle setting templete
 "*****************
+"NeoBundle 'xxx/yyyy'
 "NeoBundleLazy 'xxx/yyyy', {
 "\   'autoload' : { 
-"\       'functions' : [ "", "" ],
+"\       'functions' : [ "",
+"\                       "",
+"\                       "" ],
 "\       'mappings' : [ "<Plug>()", 
 "\                      "<Plug>()", 
 "\                      "<Plug>()" ],
