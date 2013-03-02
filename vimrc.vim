@@ -125,6 +125,7 @@ NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'YankRing.vim'
 nmap   ,y :YRShow<CR>
+NeoBundle 'supermomonga/shaberu.vim'
 
 "NeoBundle 'Shougo/unite.vim'
 "NeoBundle	'Shougo/neosnippet'
@@ -604,5 +605,50 @@ vmap gx <Plug>(openbrowser-smart-search)
 "vmap ,ob  <Plug>(openbrowser-smart-search)
 "nmap ,obo <Plug>(openbrowser-open)
 "vmap ,obo <Plug>(openbrowser-open)
+
+"*****************
+"* visualMark
+"*****************
+"NeoBundle 'hasifumi/visualmark'
+NeoBundleLazy 'hasifumi/visualmark', {
+\   'autoload' : { 
+\       'functions' : [ "visualmark#Vm_toggle_sign", 
+\                       "visualmark#Vm_goto_next_sign",
+\                       "visualmark#Vm_goto_prev_sign"],
+\   }
+\}
+let s:bundle = neobundle#get("visualmark")
+function! s:bundle.hooks.on_source(bundle)
+endfunction
+unlet s:bundle
+
+" Plugin key-mappings.
+nmap <F2>    :call visualmark#Vm_toggle_sign()<CR>
+nmap <F3>    :call visualmark#Vm_goto_next_sign()<CR>
+nmap <C-F3>  :call visualmark#Vm_goto_prev_sign()<CR>
+
+"*****************
+"* plugin neobundle setting templete
+"*****************
+"NeoBundleLazy 'xxx/yyyy', {
+"\   'autoload' : { 
+"\       'functions' : [ "", "" ],
+"\       'mappings' : [ "<Plug>()", 
+"\                      "<Plug>()", 
+"\                      "<Plug>()" ],
+"\       'commands' : [ "", 
+"\                      "", 
+"\                      "" ],
+"\   }
+"\}
+"let s:bundle = neobundle#get("yyyy")
+"function! s:bundle.hooks.on_source(bundle)
+"  let g:neosnippet#snippets_directory = '~/vimfiles/bundle/neobundle/snipmate-snippets/snippets'
+"endfunction
+"unlet s:bundle
+"
+"" Plugin key-mappings.
+"nmap <C-a>     <Plug>()
+"
 
 filetype plugin indent on
