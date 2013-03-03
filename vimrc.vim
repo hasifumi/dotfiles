@@ -200,6 +200,7 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><BS>   neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
+nnoremap nce  :<C-u>NeoComplCacheEnable<CR>
 
 "*****************
 "* vimshell
@@ -336,6 +337,7 @@ function! s:bundle.hooks.on_source(bundle)
   \   "vimfiles(VimFiler)" : "VimFiler $HOME/vimfiles" ,
   \   "MyProject(VimFiler)" : "VimFiler $HOME/MyProject" ,
   \   "MyLibrary(VimFiler)" : "VimFiler $HOME/MyLibrary" ,
+  \   "HOME(VimShell)" : "VimShell $HOME" ,
   \}
   
   " 上記で登録したコマンドを評価する関数
