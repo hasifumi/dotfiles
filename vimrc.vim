@@ -306,6 +306,35 @@ let s:bundle = neobundle#get("unite.vim")
 function! s:bundle.hooks.on_source(bundle)
   " インサートモードで開始しない
   let g:unite_enable_start_insert = 1
+  " Unite menu
+  if !exists("g:unite_source_menu_menus")
+     let g:unite_source_menu_menus = {}
+  endif
+  " menu の説明
+  let s:commands = {
+  \   'description' : 'Shortcut',
+  \}
+  " コマンドを登録
+  let s:commands.candidates = {
+  \   "HOME(VimFiler)" : "VimFiler $HOME",
+  \   "Google" : "VimProcBang start 'http://www.google.co.jp/'",
+  \}
+  
+  " 上記で登録したコマンドを評価する関数
+  " 最終的にこれで評価した結果が unite に登録される
+  function s:commands.map(key, value)
+     return {
+  \       'word' : a:key,
+  \       'kind' : 'command',
+  \       'action__command' : a:value,
+  \}
+  endfunction
+  
+  let g:unite_source_menu_menus["shortcut"] = deepcopy(s:commands)
+  unlet s:commands
+  
+  " 呼び出しのキーマップ
+  nnoremap <silent> <Space>ll :Unite menu:shortcut<CR>
 endfunction
 unlet s:bundle
 
@@ -439,7 +468,10 @@ nmap <Leader>re :<C-u>Ref webdict ej<Space>
 "endfunction
 function! MyOpenBrowser()
   execute ":VimProcBang start '" . expand('<cWORD>') . "'"
-  "execute ":VimProcBang start " . expand('<cWORD>')
+endfunction
+function! MyOpenBrowserOpen(url)
+  echo a:url
+  execute ":VimProcBang start '" . a:url . "'"
 endfunction
 function! MyOpenBrowserSearch()
   execute ":VimProcBang start 'http://www.google.co.jp/search?q=" . expand('<cWORD>') . "'"
