@@ -41,14 +41,29 @@ nmap <Esc><Esc> :noh<CR>
 "*****************
 "  Help
 "*****************
-nnoremap <C-h> :<C-u>help<Space><C-r><C-w><CR>
+nnoremap <C-e> :<C-u>help<Space><C-r><C-w><CR>
 set helplang=ja
 
 "*****************
 "  tab
 "*****************
-nnoremap <silent> ,tn :<C-u>tabnext<CR>
-nnoremap <silent> ,tp :<C-u>tabprevious<CR>
+nnoremap <silent> tbn :<C-u>tabnext<CR>
+nnoremap <silent> tbh :<C-u>tabnext<CR>
+nnoremap <silent> tbj :<C-u>tabnext<CR>
+nnoremap <silent> tbp :<C-u>tabprevious<CR>
+nnoremap <silent> tbl :<C-u>tabprevious<CR>
+nnoremap <silent> tbk :<C-u>tabprevious<CR>
+nnoremap <silent> tbe :<C-u>tabedit<CR>
+
+"*****************
+"  tag
+"*****************
+nnoremap <silent> tgn <C-]>
+nnoremap <silent> tgn :<C-u>tag<CR>
+nnoremap <silent> tgj :<C-u>tag<CR>
+nnoremap <silent> tgp :<C-u>pop<CR>
+nnoremap <silent> tgk :<C-u>pop<CR>
+nnoremap <silent> tgl :<C-u>tags<CR>
 
 "*****************
 "  Encording
@@ -129,10 +144,10 @@ NeoBundleLazy	'honza/snipmate-snippets'
 NeoBundleLazy 'thinca/vim-quickrun'
 NeoBundleLazy 'tpope/vim-fugitive'
 NeoBundleLazy 'kchmck/vim-coffee-script', {
-	      \ 'autoload' : {
-	      \     'filetypes' : ['coffee'],
-	      \    },
-	      \ }
+\ 'autoload' : {
+\     'filetypes' : ['coffee'],
+\    },
+\ }
 "NeoBundleLazy 'pekepeke/titanium-vim'
 "NeoBundleLazy 'hasifumi/timobile_complete'
 "NeoBundleLazy 'hasifumi/enchant_complete'
@@ -316,8 +331,11 @@ function! s:bundle.hooks.on_source(bundle)
   \}
   " コマンドを登録
   let s:commands.candidates = {
-  \   "HOME(VimFiler)" : "VimFiler $HOME",
-  \   "Google" : "VimProcBang start 'http://www.google.co.jp/'",
+  \   "HOME(VimFiler)" : "VimFiler $HOME" , 
+  \   "Google" : "VimProcBang start 'http://www.google.co.jp/'" ,
+  \   "vimfiles(VimFiler)" : "VimFiler $HOME/vimfiles" ,
+  \   "MyProject(VimFiler)" : "VimFiler $HOME/MyProject" ,
+  \   "MyLibrary(VimFiler)" : "VimFiler $HOME/MyLibrary" ,
   \}
   
   " 上記で登録したコマンドを評価する関数
@@ -333,8 +351,6 @@ function! s:bundle.hooks.on_source(bundle)
   let g:unite_source_menu_menus["shortcut"] = deepcopy(s:commands)
   unlet s:commands
   
-  " 呼び出しのキーマップ
-  nnoremap <silent> <Space>ll :Unite menu:shortcut<CR>
 endfunction
 unlet s:bundle
 
@@ -360,6 +376,8 @@ nnoremap <silent> ,utg :<C-u>Unite tag<CR>
 nnoremap <silent> ,us  :<C-u>Unite snippet<CR>
 " neobundle 
 nnoremap <silent> ,unb  :<C-u>Unite neobundle<CR>
+" menu
+nnoremap <silent> ,um :<C-u>Unite menu:shortcut<CR>
 
 " unite_my_settings
 autocmd FileType unite call s:unite_my_settings()
@@ -553,6 +571,9 @@ NeoBundleLazy 'supermomonga/shaberu.vim', {
 \                      "ShaberuMuteToggle" ],
 \   }
 \}
+
+" Plugin key-mappings.
+nmap ,ss    :ShaberuSay `=expand(("%")` <CR>
 
 "*****************
 "* YankRing
