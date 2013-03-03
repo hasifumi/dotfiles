@@ -41,7 +41,8 @@ nmap <Esc><Esc> :noh<CR>
 "*****************
 "  Help
 "*****************
-nnoremap <C-e> :<C-u>help<Space><C-r><C-w><CR>
+"nnoremap <C-e> :<C-u>help<Space><C-r><C-w><CR>
+nnoremap <C-i> :<C-u>help<Space><C-r><C-w><CR>
 set helplang=ja
 
 "*****************
