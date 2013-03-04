@@ -96,10 +96,10 @@ nnoremap <C-h> <C-w>h
 "*****************
 "  Motion(Insert-Mode)
 "*****************
-"inoremap <C-j> <Down>"{{{
-"inoremap <C-k> <Up>
-"inoremap <C-l> <Right>
-"inoremap <C-h> <Left>"}}}
+"inoremap <A-j> <Down>"{{{
+"inoremap <A-k> <Up>
+"inoremap <A-l> <Right>
+"inoremap <A-h> <Left>"}}}
 
 "*****************
 "  Clipboard
@@ -622,6 +622,12 @@ let g:EasyMotion_grouping=1
 " カラー設定変更
 hi EasyMotionTarget ctermbg=none ctermfg=red
 hi EasyMotionShade  ctermbg=none ctermfg=blue
+
+"*****************
+"* tagbar
+"*****************
+NeoBundle 'majutsushi/tagbar'
+nmap <F8>  :TagbarToggle<CR>
 
 "*****************
 "* plugin neobundle setting templete
