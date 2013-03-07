@@ -8,6 +8,16 @@ SendMode Input
  l::Send,{Right}
 #IfWinActive
 
+; IE
+#IfWinActive ahk_class IEFrame
+ ^j::Send,{Down}
+ ^k::Send,{UP}
+ ^h::Send,{Left}
+ ^l::Send,{Right}
+ ^u::Send,{RButton}
+ ^i::Send,{AppsKey}
+#IfWinActive
+
 ; explorer
 #IfWinActive ahk_class CabinetWClass 
  j::
