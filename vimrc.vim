@@ -202,6 +202,8 @@ inoremap <expr><BS>   neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 nnoremap nce  :<C-u>NeoComplCacheEnable<CR>
+imap <C-u> <Plug>(neocomplcache_start_unite_complete)
+imap <C-y> <Plug>(neocomplcache_start_unite_quick_match)
 
 "*****************
 "* vimshell
