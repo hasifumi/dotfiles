@@ -124,6 +124,9 @@ NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kana/vim-smartchr'
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'mattn/googletranslate-vim'
+NeoBundle 'mattn/excitetranslate-vim'
+NeoBundle 'mattn/webapi-vim'
 "NeoBundle 'YankRing.vim'
 "NeoBundle 'supermomonga/shaberu.vim'
 
@@ -325,15 +328,15 @@ let s:bundle = neobundle#get("unite.vim")
 function! s:bundle.hooks.on_source(bundle)
   " インサートモードで開始しない
   let g:unite_enable_start_insert = 1
+  let g:unite_source_history_yank_enable = 1
+
   " Unite menu
   if !exists("g:unite_source_menu_menus")
      let g:unite_source_menu_menus = {}
   endif
-  " menu の説明
   let s:commands = {
   \   'description' : 'Shortcut',
   \}
-  " コマンドを登録
   let s:commands.candidates = {
   \   "HOME(VimFiler)" : "VimFiler $HOME" , 
   \   "Google" : "VimProcBang start 'http://www.google.co.jp/'" ,
@@ -342,9 +345,6 @@ function! s:bundle.hooks.on_source(bundle)
   \   "MyLibrary(VimFiler)" : "VimFiler $HOME/MyLibrary" ,
   \   "HOME(VimShell)" : "VimShell $HOME" ,
   \}
-  
-  " 上記で登録したコマンドを評価する関数
-  " 最終的にこれで評価した結果が unite に登録される
   function s:commands.map(key, value)
      return {
   \       'word' : a:key,
@@ -352,7 +352,6 @@ function! s:bundle.hooks.on_source(bundle)
   \       'action__command' : a:value,
   \}
   endfunction
-  
   let g:unite_source_menu_menus["shortcut"] = deepcopy(s:commands)
   unlet s:commands
   
@@ -383,6 +382,8 @@ nnoremap <silent> ,us  :<C-u>Unite snippet<CR>
 nnoremap <silent> ,unb  :<C-u>Unite neobundle<CR>
 " menu
 nnoremap <silent> ,um :<C-u>Unite menu:shortcut<CR>
+" history/yank 
+nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
 
 " unite_my_settings
 autocmd FileType unite call s:unite_my_settings()
