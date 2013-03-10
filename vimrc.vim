@@ -104,6 +104,7 @@ nnoremap <C-h> <C-w>h
 "*****************
 "  Clipboard
 "*****************
+"set clipboard+=unnamedplus,unnamed
 set clipboard+=unnamedplus,unnamed
 
 "*****************
@@ -324,11 +325,12 @@ NeoBundleLazy 'Shougo/unite.vim', {
 \       ],
 \   },
 \}
+let g:unite_source_history_yank_enable = 1
 let s:bundle = neobundle#get("unite.vim")
 function! s:bundle.hooks.on_source(bundle)
   " インサートモードで開始しない
   let g:unite_enable_start_insert = 1
-  let g:unite_source_history_yank_enable = 1
+  "let g:unite_source_history_yank_enable = 1
 
   " Unite menu
   if !exists("g:unite_source_menu_menus")
