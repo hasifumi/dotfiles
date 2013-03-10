@@ -16,6 +16,9 @@ set nobackup
 set lines=60 columns=140
 set nocompatible
 inoremap <silent> jj <ESC>
+set wildmode=longest:full,full
+"set wildmode=list,full
+set noswapfile
  
 "*****************
 "  colorscheme
@@ -104,8 +107,19 @@ nnoremap <C-h> <C-w>h
 "*****************
 "  Clipboard
 "*****************
-"set clipboard+=unnamedplus,unnamed
 set clipboard+=unnamedplus,unnamed
+
+"*****************
+" command-line 
+"*****************
+" F5キーでコマンド履歴を開く
+" F6キーで検索履歴を開く
+nnoremap <F5> <CR>q:
+nnoremap <F6> <CR>q/
+" q:、q/、q? は無効化
+nnoremap q: <NOP>
+nnoremap q/ <NOP>
+nnoremap q? <NOP>
 
 "*****************
 "* neobundle
@@ -145,6 +159,9 @@ NeoBundleLazy 'tsukkee/unite-help'
 NeoBundleLazy 'ujihisa/unite-colorscheme'
 NeoBundleLazy 'h1mesuke/unite-outline'
 NeoBundleLazy 'kmnk/vim-unite-giti'
+NeoBundleLazy 'thinca/vim-unite-history'
+NeoBundleLazy 'hakobe/unite-script'
+NeoBundleLazy 'tacroe/unite-mark'
 NeoBundleLazy	'honza/snipmate-snippets'
 NeoBundleLazy 'thinca/vim-quickrun'
 NeoBundleLazy 'tpope/vim-fugitive'
@@ -331,6 +348,7 @@ function! s:bundle.hooks.on_source(bundle)
   " インサートモードで開始しない
   let g:unite_enable_start_insert = 1
   "let g:unite_source_history_yank_enable = 1
+	call unite#set_substitute_pattern('test', '^;v', '~/vimfiles')
 
   " Unite menu
   if !exists("g:unite_source_menu_menus")
@@ -392,7 +410,7 @@ autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
   nmap <buffer> <ESC>   <Plug>(unite_exit)
   imap <buffer> jj      <Plug>(unite_insert_leave)
-  "imap <buffer> <C-w>   <Plug>(unite_delete_backward_path)
+  imap <buffer> <C-w>   <Plug>(unite_delete_backward_path)
 endfunction
 
 " Unite-tag
@@ -406,6 +424,8 @@ inoremap <buffer><expr> <C-l> unite#start_complete(
   \ ['vimshell/history'], {                                                                                                                  
   \ 'start_insert' : 1,
   \ 'input' : vimshell#get_cur_text()})
+
+call unite#set_substitute_pattern('test', '^;v', '~/vimfiles')
 
 "*****************
 "* neosnippet
