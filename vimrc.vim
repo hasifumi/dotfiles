@@ -198,6 +198,7 @@ NeoBundleLazy 'hrsh7th/vim-versions'
 "NeoBundleLazy "git://github.com/tyru/caw.vim.git"
 "NeoBundleLazy 'git://github.com/tpope/vim-pathogen.git'
 NeoBundleLazy 'dmitry-ilyashevich/vim-typescript'
+NeoBundle'clausreinke/typescript-tools'
 NeoBundleLazy 'nanotech/jellybeans.vim'
 
 "filetype plugin indent on
@@ -301,7 +302,7 @@ function! s:bundle.hooks.on_source(bundle)
 endfunction
 unlet s:bundle
 
-nnoremap <silent> ,vf :VimFiler -simple -winwidth=35 -no-quit<CR>
+nnoremap <silent> ,vf :VimFiler -simple -winwidth=65 -no-quit<CR>
 
 "call vimfiler#set_execute_file('vim', 'vim')"{{{
 ""call vimfiler#set_execute_file('txt', 'notepad')
