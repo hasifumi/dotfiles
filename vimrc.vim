@@ -198,7 +198,8 @@ NeoBundleLazy 'hrsh7th/vim-versions'
 "NeoBundleLazy "git://github.com/tyru/caw.vim.git"
 "NeoBundleLazy 'git://github.com/tpope/vim-pathogen.git'
 NeoBundleLazy 'dmitry-ilyashevich/vim-typescript'
-NeoBundle'clausreinke/typescript-tools'
+"NeoBundle'clausreinke/typescript-tools'
+NeoBundle'hasifumi/typescript-tools'
 NeoBundleLazy 'nanotech/jellybeans.vim'
 
 "filetype plugin indent on
