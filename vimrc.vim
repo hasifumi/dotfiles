@@ -25,17 +25,17 @@ set noswapfile
 "*****************
 "colorscheme desert
 
-"*****************
-"  Japanese
-"*****************
-"set statusline=2
-"挿入モード終了時にIME状態を保存しない
-inoremap <silent> <ESC> <ESC>
-inoremap <silent> <C-[> <ESC>
-
-"IMEモード固定
-inoremap <silent> <C-j> <C-^>
-
+""*****************
+""  Japanese
+""*****************
+""set statusline=2
+""挿入モード終了時にIME状態を保存しない
+"inoremap <silent> <ESC> <ESC>
+"inoremap <silent> <C-[> <ESC>
+"
+""IMEモード固定
+"inoremap <silent> <C-j> <C-^>
+"
 "*****************
 "  Search
 "*****************
@@ -72,15 +72,13 @@ nnoremap <silent> tgl :<C-u>tags<CR>
 "*****************
 "  Encording
 "*****************
-if has("win32")
-  "set encoding より上に書くこと
-  let &termencoding = &encoding
-endif
-"set encoding=utf-8
-"set fileencodings=utf-8,cp932,euc-jp
-set enc=utf-8
-set fenc=utf-8
-set fencs=iso-2022-jp,enc-jp,cp932
+"if has("win32")
+"  "set encoding より上に書くこと
+"  let &termencoding = &encoding
+"endif
+"set enc=utf-8
+""set fenc=utf-8
+"set fencs=cp932,sjis,iso-2022-jp,enc-jp,utf-8
 
 "*****************
 "  Folding
@@ -120,6 +118,12 @@ nnoremap <F6> <CR>q/
 nnoremap q: <NOP>
 nnoremap q/ <NOP>
 nnoremap q? <NOP>
+
+"*****************
+"  GUI Option
+"*****************
+set guioptions-=m
+set guioptions-=T
 
 "*****************
 "* neobundle
@@ -199,8 +203,12 @@ NeoBundleLazy 'hrsh7th/vim-versions'
 "NeoBundleLazy 'git://github.com/tpope/vim-pathogen.git'
 NeoBundleLazy 'dmitry-ilyashevich/vim-typescript'
 "NeoBundle'clausreinke/typescript-tools'
-NeoBundle'hasifumi/typescript-tools'
+NeoBundle 'hasifumi/typescript-tools'
+NeoBundle 'hasifumi/typescript_completion.vim'
 NeoBundleLazy 'nanotech/jellybeans.vim'
+NeoBundle 'ctrlp.vim'
+NeoBundle 'yuratomo/w3m.vim'
+NeoBundle 'hasifumi/eclim_java_complete.vim'
 
 "filetype plugin indent on
 
@@ -217,6 +225,7 @@ let g:neocomplcache_dictionary_filetype_lists = {
     \ 'vimshell' : $HOME.'/.vimshell_hist',
     \ 'scheme' : $HOME.'/.gosh_completions'
     \ }
+let g:neocomplcache_force_overwrite_completefunc = 1
 
 " Plugin key-mappings.
 inoremap <expr><C-l>  neocomplcache#complete_common_string()
@@ -300,6 +309,7 @@ function! s:bundle.hooks.on_source(bundle)
   call vimfiler#set_execute_file('c', 'vim')
   call vimfiler#set_execute_file('coffee', 'vim')
   call vimfiler#set_execute_file('ts', 'vim')
+  autocmd filetype vimfiler call unite#custom_default_action('directory', 'cd')
 endfunction
 unlet s:bundle
 
@@ -366,6 +376,7 @@ function! s:bundle.hooks.on_source(bundle)
   \   "MyProject(VimFiler)" : "VimFiler $HOME/MyProject" ,
   \   "MyLibrary(VimFiler)" : "VimFiler $HOME/MyLibrary" ,
   \   "HOME(VimShell)" : "VimShell $HOME" ,
+  \   "TomcatStart" : "call vimproc#system_bg('c://Program\ Files//Apache\ Software\ Foundation//Tomcat\ 7.0//bin//startup.bat'" ,
   \}
   function s:commands.map(key, value)
      return {
@@ -385,9 +396,9 @@ nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
 " ファイル一覧
 nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 " レジスタ一覧
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+"nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
 " 最近使用したファイル一覧
-nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
+nnoremap <silent> ,ur :<C-u>Unite file_mru<CR>
 " ブックマーク
 nnoremap <silent> ,uc :<C-u>Unite bookmark<CR>
 " 常用セット
@@ -606,23 +617,6 @@ NeoBundleLazy 'supermomonga/shaberu.vim', {
 nmap ,ss    :ShaberuSay `=expand(("%")` <CR>
 
 "*****************
-"* YankRing
-"*****************
-NeoBundle 'YankRing.vim'
-"  At Lazy-mode, I can't notice Yank buffer.
-"NeoBundleLazy 'YankRing.vim', {
-"\   'autoload' : { 
-"\       'commands' : [ "YRShow", 
-"\                      "YRSearch", 
-"\                      "YRClear", 
-"\                      "YRToggle" ],
-"\   }
-"\}
-
-" Plugin key-mappings.
-nmap   ,y :YRShow<CR>
-
-"*****************
 "* tcomment.vim
 "*****************
 NeoBundle 'tomtom/tcomment_vim'
@@ -655,6 +649,39 @@ hi EasyMotionShade  ctermbg=none ctermfg=blue
 "*****************
 NeoBundle 'majutsushi/tagbar'
 nmap <F8>  :TagbarToggle<CR>
+
+"*****************
+"* Eclim
+"*****************
+command! EclimStart :call vimproc#system_bg('c://eclipse//eclimd.bat')
+command! EclimShutdown :ShutdownEclim
+
+"*****************
+"* restart.vim
+"*****************
+NeoBundleLazy 'tyru/restart.vim', {
+\   'autoload' : { 
+\       'commands' : [ "Restart" ], 
+\   }
+\}
+
+"*****************
+"* plugin neobundle setting templete
+"*****************
+NeoBundleLazy 'yuratomo/dbg.vim', {
+\   'autoload' : { 
+\       'commands' : [ "Dbg", 
+\                      "DbgShell" ],
+\   }
+\}
+let s:bundle = neobundle#get("dbg.vim")
+function! s:bundle.hooks.on_source(bundle)
+  let g:dbg#command_shell = 'cmd.exe'
+  let g:dbg#shell_prompt = '> '
+  let g:dbg#command_jdb = 'jdb'
+  let g:dbg#command_encoding = 'utf-8'
+endfunction
+unlet s:bundle
 
 "*****************
 "* plugin neobundle setting templete
