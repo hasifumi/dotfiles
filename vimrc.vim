@@ -13,7 +13,7 @@ set tabstop=2
 set expandtab
 set shiftwidth=2
 set nobackup
-set lines=60 columns=140
+"set lines=60 columns=140
 set nocompatible
 inoremap <silent> jj <ESC>
 set wildmode=longest:full,full
@@ -72,13 +72,13 @@ nnoremap <silent> tgl :<C-u>tags<CR>
 "*****************
 "  Encording
 "*****************
-"if has("win32")
-"  "set encoding より上に書くこと
-"  let &termencoding = &encoding
-"endif
-"set enc=utf-8
-""set fenc=utf-8
-"set fencs=cp932,sjis,iso-2022-jp,enc-jp,utf-8
+if has("win32")
+  "set encoding より上に書くこと
+  let &termencoding = &encoding
+endif
+set enc=utf-8
+"set fenc=utf-8
+set fencs=cp932,sjis,iso-2022-jp,enc-jp,utf-8
 
 "*****************
 "  Folding
@@ -225,7 +225,7 @@ let g:neocomplcache_dictionary_filetype_lists = {
     \ 'vimshell' : $HOME.'/.vimshell_hist',
     \ 'scheme' : $HOME.'/.gosh_completions'
     \ }
-let g:neocomplcache_force_overwrite_completefunc = 1
+"let g:neocomplcache_force_overwrite_completefunc = 1
 
 " Plugin key-mappings.
 inoremap <expr><C-l>  neocomplcache#complete_common_string()
