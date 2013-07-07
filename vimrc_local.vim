@@ -6,8 +6,8 @@ set nocompatible
 filetype plugin indent off
 
 if has('vim_starting')
-  set runtimepath+=~/vimfiles/bundle/neobundle/neobundle.vim/
-	call neobundle#rc(expand('~/vimfiles/bundle/neobundle'))
+  set runtimepath+=~/.vim/bundle/neobundle/neobundle.vim/
+	call neobundle#rc(expand('~/.vim/bundle/neobundle'))
 endif
 
 NeoBundle	'Shougo/neobundle.vim'
