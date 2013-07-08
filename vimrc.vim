@@ -79,6 +79,7 @@ nnoremap <silent> tgl :<C-u>tags<CR>
 "set enc=utf-8
 ""set fenc=utf-8
 "set fencs=cp932,sjis,iso-2022-jp,enc-jp,utf-8
+"
 
 "*****************
 "  Folding
