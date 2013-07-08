@@ -72,13 +72,13 @@ nnoremap <silent> tgl :<C-u>tags<CR>
 "*****************
 "  Encording
 "*****************
-if has("win32")
-  "set encoding より上に書くこと
-  let &termencoding = &encoding
-endif
-set enc=utf-8
-"set fenc=utf-8
-set fencs=cp932,sjis,iso-2022-jp,enc-jp,utf-8
+"if has("win32")
+"  "set encoding より上に書くこと
+"  let &termencoding = &encoding
+"endif
+"set enc=utf-8
+""set fenc=utf-8
+"set fencs=cp932,sjis,iso-2022-jp,enc-jp,utf-8
 
 "*****************
 "  Folding
