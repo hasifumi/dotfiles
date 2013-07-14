@@ -653,9 +653,36 @@ hi EasyMotionShade  ctermbg=none ctermfg=blue
 "*****************
 "* tagbar
 "*****************
-NeoBundle 'majutsushi/tagbar'
-nmap <F8>  :TagbarToggle<CR>
+"NeoBundle 'majutsushi/tagbar'
+NeoBundleLazy 'majutsushi/tagbar', {
+\   'autoload' : { 
+\       'commands' : [ "TagbarToggle", 
+\                      "TagbarOpen", 
+\                      "TagbarClose" ],
+\   }
+\}
+let s:bundle = neobundle#get("tagbar")
+function! s:bundle.hooks.on_source(bundle)
+  let g:tagbar_type_gorilla = {
+        \ 'ctagstype' : 'gorilla',
+        \ 'kinds' : [
+        \   'C:constant',
+        \   'e:module',
+        \   'f:function',
+        \   'c:class',
+        \   'a:array',
+        \   'o:object',
+        \   'r:regex',
+        \   's:string'
+        \ ],
+        \ 'sro' : ".",
+        \}
+endfunction
+unlet s:bundle
 
+" Plugin key-mappings.
+nmap <F8>  :TagbarToggle<CR>
+"
 "*****************
 "* Eclim
 "*****************
@@ -672,7 +699,7 @@ NeoBundleLazy 'tyru/restart.vim', {
 \}
 
 "*****************
-"* plugin neobundle setting templete
+"* dbg.vim
 "*****************
 NeoBundleLazy 'yuratomo/dbg.vim', {
 \   'autoload' : { 
@@ -688,6 +715,44 @@ function! s:bundle.hooks.on_source(bundle)
   let g:dbg#command_encoding = 'utf-8'
 endfunction
 unlet s:bundle
+
+
+"*****************
+"* syntastic
+"*****************
+NeoBundleLazy 'scrooloose/syntastic', {
+\   'autoload' : { 
+\       'commands' : [ "Errors", 
+\                      "SyntasticToggleMode", 
+\                      "SyntasticCheck", 
+\                      "SyntasticInfo" ],
+\   }
+\}
+let s:bundle = neobundle#get("syntastic")
+function! s:bundle.hooks.on_source(bundle)
+  let g:syntastic_check_on_open=1
+endfunction
+unlet s:bundle
+
+" Plugin key-mappings.
+"nmap <C-a>     <Plug>()
+
+"*****************
+"* vim-gorilla-script
+"*****************
+NeoBundleLazy 'unc0/vim-gorilla-script', {
+\   'autoload' : { 
+\       'filetypes' : [ "gorilla" ]
+\   }
+\}
+"let s:bundle = neobundle#get("vim-gorilla-script")
+"function! s:bundle.hooks.on_source(bundle)
+"  let g:neosnippet#snippets_directory = '~/vimfiles/bundle/neobundle/snipmate-snippets/snippets'
+"endfunction
+"unlet s:bundle
+"
+"" Plugin key-mappings.
+"nmap <C-a>     <Plug>()
 
 "*****************
 "* plugin neobundle setting templete
