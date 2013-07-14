@@ -213,7 +213,7 @@ NeoBundle 'hasifumi/typescript-tools'
 NeoBundle 'hasifumi/typescript_completion.vim'
 NeoBundleLazy 'nanotech/jellybeans.vim'
 NeoBundle 'ctrlp.vim'
-NeoBundle 'yuratomo/w3m.vim'
+"NeoBundle 'yuratomo/w3m.vim'
 NeoBundle 'hasifumi/eclim_java_complete.vim'
 
 "filetype plugin indent on
