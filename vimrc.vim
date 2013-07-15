@@ -734,9 +734,6 @@ function! s:bundle.hooks.on_source(bundle)
 endfunction
 unlet s:bundle
 
-" Plugin key-mappings.
-"nmap <C-a>     <Plug>()
-
 "*****************
 "* vim-gorilla-script
 "*****************
@@ -745,14 +742,32 @@ NeoBundleLazy 'unc0/vim-gorilla-script', {
 \       'filetypes' : [ "gorilla" ]
 \   }
 \}
-"let s:bundle = neobundle#get("vim-gorilla-script")
-"function! s:bundle.hooks.on_source(bundle)
-"  let g:neosnippet#snippets_directory = '~/vimfiles/bundle/neobundle/snipmate-snippets/snippets'
-"endfunction
-"unlet s:bundle
-"
-"" Plugin key-mappings.
-"nmap <C-a>     <Plug>()
+
+"*****************
+"* vim-indent-guides
+"*****************
+NeoBundle 'nathanaelkane/vim-indent-guides', {
+\   'autoload' : { 
+\       'commands' : [ "IndentGuidesToggle", 
+\                      "IndentGuidesEnable", 
+\                      "IndentGuidesDisable" ],
+\   }
+\}
+let s:bundle = neobundle#get("vim-indent-guides")
+function! s:bundle.hooks.on_source(bundle)
+  "let g:indent_guides_enable_on_vim_startup = 1
+  let g:indent_guides_start_level = 2
+  "let g:indent_guides_auto_colors = 0
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green
+  let g:indent_guides_color_change_percent = 20
+  let g:indent_guides_guide_size = 1
+  let g:indent_guides_exclude_filetypes = [ 'help', 'vimfiler' ]
+endfunction
+unlet s:bundle
+
+" Plugin key-mappings.
+nnoremap <silent> ,gt :<C-u>IndentGuidesToggle<CR>
 
 "*****************
 "* plugin neobundle setting templete
