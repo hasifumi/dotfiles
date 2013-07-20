@@ -16,9 +16,13 @@ set nobackup
 "set lines=60 columns=140
 set nocompatible
 inoremap <silent> jj <ESC>
-set wildmode=longest:full,full
+"set wildmode=longest:full,full
+set wildmenu
 "set wildmode=list,full
 set noswapfile
+set ttyfast
+set cursorline
+
  
 "*****************
 "  colorscheme
@@ -132,8 +136,29 @@ set guioptions-=T
 set nocompatible
 filetype plugin indent off
 
+let s:is_windows  = has('win32') || has('win64')
+let s:is_cygwin = has('win32unix')
+
+" neobundle auto install, but never tested!!
+"if s:is_windows
+"  let s:vimdot = '~/vimfiles'
+"else
+"  let s:vimdot = '~.vim'
+"endif
+"if !isdirectory(s:vimdot . '/bundle/neobundle/neobundle.vim')
+"  if !isdirectory(s:vimdot . '/bundle')
+"    execute '!mkdir bundle'
+"    execute '!cd bundle'
+"    execute '!mkdir neobundle'
+"    execute '!cd neobundle'
+"    execute '!git clone https://github.com/Shougo/neobundle.vim.git'
+"    execute 'set &runtimepath += ' . s:vimdot . '/bundle/neobundle/neobundle.vim'
+"  endif
+"endif
+
 if has('vim_starting')
-  if has('win32') || has('win64')
+  "if has('win32') || has('win64')
+  if s:is_windows
     set runtimepath+=~/vimfiles/bundle/neobundle/neobundle.vim/
 	  call neobundle#rc(expand('~/vimfiles/bundle/neobundle'))
   else
@@ -144,7 +169,15 @@ endif
 
 NeoBundle	'Shougo/neobundle.vim'
 NeoBundle	'Shougo/neocomplcache'
-NeoBundle	'Shougo/vimproc'
+"NeoBundle	'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc', {
+  \ 'build' : {
+    \ 'cygwin' : 'make -f make_cygwin.mak',
+    \ 'mac' : 'make -f make_mac.mak',
+    \ 'unix' : 'make -f make_unix.mak',
+  \ },
+\ }
+    "\ 'windows' : 'make -f make_mingw32.mak',
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kana/vim-smartchr'
 NeoBundle 'vim-jp/vimdoc-ja'
@@ -169,9 +202,9 @@ NeoBundleLazy 'tsukkee/unite-help'
 NeoBundleLazy 'ujihisa/unite-colorscheme'
 NeoBundleLazy 'h1mesuke/unite-outline'
 NeoBundleLazy 'kmnk/vim-unite-giti'
-NeoBundleLazy 'thinca/vim-unite-history'
 NeoBundleLazy 'hakobe/unite-script'
 NeoBundleLazy 'tacroe/unite-mark'
+NeoBundle 'thinca/vim-unite-history'
 NeoBundleLazy	'honza/snipmate-snippets'
 NeoBundleLazy 'thinca/vim-quickrun'
 NeoBundleLazy 'tpope/vim-fugitive'
@@ -215,6 +248,8 @@ NeoBundleLazy 'nanotech/jellybeans.vim'
 NeoBundle 'ctrlp.vim'
 "NeoBundle 'yuratomo/w3m.vim'
 NeoBundle 'hasifumi/eclim_java_complete.vim'
+NeoBundleLazy 'jpo/vim-railscasts-theme'
+NeoBundleLazy 'vim-scripts/candy.vim'
 
 "filetype plugin indent on
 
@@ -255,7 +290,7 @@ NeoBundleLazy 'Shougo/vimshell', {
 let s:bundle = neobundle#get("vimshell")
 function! s:bundle.hooks.on_source(bundle)
   "let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-  let g:vimshell_user_prompt = 'getcwd()'
+  "let g:vimshell_user_prompt = 'getcwd()'
   "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
   let g:vimshell_enable_smart_case = 1
   let g:neocomplcache_max_list = 50
@@ -263,11 +298,18 @@ function! s:bundle.hooks.on_source(bundle)
   
   if has('win32') || has('win64')
     " Display user name on Windows.
-    let g:vimshell_prompt = $USERNAME."% "
+    "let g:vimshell_prompt = $USERNAME."% "
+    let g:user_name = $USERNAME
   else
     " Display user name on Linux.
-    let g:vimshell_prompt = $USER."% "
+    "let g:vimshell_prompt = $USER."% "
+    let g:user_name = $USER
   endif
+
+  let g:vimshell_prompt_expr = 'fnamemodify(getcwd(), ":~")."> "'
+  let g:vimshell_prompt_pattern = '^\f\+> '
+  "let g:vimshell_prompt_expr = 'fnamemodify(getcwd(), ":~"). "@" . g:user_name . "> "'
+  "let g:vimshell_prompt_pattern = '^.\+> '
   
   " Initialize execute file list.
   let g:vimshell_execute_file_list = {}
@@ -366,7 +408,6 @@ function! s:bundle.hooks.on_source(bundle)
   " インサートモードで開始しない
   let g:unite_enable_start_insert = 1
   "let g:unite_source_history_yank_enable = 1
-	call unite#set_substitute_pattern('test', '^;v', '~/vimfiles')
 
   " Unite menu
   if !exists("g:unite_source_menu_menus")
@@ -422,7 +463,11 @@ nnoremap <silent> ,unb  :<C-u>Unite neobundle<CR>
 " menu
 nnoremap <silent> ,um :<C-u>Unite menu:shortcut<CR>
 " history/yank 
-nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
+nnoremap <silent> ,uhy :<C-u>Unite history/yank<CR>
+" history/command
+nnoremap <silent> ,uhc :<C-u>Unite history/command<CR>
+" history/search
+nnoremap <silent> ,uhs :<C-u>Unite history/search<CR>
 
 " unite_my_settings
 autocmd FileType unite call s:unite_my_settings()
@@ -444,7 +489,6 @@ inoremap <buffer><expr> <C-l> unite#start_complete(
   \ 'start_insert' : 1,
   \ 'input' : vimshell#get_cur_text()})
 
-call unite#set_substitute_pattern('test', '^;v', '~/vimfiles')
 
 "*****************
 "* neosnippet
@@ -542,6 +586,7 @@ function! MyOpenBrowserSearch()
   execute ":VimProcBang start 'http://www.google.co.jp/search?q=" . expand('<cWORD>') . "'"
 endfunction
 command! MyOpenBrowser :call MyOpenBrowser()<CR>
+command! MyOpenBrowserSearch :call MyOpenBrowser()<CR>
 nnoremap mob :call MyOpenBrowser()<CR>
 nnoremap mobs :call MyOpenBrowserSearch()<CR>
 
@@ -716,7 +761,6 @@ function! s:bundle.hooks.on_source(bundle)
 endfunction
 unlet s:bundle
 
-
 "*****************
 "* syntastic
 "*****************
@@ -769,6 +813,34 @@ unlet s:bundle
 " Plugin key-mappings.
 nnoremap <silent> ,gt :<C-u>IndentGuidesToggle<CR>
 
+"*****************
+"* vim-hier
+"*****************
+NeoBundleLazy 'jceb/vim-hier', {
+\   'autoload' : { 
+\       'commands' : [ "HierUpdate", 
+\                      "HierClear" ],
+\   }
+\}
+let s:bundle = neobundle#get("vim-hier")
+function! s:bundle.hooks.on_source(bundle)
+  "execute "highlight ucurl_my gui=undercurl guisp=Red"
+  execute "highlight ucurl_my gui=italic guisp=Red"
+  let g:hier_highlight_group_qf = "ucurl_my"
+endfunction
+unlet s:bundle
+
+"*****************
+"* quickfixstatus
+"*****************
+NeoBundleLazy 'dannyob/quickfixstatus', {
+\   'autoload' : { 
+\       'commands' : [ "QuickfixStatusEnable", 
+\                      "QuickfixStatusDisable" ],
+\   }
+\}
+
+NeoBundle 'ujihisa/vimshell-ssh'
 "*****************
 "* plugin neobundle setting templete
 "*****************
