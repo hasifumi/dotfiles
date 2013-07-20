@@ -22,7 +22,7 @@ set wildmenu
 set noswapfile
 set ttyfast
 set cursorline
-
+set fileformat=unix
  
 "*****************
 "  colorscheme
