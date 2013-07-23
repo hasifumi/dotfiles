@@ -23,6 +23,8 @@ set noswapfile
 set ttyfast
 set cursorline
 set fileformat=unix
+nmap ,zz :<C-u>set scrolloff=999<CR>
+nmap ,zzf :<C-u>set scrolloff=0<CR>
  
 "*****************
 "  colorscheme
@@ -62,6 +64,9 @@ nnoremap <silent> tbp :<C-u>tabprevious<CR>
 nnoremap <silent> tbl :<C-u>tabprevious<CR>
 nnoremap <silent> tbk :<C-u>tabprevious<CR>
 nnoremap <silent> tbe :<C-u>tabedit<CR>
+nnoremap <C-l> :<C-u>tabnext<CR>
+nnoremap <C-h> :<C-u>tabprevious<CR>
+nnoremap <C-t> :<C-u>tabedit<CR>
 
 "*****************
 "  tag
@@ -96,8 +101,8 @@ autocmd FileType coffee set foldmethod=marker
 "*****************
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-nnoremap <C-h> <C-w>h
+"nnoremap <C-l> <C-w>l
+"nnoremap <C-h> <C-w>h
 
 "*****************
 "  Motion(Insert-Mode)
@@ -147,17 +152,15 @@ let s:is_cygwin = has('win32unix')
 "endif
 "if !isdirectory(s:vimdot . '/bundle/neobundle/neobundle.vim')
 "  if !isdirectory(s:vimdot . '/bundle')
-"    execute '!mkdir bundle'
-"    execute '!cd bundle'
-"    execute '!mkdir neobundle'
-"    execute '!cd neobundle'
+"    execute '!mkdir -p bundle/neobundle'
+"    execute '!cd bundle/neobundle'
 "    execute '!git clone https://github.com/Shougo/neobundle.vim.git'
 "    execute 'set &runtimepath += ' . s:vimdot . '/bundle/neobundle/neobundle.vim'
 "  endif
 "endif
 
 if has('vim_starting')
-  "if has('win32') || has('win64')
+  ""if has('win32') || has('win64')
   if s:is_windows
     set runtimepath+=~/vimfiles/bundle/neobundle/neobundle.vim/
 	  call neobundle#rc(expand('~/vimfiles/bundle/neobundle'))
@@ -165,6 +168,14 @@ if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle/neobundle.vim/
 	  call neobundle#rc(expand('~/.vim/bundle/neobundle'))
   endif
+  "if s:is_windows
+  "  let s:vimdot = '~/vimfiles'
+  "else
+  "  let s:vimdot = '~.vim'
+  "endif
+  "echo "s:vimdot = " . s:vimdot
+  "execute 'set runtimepath+='. s:vimdot . '/bundle/neobundle/neobundle.vim/'
+  "execute "call neobundle#rc(expand('" . s:vimdot . "/bundle/neobundl'))"
 endif
 
 NeoBundle	'Shougo/neobundle.vim'
@@ -313,7 +324,7 @@ function! s:bundle.hooks.on_source(bundle)
   
   " Initialize execute file list.
   let g:vimshell_execute_file_list = {}
-  call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
+  "call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
   let g:vimshell_execute_file_list['rb'] = 'ruby'
   let g:vimshell_execute_file_list['pl'] = 'perl'
   let g:vimshell_execute_file_list['py'] = 'python'
