@@ -7,7 +7,15 @@ Cells
 Integer
 Long
 String
+Date
+Boolean
 Sub
+Exit
 Function
 Option
 Explicit
+Msgbox
+InStr
+Left
+Mid
+Right

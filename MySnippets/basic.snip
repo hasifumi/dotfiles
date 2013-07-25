@@ -1,3 +1,101 @@
+# Dim
+snippet     dim
+abbr        Dim .. As ..
+options     head
+  Dim ${1}  As ${2}
+
+# Dim Integer
+snippet     dimInteger
+abbr        Dim .. As Integer
+options     head
+  Dim ${1}  As Integer
+
+# Dim Long
+snippet     dimLong
+abbr        Dim .. As Long
+options     head
+  Dim ${1}  As Long
+
+# Dim String
+snippet     dimString
+abbr        Dim .. As String
+options     head
+  Dim ${1}  As String
+
+# Dim Workbook
+snippet     dimWorkbook
+abbr        Dim .. As Workbook
+options     head
+  Dim ${1}  As Workbook
+
+# Dim Worksheet
+snippet     dimWorksheet
+abbr        Dim .. As Worksheet
+options     head
+  Dim ${1}  As Worksheet
+
+# Const
+snippet     const
+abbr        Const .. As .. = ..
+options     head
+  Const cns${1}  As ${2} = ${3}
+
+# Const Long
+snippet     constLong
+abbr        Const .. As Long = ..
+options     head
+  Const cns${1}  As Long = ${2}
+
+# Const String
+snippet     constString
+abbr        Const .. As String = ".."
+options     head
+  Const cns${1}  As String = "${2}"
+
+# Const CellName
+snippet     constCellName
+abbr        Const .. As String = "cns..cell"
+options     head
+  Const cns${1}cell  As String = "cns${2}cell"
+
+# If .. Then .. End If
+snippet     ifThen
+abbr        If .. Then .. End If
+options     head
+  If ${1} Then
+    ${2}
+  End If
+
+# If .. Then .. Else .. End If
+snippet     ifThenElse
+abbr        If .. Then .. Else .. End If
+options     head
+  If ${1} Then
+    ${2}
+  Else
+    ${3}
+  End If
+
+# Do While .. Loop
+snippet     doWhile
+abbr        Do While .. Loop
+options     head
+  Dim ${1} = 0
+  Do While ${2}
+    ${3}
+    ${1} = ${1} + 1
+  Loop
+
+
+# For .. Next
+snippet     forNext
+abbr        For i = 0 .. Next
+options     head
+  Dim ${1}
+  For ${1} = 0 To ${2}
+    ${3}
+  Next ${1}
+
 # Sub
 snippet     sub
 abbr        Sub .. End Sub
@@ -6,10 +104,22 @@ options     head
     ${3} 
   End Sub
 
-# Dim
-snippet     dim
-abbr        Dim .. as ..
+# Function
+snippet     function
+abbr        Function() .. End Function
 options     head
-  Dim ${1}  as ${2}
+  Function ${1}(${2} As ${3}, ${4} As ${5}) As ${6}
+    Dim ${7} As ${6}
+    ${8}
+    ${1} = $[7}
+  End Function
 
+# OnError
+snippet     onError
+abbr        On Error Goto ..
+options     head
+  On Error Goto ${1}
+
+  ${1}:
+    Msgbox "${2}: " & ${2}
 
