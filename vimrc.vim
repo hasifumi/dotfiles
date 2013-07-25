@@ -275,7 +275,8 @@ let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default' : '',
     \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
+    \ 'scheme' : $HOME.'/.gosh_completions',
+    \ 'basic' : $HOME.'/dotfiles/MyDict/basic.dict',
     \ }
 "let g:neocomplcache_force_overwrite_completefunc = 1
 
@@ -504,7 +505,8 @@ inoremap <buffer><expr> <C-l> unite#start_complete(
 "*****************
 "* neosnippet
 "*****************
-NeoBundleLazy 'Shougo/neosnippet', {
+"NeoBundleLazy 'Shougo/neosnippet', {
+NeoBundle 'Shougo/neosnippet', {
 \   'autoload' : { 
 \       'functions' : [ "neosnippet#expandable", "neosnippet#jumpable" ],
 \       'mappings' : [ "<Plug>(neosnippet_expand_or_jump)", 
@@ -515,7 +517,7 @@ NeoBundleLazy 'Shougo/neosnippet', {
 \}
 let s:bundle = neobundle#get("neosnippet")
 function! s:bundle.hooks.on_source(bundle)
-  let g:neosnippet#snippets_directory = '~/vimfiles/bundle/neobundle/snipmate-snippets/snippets'
+  let g:neosnippet#snippets_directory = '~/vimfiles/bundle/neobundle/snipmate-snippets/snippets, ~/dotfiles/MySnippets'
 endfunction
 unlet s:bundle
 
