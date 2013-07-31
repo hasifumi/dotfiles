@@ -218,7 +218,6 @@ NeoBundleLazy 'tacroe/unite-mark'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundleLazy	'honza/snipmate-snippets'
 NeoBundleLazy 'thinca/vim-quickrun'
-NeoBundleLazy 'tpope/vim-fugitive'
 NeoBundleLazy 'kchmck/vim-coffee-script', {
 \ 'autoload' : {
 \     'filetypes' : ['coffee'],
@@ -854,6 +853,18 @@ NeoBundleLazy 'dannyob/quickfixstatus', {
 \}
 
 NeoBundle 'ujihisa/vimshell-ssh'
+
+NeoBundle 'tpope/vim-fugitive'
+" Plugin key-mappings.
+nmap ,gs :<C-u>Gstatus<CR>
+nmap ,gl :<C-u>Glog<CR>
+nmap ,gd :<C-u>Gdiff<CR>
+nmap ,gc :<C-u>Gcommit<CR>
+nmap ,gb :<C-u>Gblame<CR>
+
+NeoBundle 'yomi322/vim-gitcomplete'
+
+
 "*****************
 "* plugin neobundle setting templete
 "*****************
