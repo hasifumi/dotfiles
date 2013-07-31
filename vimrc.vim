@@ -863,6 +863,7 @@ nmap ,gc :<C-u>Gcommit<CR>
 nmap ,gb :<C-u>Gblame<CR>
 
 NeoBundle 'yomi322/vim-gitcomplete'
+NeoBundle 'bling/vim-airline'
 
 
 "*****************
