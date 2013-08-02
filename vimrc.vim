@@ -25,6 +25,7 @@ set cursorline
 set fileformat=unix
 nmap ,zz :<C-u>set scrolloff=999<CR>
 nmap ,zzf :<C-u>set scrolloff=0<CR>
+set shellslash
  
 "*****************
 "  colorscheme
@@ -93,8 +94,13 @@ nnoremap <silent> tgl :<C-u>tags<CR>
 "*****************
 "  Folding
 "*****************
-autocmd FileType javascript set foldmethod=marker
-autocmd FileType coffee set foldmethod=marker
+autocmd FileType javascript setlocal foldmethod=marker
+autocmd FileType coffee setlocal foldmethod=marker
+
+"*****************
+"  Syntax
+"*****************
+autocmd FileType basic setlocal filetype=vb
 
 "*****************
 "  Window  
@@ -256,11 +262,12 @@ NeoBundleLazy 'dmitry-ilyashevich/vim-typescript'
 NeoBundle 'hasifumi/typescript-tools'
 NeoBundle 'hasifumi/typescript_completion.vim'
 NeoBundleLazy 'nanotech/jellybeans.vim'
-NeoBundle 'ctrlp.vim'
-"NeoBundle 'yuratomo/w3m.vim'
-NeoBundle 'hasifumi/eclim_java_complete.vim'
-NeoBundleLazy 'jpo/vim-railscasts-theme'
-NeoBundleLazy 'vim-scripts/candy.vim'
+" temporary exclusive
+"NeoBundle 'ctrlp.vim'
+""NeoBundle 'yuratomo/w3m.vim'
+"NeoBundle 'hasifumi/eclim_java_complete.vim'
+"NeoBundleLazy 'jpo/vim-railscasts-theme'
+"NeoBundleLazy 'vim-scripts/candy.vim'
 
 "filetype plugin indent on
 
@@ -528,8 +535,11 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
 
 " SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ?
- \ "\<Plug>(neosnippet_expand_or_jump)"
+"imap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)"
+" \: pumvisible() ? "\<C-n>" : "\<TAB>"
+imap <expr><TAB> neosnippet#jumpable() ?
+ \ "\<Plug>(neosnippet_jump)"
  \: pumvisible() ? "\<C-n>" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ?
  \ "\<Plug>(neosnippet_expand_or_jump)"
@@ -880,5 +890,6 @@ NeoBundle 'ujihisa/vimshell-ssh'
 "" Plugin key-mappings.
 "nmap <C-a>     <Plug>()
 "
+NeoBundle 'hasifumi/excel_vba_complete.vim'
 
 filetype plugin indent on
