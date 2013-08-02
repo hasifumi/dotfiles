@@ -224,7 +224,6 @@ NeoBundleLazy 'tacroe/unite-mark'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundleLazy	'honza/snipmate-snippets'
 NeoBundleLazy 'thinca/vim-quickrun'
-NeoBundleLazy 'tpope/vim-fugitive'
 NeoBundleLazy 'kchmck/vim-coffee-script', {
 \ 'autoload' : {
 \     'filetypes' : ['coffee'],
@@ -259,15 +258,14 @@ NeoBundleLazy 'hrsh7th/vim-versions'
 "NeoBundleLazy 'git://github.com/tpope/vim-pathogen.git'
 NeoBundleLazy 'dmitry-ilyashevich/vim-typescript'
 "NeoBundle'clausreinke/typescript-tools'
-NeoBundle 'hasifumi/typescript-tools'
-NeoBundle 'hasifumi/typescript_completion.vim'
+NeoBundleLazy 'hasifumi/typescript-tools'
+NeoBundleLazy 'hasifumi/typescript_completion.vim'
 NeoBundleLazy 'nanotech/jellybeans.vim'
-" temporary exclusive
-"NeoBundle 'ctrlp.vim'
-""NeoBundle 'yuratomo/w3m.vim'
-"NeoBundle 'hasifumi/eclim_java_complete.vim'
-"NeoBundleLazy 'jpo/vim-railscasts-theme'
-"NeoBundleLazy 'vim-scripts/candy.vim'
+NeoBundle 'ctrlp.vim'
+NeoBundleLazy 'yuratomo/w3m.vim'
+NeoBundleLazy 'hasifumi/eclim_java_complete.vim'
+NeoBundleLazy 'jpo/vim-railscasts-theme'
+NeoBundleLazy 'vim-scripts/candy.vim'
 
 "filetype plugin indent on
 
@@ -864,6 +862,19 @@ NeoBundleLazy 'dannyob/quickfixstatus', {
 \}
 
 NeoBundle 'ujihisa/vimshell-ssh'
+
+NeoBundle 'tpope/vim-fugitive'
+" Plugin key-mappings.
+nmap ,gs :<C-u>Gstatus<CR>
+nmap ,gl :<C-u>Glog<CR>
+nmap ,gd :<C-u>Gdiff<CR>
+nmap ,gc :<C-u>Gcommit<CR>
+nmap ,gb :<C-u>Gblame<CR>
+
+NeoBundle 'yomi322/vim-gitcomplete'
+NeoBundle 'bling/vim-airline'
+
+
 "*****************
 "* plugin neobundle setting templete
 "*****************
