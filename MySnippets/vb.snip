@@ -56,7 +56,7 @@ options     head
 snippet     constCellName
 abbr        Const .. As String = "cns..cell"
 options     head
-  Const cns${1}cell  As String = "cns${2}cell"
+  Const cns${1}cell  As String = "cns$1cell"${2}
 
 # If .. Then .. End If
 snippet     ifThen
@@ -83,7 +83,7 @@ options     head
   Dim ${1} = 0
   Do While ${2}
     ${3}
-    ${1} = ${1} + 1
+    $1 = $1 + 1
   Loop
 
 
@@ -92,9 +92,9 @@ snippet     forNext
 abbr        For i = 0 .. Next
 options     head
   Dim ${1}
-  For ${1} = 0 To ${2}
+  For $1 = 0 To ${2}
     ${3}
-  Next ${1}
+  Next $1
 
 # Sub
 snippet     sub
@@ -108,10 +108,10 @@ options     head
 snippet     function
 abbr        Function() .. End Function
 options     head
-  Function ${1}(${2} As ${3}, ${4} As ${5}) As ${6}
-    Dim ${7} As ${6}
-    ${8}
-    ${1} = $[7}
+  Function ${1}(${2} As ${3} As ${4}
+    Dim ${5} As $4
+    ${6}
+    $1 = $5
   End Function
 
 # OnError
@@ -120,6 +120,6 @@ abbr        On Error Goto ..
 options     head
   On Error Goto ${1}
 
-  ${1}:
-    Msgbox "${2}: " & ${2}
+  $1:
+    Msgbox "${2}: " & $2
 
