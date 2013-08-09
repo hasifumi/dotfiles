@@ -40,7 +40,7 @@ set helplang=ja
 "*****************
 nnoremap <C-l> :<C-u>tabnext<CR>
 nnoremap <C-h> :<C-u>tabprevious<CR>
-nnoremap <C-t> :<C-u>tabedit<CR>
+"nnoremap <C-t> :<C-u>tabedit<CR>
 
 "*****************
 "  Clipboard

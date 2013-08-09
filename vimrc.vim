@@ -100,7 +100,7 @@ autocmd FileType coffee setlocal foldmethod=marker
 "*****************
 "  Syntax
 "*****************
-autocmd FileType basic setlocal filetype=vb
+autocmd FileType basic,st setlocal filetype=vb
 
 "*****************
 "  Window  
@@ -583,6 +583,13 @@ unlet s:bundle
  
 nmap <Leader>rj :<C-u>Ref webdict je<Space>
 nmap <Leader>re :<C-u>Ref webdict ej<Space>
+nmap ,re :<C-u>execute "Ref webdict ej " . expand('<cword>')
+"nmap ,re :call s:ref_ej()
+
+function! s:ref_ej()
+  s:str = expand('<cword>')
+  execute "Ref webdict ej " . s:str
+endfunction
 
 "*****************
 "* echodoc
