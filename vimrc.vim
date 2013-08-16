@@ -926,4 +926,7 @@ NeoBundle 'yomi322/vim-gitcomplete'
 "
 NeoBundle 'hasifumi/excel_vba_complete.vim'
 
+map <F11>  :sp tags<CR>:%s/^\([^     :]*:\)\=\([^    ]*\).*/syntax keyword Tag \2/<CR>:wq! tags.vim<CR>/^<CR><F12>
+map <F12>  :so tags.vim<CR>
+
 filetype plugin indent on
