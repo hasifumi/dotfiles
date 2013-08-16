@@ -899,25 +899,6 @@ nmap ,gb :<C-u>Gblame<CR>
 NeoBundle 'yomi322/vim-gitcomplete'
 
 "*****************
-""* plugin neobundle setting templete
-""*****************
-"NeoBundleLazy 'szw/vim-tags', {
-"\   'autoload' : { 
-"\       'commands' : [ "TagsGenerate" ]
-"\   }
-"\}
-"let s:bundle = neobundle#get("vim-tags")
-"function! s:bundle.hooks.on_source(bundle)
-"  "let g:neosnippet#snippets_directory = '~/vimfiles/bundle/neobundle/snipmate-snippets/snippets'
-"  let g:vim_tags_project_tags_command = "ctags -R"
-"endfunction
-"unlet s:bundle
-"
-"" Plugin key-mappings.
-"nmap ,vtg  :TagsGenerate<CR>
-"nnoremap <C-]> g<C-]>
-
-"*****************
 "* plugin neobundle setting templete
 "*****************
 "NeoBundle 'xxx/yyyy'
