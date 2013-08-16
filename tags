@@ -1,0 +1,120 @@
+!_TAG_FILE_ENCODING	cp932	//
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_JP_AUTHOR	HIGASHI Hirohito	/Twitter: @h_east/
+!_TAG_PROGRAM_JP_URL	http://hp.vector.co.jp/authors/VA025040/	//
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8J2	//
+,gb	vimrc.vim	/^nmap ,gb :<C-u>Gblame<CR>$/;"	m
+,gc	vimrc.vim	/^nmap ,gc :<C-u>Gcommit<CR>$/;"	m
+,gd	vimrc.vim	/^nmap ,gd :<C-u>Gdiff<CR>$/;"	m
+,gl	vimrc.vim	/^nmap ,gl :<C-u>Glog<CR>$/;"	m
+,gs	vimrc.vim	/^nmap ,gs :<C-u>Gstatus<CR>$/;"	m
+,gt	vimrc.vim	/^nnoremap <silent> ,gt :<C-u>IndentGuidesToggle<CR>$/;"	m
+,re	vimrc.vim	/^nmap ,re :<C-u>execute "Ref webdict ej " . expand('<cword>')$/;"	m
+,ss	vimrc.vim	/^nmap ,ss    :ShaberuSay `=expand(("%")` <CR>$/;"	m
+,ua	vimrc.vim	/^nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>$/;"	m
+,ub	vimrc.vim	/^nnoremap <silent> ,ub :<C-u>Unite buffer<CR>$/;"	m
+,uc	vimrc.vim	/^nnoremap <silent> ,uc :<C-u>Unite bookmark<CR>$/;"	m
+,uf	vimrc.vim	/^nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>$/;"	m
+,uhc	vimrc.vim	/^nnoremap <silent> ,uhc :<C-u>Unite history\/command<CR>$/;"	m
+,uhs	vimrc.vim	/^nnoremap <silent> ,uhs :<C-u>Unite history\/search<CR>$/;"	m
+,uhy	vimrc.vim	/^nnoremap <silent> ,uhy :<C-u>Unite history\/yank<CR>$/;"	m
+,um	vimrc.vim	/^nnoremap <silent> ,um :<C-u>Unite menu:shortcut<CR>$/;"	m
+,unb	vimrc.vim	/^nnoremap <silent> ,unb  :<C-u>Unite neobundle<CR>$/;"	m
+,ur	vimrc.vim	/^nnoremap <silent> ,ur :<C-u>Unite file_mru<CR>$/;"	m
+,us	vimrc.vim	/^nnoremap <silent> ,us  :<C-u>Unite snippet<CR>$/;"	m
+,utb	vimrc.vim	/^nnoremap <silent> ,utb :<C-u>Unite tab<CR>$/;"	m
+,utg	vimrc.vim	/^nnoremap <silent> ,utg :<C-u>Unite tag<CR>$/;"	m
+,uu	vimrc.vim	/^nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>$/;"	m
+,vf	vimrc.vim	/^nnoremap <silent> ,vf :VimFiler -simple -winwidth=65 -no-quit<CR>$/;"	m
+,vs	vimrc.vim	/^nnoremap <silent> ,vs :VimShell<CR>$/;"	m
+,vsp	vimrc.vim	/^nnoremap <silent> ,vsp :VimShellPop<CR>$/;"	m
+,vtg	vimrc.vim	/^nmap ,vtg  :TagsGenerate<CR>$/;"	m
+,zz	vimrc.vim	/^nmap ,zz :<C-u>set scrolloff=999<CR>$/;"	m
+,zzf	vimrc.vim	/^nmap ,zzf :<C-u>set scrolloff=0<CR>$/;"	m
+<BS>	vimrc.vim	/^inoremap <expr><BS>   neocomplcache#smart_close_popup()."\\<C-h>"$/;"	m
+<C-F3>	vimrc.vim	/^nmap <C-F3>  :call visualmark#Vm_goto_prev_sign()<CR>$/;"	m
+<C-]>	vimrc.vim	/^nnoremap <C-]> g<C-]>$/;"	m
+<C-e>	vimrc.vim	/^inoremap <expr><C-e>  neocomplcache#cancel_popup()$/;"	m
+<C-h>	vimrc.vim	/^nnoremap <C-h> :<C-u>tabprevious<CR>$/;"	m
+<C-i>	vimrc.vim	/^nnoremap <C-i> :<C-u>help<Space><C-r><C-w><CR>$/;"	m
+<C-j>	vimrc.vim	/^nnoremap <C-j> <C-w>j$/;"	m
+<C-k>	vimrc.vim	/^imap <C-k>     <Plug>(neosnippet_expand_or_jump)$/;"	m
+<C-k>	vimrc.vim	/^nnoremap <C-k> <C-w>k$/;"	m
+<C-l>	vimrc.vim	/^inoremap <buffer><expr> <C-l> unite#start_complete($/;"	m
+<C-l>	vimrc.vim	/^inoremap <expr><C-l>  neocomplcache#complete_common_string()$/;"	m
+<C-l>	vimrc.vim	/^nnoremap <C-l> :<C-u>tabnext<CR>$/;"	m
+<C-t>	vimrc.vim	/^nnoremap <C-t> :<C-u>tabedit<CR>$/;"	m
+<C-u>	vimrc.vim	/^imap <C-u> <Plug>(neocomplcache_start_unite_quick_match)$/;"	m
+<C-y>	vimrc.vim	/^imap <C-y> <Plug>(neocomplcache_start_unite_complete)$/;"	m
+<C-y>	vimrc.vim	/^inoremap <expr><C-y>  neocomplcache#close_popup()$/;"	m
+<Esc><Esc>	vimrc.vim	/^nmap <Esc><Esc> :noh<CR>$/;"	m
+<F2>	vimrc.vim	/^nmap <F2>    :call visualmark#Vm_toggle_sign()<CR>$/;"	m
+<F3>	vimrc.vim	/^nmap <F3>    :call visualmark#Vm_goto_next_sign()<CR>$/;"	m
+<F5>	vimrc.vim	/^nnoremap <F5> <CR>q:$/;"	m
+<F6>	vimrc.vim	/^nnoremap <F6> <CR>q\/$/;"	m
+<F8>	vimrc.vim	/^nmap <F8>  :TagbarToggle<CR>$/;"	m
+<Leader>aa	vimrc.vim	/^nnoremap <Leader>aa :source `=expand("%")`<CR>$/;"	m
+<Leader>re	vimrc.vim	/^nmap <Leader>re :<C-u>Ref webdict ej<Space>$/;"	m
+<Leader>rj	vimrc.vim	/^nmap <Leader>rj :<C-u>Ref webdict je<Space>$/;"	m
+<TAB>	vimrc.vim	/^imap <expr><TAB> neosnippet#jumpable() ?$/;"	m
+<TAB>	vimrc.vim	/^inoremap <expr><TAB>  pumvisible() ? "\\<C-n>" : "\\<TAB>"$/;"	m
+EclimShutdown	vimrc.vim	/^command! EclimShutdown :ShutdownEclim$/;"	c
+EclimStart	vimrc.vim	/^command! EclimStart :call vimproc#system_bg('c:\/\/eclipse\/\/eclimd.bat')$/;"	c
+Is_Android	vimrc.vim	/^function! Is_Android()$/;"	f
+MyOpenBrowser	vimrc.vim	/^command! MyOpenBrowser :call MyOpenBrowser()<CR>$/;"	c
+MyOpenBrowser	vimrc.vim	/^function! MyOpenBrowser()$/;"	f
+MyOpenBrowserOpen	vimrc.vim	/^function! MyOpenBrowserOpen(url)$/;"	f
+MyOpenBrowserSearch	vimrc.vim	/^command! MyOpenBrowserSearch :call MyOpenBrowser()<CR>$/;"	c
+MyOpenBrowserSearch	vimrc.vim	/^function! MyOpenBrowserSearch()$/;"	f
+bundle.hooks.on_source	vimrc.vim	/^function! s:bundle.hooks.on_source(bundle)$/;"	f
+g:EasyMotion_grouping	vimrc.vim	/^let g:EasyMotion_grouping=1$/;"	v
+g:EasyMotion_keys	vimrc.vim	/^let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'$/;"	v
+g:EasyMotion_leader_key	vimrc.vim	/^let g:EasyMotion_leader_key=";"$/;"	v
+g:neocomplcache_dictionary_filetype_lists	vimrc.vim	/^let g:neocomplcache_dictionary_filetype_lists = {$/;"	v
+g:neocomplcache_enable_at_startup	vimrc.vim	/^let g:neocomplcache_enable_at_startup = 1$/;"	v
+g:neocomplcache_min_syntax_length	vimrc.vim	/^let g:neocomplcache_min_syntax_length = 3$/;"	v
+g:netrw_nogx	vimrc.vim	/^let g:netrw_nogx = 1 " disable netrw's gx mapping.$/;"	v
+g:unite_source_history_yank_enable	vimrc.vim	/^let g:unite_source_history_yank_enable = 1$/;"	v
+g:unite_source_menu_menus	vimrc.vim	/^  let g:unite_source_menu_menus["shortcut"] = deepcopy(s:commands)$/;"	v
+gx	vimrc.vim	/^nmap gx <Plug>(openbrowser-smart-search)$/;"	m
+gx	vimrc.vim	/^vmap gx <Plug>(openbrowser-smart-search)$/;"	m
+jj	vimrc.vim	/^inoremap <silent> jj <ESC>$/;"	m
+mob	vimrc.vim	/^nnoremap mob :call MyOpenBrowser()<CR>$/;"	m
+mobs	vimrc.vim	/^nnoremap mobs :call MyOpenBrowserSearch()<CR>$/;"	m
+nce	vimrc.vim	/^nnoremap nce  :<C-u>NeoComplCacheEnable<CR>$/;"	m
+q/	vimrc.vim	/^nnoremap q\/ <NOP>$/;"	m
+q:	vimrc.vim	/^nnoremap q: <NOP>$/;"	m
+q?	vimrc.vim	/^nnoremap q? <NOP>$/;"	m
+ref_ej	vimrc.vim	/^function! s:ref_ej()$/;"	f
+s:bundle	vimrc.vim	/^let s:bundle = neobundle#get("dbg.vim")$/;"	v
+s:bundle	vimrc.vim	/^let s:bundle = neobundle#get("neosnippet")$/;"	v
+s:bundle	vimrc.vim	/^let s:bundle = neobundle#get("syntastic")$/;"	v
+s:bundle	vimrc.vim	/^let s:bundle = neobundle#get("tagbar")$/;"	v
+s:bundle	vimrc.vim	/^let s:bundle = neobundle#get("unite.vim")$/;"	v
+s:bundle	vimrc.vim	/^let s:bundle = neobundle#get("vim-hier")$/;"	v
+s:bundle	vimrc.vim	/^let s:bundle = neobundle#get("vim-indent-guides")$/;"	v
+s:bundle	vimrc.vim	/^let s:bundle = neobundle#get("vim-ref")$/;"	v
+s:bundle	vimrc.vim	/^let s:bundle = neobundle#get("vim-tags")$/;"	v
+s:bundle	vimrc.vim	/^let s:bundle = neobundle#get("vimfiler")$/;"	v
+s:bundle	vimrc.vim	/^let s:bundle = neobundle#get("vimshell")$/;"	v
+s:bundle	vimrc.vim	/^let s:bundle = neobundle#get("visualmark")$/;"	v
+s:is_cygwin	vimrc.vim	/^let s:is_cygwin = has('win32unix')$/;"	v
+s:is_windows	vimrc.vim	/^let s:is_windows  = has('win32') || has('win64')$/;"	v
+tbe	vimrc.vim	/^nnoremap <silent> tbe :<C-u>tabedit<CR>$/;"	m
+tbh	vimrc.vim	/^nnoremap <silent> tbh :<C-u>tabnext<CR>$/;"	m
+tbj	vimrc.vim	/^nnoremap <silent> tbj :<C-u>tabnext<CR>$/;"	m
+tbk	vimrc.vim	/^nnoremap <silent> tbk :<C-u>tabprevious<CR>$/;"	m
+tbl	vimrc.vim	/^nnoremap <silent> tbl :<C-u>tabprevious<CR>$/;"	m
+tbn	vimrc.vim	/^nnoremap <silent> tbn :<C-u>tabnext<CR>$/;"	m
+tbp	vimrc.vim	/^nnoremap <silent> tbp :<C-u>tabprevious<CR>$/;"	m
+tgj	vimrc.vim	/^nnoremap <silent> tgj :<C-u>tag<CR>$/;"	m
+tgk	vimrc.vim	/^nnoremap <silent> tgk :<C-u>pop<CR>$/;"	m
+tgl	vimrc.vim	/^nnoremap <silent> tgl :<C-u>tags<CR>$/;"	m
+tgn	vimrc.vim	/^nnoremap <silent> tgn :<C-u>tag<CR>$/;"	m
+tgn	vimrc.vim	/^nnoremap <silent> tgn <C-]>$/;"	m
+tgp	vimrc.vim	/^nnoremap <silent> tgp :<C-u>pop<CR>$/;"	m
+unite_my_settings	vimrc.vim	/^function! s:unite_my_settings()$/;"	f

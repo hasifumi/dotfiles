@@ -26,6 +26,7 @@ set fileformat=unix
 nmap ,zz :<C-u>set scrolloff=999<CR>
 nmap ,zzf :<C-u>set scrolloff=0<CR>
 set shellslash
+set diffopt=vertical
  
 "*****************
 "  colorscheme
@@ -68,6 +69,7 @@ nnoremap <silent> tbe :<C-u>tabedit<CR>
 nnoremap <C-l> :<C-u>tabnext<CR>
 nnoremap <C-h> :<C-u>tabprevious<CR>
 nnoremap <C-t> :<C-u>tabedit<CR>
+" Use <C-o> despite <C-t>
 
 "*****************
 "  tag
@@ -632,6 +634,10 @@ function! Is_Android()
   endif
 endfunction
 
+function! MyTagsGenerate()
+  execute ":VimProcBang start ctags -R " . expand("%")
+endfunction
+nnoremap ,tg :call MyTagsGenerate()<CR>
 
 "*****************
 "* titanium.vim
@@ -747,6 +753,18 @@ function! s:bundle.hooks.on_source(bundle)
         \   'o:object',
         \   'r:regex',
         \   's:string'
+        \ ],
+        \ 'sro' : ".",
+        \}
+  let g:tagbar_type_vb = {
+        \ 'ctagstype' : 'basic',
+        \ 'kinds' : [
+        \   'c:constant',
+        \   'f:function',
+        \   'l:labels',
+        \   't:types',
+        \   'v:variables',
+        \   'g:enumerations',
         \ ],
         \ 'sro' : ".",
         \}
@@ -880,6 +898,24 @@ nmap ,gb :<C-u>Gblame<CR>
 
 NeoBundle 'yomi322/vim-gitcomplete'
 
+"*****************
+""* plugin neobundle setting templete
+""*****************
+"NeoBundleLazy 'szw/vim-tags', {
+"\   'autoload' : { 
+"\       'commands' : [ "TagsGenerate" ]
+"\   }
+"\}
+"let s:bundle = neobundle#get("vim-tags")
+"function! s:bundle.hooks.on_source(bundle)
+"  "let g:neosnippet#snippets_directory = '~/vimfiles/bundle/neobundle/snipmate-snippets/snippets'
+"  let g:vim_tags_project_tags_command = "ctags -R"
+"endfunction
+"unlet s:bundle
+"
+"" Plugin key-mappings.
+"nmap ,vtg  :TagsGenerate<CR>
+"nnoremap <C-]> g<C-]>
 
 "*****************
 "* plugin neobundle setting templete
