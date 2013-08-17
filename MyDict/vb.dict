@@ -10,11 +10,13 @@ String
 Date
 Boolean
 Sub
+End
 Exit
 Function
 Option
 Explicit
-Msgbox
+MsgBox
+InputBox
 InStr
 Left
 Mid

@@ -94,15 +94,14 @@ nnoremap <silent> tgl :<C-u>tags<CR>
 "
 
 "*****************
-"  Folding
+"  autocmd(filetype)
 "*****************
 autocmd FileType javascript setlocal foldmethod=marker
 autocmd FileType coffee setlocal foldmethod=marker
 
-"*****************
-"  Syntax
-"*****************
 autocmd FileType basic,st setlocal filetype=vb
+
+autocmd FileType vb :call excel_vba_echodoc#echodoc()
 
 "*****************
 "  Window  
@@ -140,7 +139,7 @@ nnoremap q? <NOP>
 "*****************
 "  GUI Option
 "*****************
-set guioptions-=m
+"set guioptions-=m
 set guioptions-=T
 
 "*****************
@@ -214,7 +213,7 @@ NeoBundle 'mattn/webapi-vim'
 "NeoBundle 'thinca/unite-history'
 "NeoBundle 'teramako/jscomplete-vim'
 
-NeoBundleLazy 'Shougo/echodoc'
+"NeoBundleLazy 'Shougo/echodoc'
 NeoBundleLazy 'Shougo/vesting'
 NeoBundleLazy 'tsukkee/unite-tag'
 NeoBundleLazy 'tsukkee/unite-help'
@@ -276,14 +275,16 @@ NeoBundleLazy 'vim-scripts/candy.vim'
 "*****************
 " Use neocomplcache 
 let g:neocomplcache_enable_at_startup = 1
+" Set smartcase
+"let g:neocomplcache_enable_smart_case = 1
 " Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_min_syntax_length = 2
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default' : '',
     \ 'vimshell' : $HOME.'/.vimshell_hist',
     \ 'scheme' : $HOME.'/.gosh_completions',
-    \ 'basic' : $HOME.'/dotfiles/MyDict/basic.dict',
+    \ 'vb' : $HOME.'/dotfiles/MyDict/vb.dict',
     \ }
 "let g:neocomplcache_force_overwrite_completefunc = 1
 
@@ -634,10 +635,10 @@ function! Is_Android()
   endif
 endfunction
 
-function! MyTagsGenerate()
-  execute ":VimProcBang start ctags -R " . expand("%")
-endfunction
-nnoremap ,tg :call MyTagsGenerate()<CR>
+"function! MyTagsGenerate()
+"  execute ":VimProcBang start ctags -R " . expand("%")
+"endfunction
+"nnoremap ,tg :call MyTagsGenerate()<CR>
 
 "*****************
 "* titanium.vim
@@ -899,6 +900,24 @@ nmap ,gb :<C-u>Gblame<CR>
 NeoBundle 'yomi322/vim-gitcomplete'
 
 "*****************
+"* echodoc
+"*****************
+NeoBundleLazy 'Shougo/echodoc',{
+\   'autoload' : { 
+\       'commands' : [ "EchoDocEnable",],
+\   }
+\}
+
+"*****************
+"* excel_vba_echodoc
+"*****************
+NeoBundleLazy 'hasifumi/excel_vba_echodoc', {
+\   'autoload' : { 
+\       'functions' : [ "excel_vba_echodoc#echodoc()" ],
+\   }
+\}
+
+"*****************
 "* plugin neobundle setting templete
 "*****************
 "NeoBundle 'xxx/yyyy'
@@ -926,7 +945,9 @@ NeoBundle 'yomi322/vim-gitcomplete'
 "
 NeoBundle 'hasifumi/excel_vba_complete.vim'
 
-map <F11>  :sp tags<CR>:%s/^\([^     :]*:\)\=\([^    ]*\).*/syntax keyword Tag \2/<CR>:wq! tags.vim<CR>/^<CR><F12>
-map <F12>  :so tags.vim<CR>
+"map <F11>  :sp tags<CR>:%s/^\([^     :]*:\)\=\([^    ]*\).*/syntax keyword Tag \2/<CR>:wq! tags.vim<CR>/^<CR><F12>
+"map <F12>  :so tags.vim<CR>
+
+NeoBundle 'mattn/googletasks-vim'
 
 filetype plugin indent on
