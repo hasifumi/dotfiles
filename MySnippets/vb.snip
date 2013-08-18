@@ -8,31 +8,31 @@ options     head
 snippet     dimInteger
 abbr        Dim .. As Integer
 options     head
-  Dim ${1}  As Integer
+  Dim ${1}  As Integer${2}
 
 # Dim Long
 snippet     dimLong
 abbr        Dim .. As Long
 options     head
-  Dim ${1}  As Long
+  Dim ${1}  As Long${2}
 
 # Dim String
 snippet     dimString
 abbr        Dim .. As String
 options     head
-  Dim ${1}  As String
+  Dim ${1}  As String${2}
 
 # Dim Workbook
 snippet     dimWorkbook
 abbr        Dim .. As Workbook
 options     head
-  Dim ${1}  As Workbook
+  Dim ${1}  As Workbook${2}
 
 # Dim Worksheet
 snippet     dimWorksheet
 abbr        Dim .. As Worksheet
 options     head
-  Dim ${1}  As Worksheet
+  Dim ${1}  As Worksheet${2}
 
 # Const
 snippet     const
@@ -64,7 +64,7 @@ abbr        If .. Then .. End If
 options     head
   If ${1} Then
     ${2}
-  End If
+  End If${3}
 
 # If .. Then .. Else .. End If
 snippet     ifThenElse
@@ -74,7 +74,7 @@ options     head
     ${2}
   Else
     ${3}
-  End If
+  End If${4}
 
 # Do While .. Loop
 snippet     doWhile
@@ -84,7 +84,7 @@ options     head
   Do While ${2}
     ${3}
     $1 = $1 + 1
-  Loop
+  Loop${3}
 
 
 # For .. Next
@@ -94,7 +94,7 @@ options     head
   Dim ${1}
   For $1 = 0 To ${2}
     ${3}
-  Next $1
+  Next $1${4}
 
 # Sub
 snippet     sub
@@ -102,7 +102,7 @@ abbr        Sub .. End Sub
 options     head
   Sub ${1}(${2})
     ${3} 
-  End Sub
+  End Sub${4}
 
 # Function
 snippet     function
@@ -112,7 +112,7 @@ options     head
     Dim ${5} As $4
     ${6}
     $1 = $5
-  End Function
+  End Function${7}
 
 # OnError
 snippet     onError
@@ -121,5 +121,5 @@ options     head
   On Error Goto ${1}
 
   $1:
-    Msgbox "${2}: " & $2
+    Msgbox "${2}: " & $2${3}
 

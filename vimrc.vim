@@ -917,6 +917,44 @@ NeoBundleLazy 'hasifumi/excel_vba_echodoc', {
 \   }
 \}
 
+NeoBundle 'hasifumi/excel_vba_complete.vim'
+
+"map <F11>  :sp tags<CR>:%s/^\([^     :]*:\)\=\([^    ]*\).*/syntax keyword Tag \2/<CR>:wq! tags.vim<CR>/^<CR><F12>
+"map <F12>  :so tags.vim<CR>
+
+NeoBundle 'mattn/googletasks-vim'
+
+"*****************
+"* sonictemplate
+"*****************
+NeoBundleLazy 'mattn/sonictemplate-vim',{
+\   'autoload' : { 
+\       'commands' : [ "Template" ], 
+\   }
+\}
+let s:bundle = neobundle#get("sonictemplate-vim")
+function! s:bundle.hooks.on_source(bundle)
+  let g:sonictemplate_vim_template_dir = [
+  \ '$HOME/.vim/template',
+  \ '$HOME/dotfiles/MyTemplate',
+  \]
+endfunction
+unlet s:bundle
+
+"*****************
+"* MiSawa/sniplate.vim
+"*****************
+NeoBundleLazy 'MiSawa/sniplate.vim', {
+\   'autoload' : { 
+\       'commands' : [ "SniplateLoad" ], 
+\   }
+\}
+let s:bundle = neobundle#get("sniplate.vim")
+function! s:bundle.hooks.on_source(bundle)
+  "let g:neosnippet#snippets_directory = '~/vimfiles/bundle/neobundle/snipmate-snippets/snippets'
+endfunction
+unlet s:bundle
+
 "*****************
 "* plugin neobundle setting templete
 "*****************
@@ -943,11 +981,5 @@ NeoBundleLazy 'hasifumi/excel_vba_echodoc', {
 "" Plugin key-mappings.
 "nmap <C-a>     <Plug>()
 "
-NeoBundle 'hasifumi/excel_vba_complete.vim'
-
-"map <F11>  :sp tags<CR>:%s/^\([^     :]*:\)\=\([^    ]*\).*/syntax keyword Tag \2/<CR>:wq! tags.vim<CR>/^<CR><F12>
-"map <F12>  :so tags.vim<CR>
-
-NeoBundle 'mattn/googletasks-vim'
 
 filetype plugin indent on
