@@ -932,6 +932,7 @@ NeoBundle 'hasifumi/excel_vba_complete.vim'
 "map <F12>  :so tags.vim<CR>
 
 NeoBundle 'mattn/googletasks-vim'
+NeoBundle 'rhysd/clever-f.vim'
 
 "*****************
 "* sonictemplate
