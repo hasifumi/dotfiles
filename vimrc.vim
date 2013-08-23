@@ -715,8 +715,23 @@ nmap ,ss    :ShaberuSay `=expand(("%")` <CR>
 "* tcomment.vim
 "*****************
 NeoBundle 'tomtom/tcomment_vim'
+if !exists('g:tcomment_types')
+  let g:tcomment_types = {}
+endif
+let g:tcomment_types = {
+  \ 'vb': "' %s"
+  \}
+
+""*****************
+""* tcomment_vim
+""*****************
 "NeoBundleLazy 'tomtom/tcomment_vim', {
 "\   'autoload' : { 
+"\       'functions' : [ "tcomment#SetOption()",
+"\                       "tcomment#Operator()",
+"\                       "tcomment#OperatorLine()",
+"\                       "tcomment#OperatorAnyway()",
+"\                       "tcomment#OperatorLineAnyway()" ],
 "\       'commands' : [ "TComment", 
 "\                      "TCommentAs", 
 "\                      "TCommentInline", 
@@ -724,6 +739,16 @@ NeoBundle 'tomtom/tcomment_vim'
 "\                      "Comment" ],
 "\   }
 "\}
+"let s:bundle = neobundle#get("tcomment_vim")
+"function! s:bundle.hooks.on_source(bundle)
+"  if !exists('g:tcomment_types')
+"    let g:tcomment_types = {}
+"  endif
+"  let g:tcomment_types = {
+"    \ 'vb': "' %s"
+"    \}
+"endfunction
+"unlet s:bundle
 
 "*****************
 "* EasyMotion
