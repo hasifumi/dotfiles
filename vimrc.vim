@@ -120,6 +120,15 @@ nnoremap <C-k> <C-w>k
 "inoremap <A-h> <Left>"}}}
 
 "*****************
+"  Motion(last edited) 
+"*****************
+" g;    " backward modify list
+" g,    " forward modify list
+" `.    " last edited
+nnoremap gb `.zz
+nnoremap <C-g> g;
+
+"*****************
 "  Clipboard
 "*****************
 set clipboard+=unnamedplus,unnamed
@@ -954,6 +963,33 @@ function! s:bundle.hooks.on_source(bundle)
   "let g:neosnippet#snippets_directory = '~/vimfiles/bundle/neobundle/snipmate-snippets/snippets'
 endfunction
 unlet s:bundle
+
+"*****************
+"*  vim-anzu
+"*****************
+NeoBundleLazy 'osyo-manga/vim-anzu', {
+\   'autoload' : { 
+\       'mappings' : [ "<Plug>(anzu-n-with-echo)", 
+\                      "<Plug>(anzu-N-with-echo)", 
+\                      "<Plug>(anzu-star-with-echo)", 
+\                      "<Plug>(anzu-sharp-with-echo)" ],
+\   }
+\}
+let s:bundle = neobundle#get("vim-anzu")
+function! s:bundle.hooks.on_source(bundle)
+  setlocal statusline=%{anzu#search_status()}
+endfunction
+unlet s:bundle
+
+" Plugin key-mappings.
+"nmap n <Plug>(anzu-n)
+"nmap N <Plug>(anzu-N)
+"nmap * <Plug>(anzu-star)
+"nmap # <Plug>(anzu-sharp)
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
 
 "*****************
 "* plugin neobundle setting templete
