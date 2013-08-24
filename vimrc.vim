@@ -43,7 +43,16 @@ set diffopt=vertical
 "
 ""IMEモード固定
 "inoremap <silent> <C-j> <C-^>
-"
+
+"日本語の行の連結時には空白を入力しない。
+set formatoptions+=mM
+
+"□や○の文字があってもカーソル位置がずれないようにする。
+set ambiwidth=double
+
+"画面最後の行をできる限り表示する。
+set display+=lastline
+
 "*****************
 "  Search
 "*****************
@@ -91,7 +100,9 @@ nnoremap <silent> tgl :<C-u>tags<CR>
 "set enc=utf-8
 ""set fenc=utf-8
 "set fencs=cp932,sjis,iso-2022-jp,enc-jp,utf-8
-"
+
+set laststatus=2
+set statusline+=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=\ (%v,%l)/%L%8P\ 
 
 "*****************
 "  autocmd(filetype)
@@ -118,6 +129,21 @@ autocmd FileType vb :call excel_vba_echodoc#echodoc()
 "inoremap <A-k> <Up>
 "inoremap <A-l> <Right>
 "inoremap <A-h> <Left>"}}}
+
+"カーソル一文字単位移動
+inoremap <silent> <C-s> <Left>
+inoremap <silent> <C-d> <Right>
+
+"単語単位移動（行末で止まる必要がない場合）
+inoremap <silent> <C-f> <S-Left>
+inoremap <silent> <C-b> <S-Right>
+
+"カーソル前の文字削除
+inoremap <silent> <BS>  <C-g>u<BS>
+inoremap <silent> <C-h> <C-g>u<C-h>
+"カーソル後の文字削除
+inoremap <silent> <Del> <C-g>u<Del>
+inoremap <silent> <C-g> <C-g>u<Del>
 
 "*****************
 "  Motion(last edited) 
