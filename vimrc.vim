@@ -106,8 +106,8 @@ autocmd FileType vb :call excel_vba_echodoc#echodoc()
 "*****************
 "  Window  
 "*****************
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
+"nnoremap <C-j> <C-w>j
+"nnoremap <C-k> <C-w>k
 "nnoremap <C-l> <C-w>l
 "nnoremap <C-h> <C-w>h
 
@@ -1016,6 +1016,40 @@ nmap n <Plug>(anzu-n-with-echo)
 nmap N <Plug>(anzu-N-with-echo)
 nmap * <Plug>(anzu-star-with-echo)
 nmap # <Plug>(anzu-sharp-with-echo)
+
+"*****************
+"* im_control.vim
+"*****************
+NeoBundle 'fuenor/im_control.vim'
+
+if has('gui_running')
+  " 「日本語入力固定モード」の動作モード
+  let IM_CtrlMode = 4
+  " GVimで<C-^>が使える場合の「日本語入力固定モード」切替キー
+  inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
+else
+  " 非GUIの場合(この例では「日本語入力固定モード」を無効化している)
+  let IM_CtrlMode = 0
+endif
+
+function! MyIMEView()
+  if has('multi_byte_ime')
+    highlight Cursor guifg=NONE guibg=Green
+    highlight CursorIM guifg=NONE guibg=Purple
+  endif
+endfunction
+
+scriptencoding utf-8
+
+" 「日本語入力固定モード」がオンの場合、ステータス行にメッセージ表示
+set statusline+=%{IMStatus('[日本語固定]')}
+
+augroup highlightIdegraphicSpace
+  autocmd!
+  autocmd Colorscheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
+  autocmd VimEnter,WinEnter * match IdeographicSpace /　/
+  autocmd VimEnter,WinEnter * call MyIMEView()
+augroup END
 
 "*****************
 "* plugin neobundle setting templete
