@@ -675,6 +675,8 @@ endfunction
 "endfunction
 "nnoremap ,tg :call MyTagsGenerate()<CR>
 
+command! Cdcur cd %:p:h
+
 "*****************
 "* titanium.vim
 "*****************
@@ -1076,6 +1078,23 @@ augroup highlightIdegraphicSpace
   autocmd VimEnter,WinEnter * match IdeographicSpace /　/
   autocmd VimEnter,WinEnter * call MyIMEView()
 augroup END
+
+"*****************
+"* Align
+"*****************
+NeoBundle 'Align'
+"NeoBundleLazy 'Align', {
+"\   'autoload' : { 
+"\       'mappings' : [ "<Plug>AM_Tsp" ], 
+"\       'commands' : [ "Align", 
+"\                      "AlignCtrl" ],
+"\   }
+"\}
+"let s:bundle = neobundle#get("Align")
+"function! s:bundle.hooks.on_source(bundle)
+"  let g:Align_xstrlen = 3
+"endfunction
+"unlet s:bundle
 
 "*****************
 "* plugin neobundle setting templete
