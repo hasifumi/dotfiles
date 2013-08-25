@@ -1097,6 +1097,40 @@ NeoBundle 'Align'
 "unlet s:bundle
 
 "*****************
+"* vim-prettyprint
+"*****************
+NeoBundleLazy 'thinca/vim-prettyprint', {
+\   'autoload' : { 
+\       'functions' : [ "PrettyPrint()",
+\                       "PP()" ],
+\       'commands' : [ "PP", 
+\                      "PrettyPrint" ],
+\   }
+\}
+
+"*****************
+"* rbtnn/vimconsole.vim
+"*****************
+NeoBundleLazy 'rbtnn/vimconsole.vim', {
+\   'autoload' : { 
+\       'commands' : [ "VimConsole", 
+\                      "VimConsoleToggle", 
+\                      "VimConsoleOpen", 
+\                      "VimConsoleClear", 
+\                      "VimConsoleRedraw", 
+\                      "VimConsoleClose" ],
+\   }
+\}
+let s:bundle = neobundle#get("vimconsole.vim")
+function! s:bundle.hooks.on_source(bundle)
+  let g:vimconsole#height = 10
+endfunction
+unlet s:bundle
+
+" Plugin key-mappings.
+nmap ,vct  VimConsoleToggle<CR>
+
+"*****************
 "* plugin neobundle setting templete
 "*****************
 "NeoBundle 'xxx/yyyy'
