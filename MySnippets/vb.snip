@@ -123,3 +123,87 @@ options     head
   $1:
     Msgbox "${2}: " & $2${3}
 
+# Sort
+snippet     Sort
+abbr        Sort ..
+  Range(${1}).Sort _
+    Key1:=Range(${2}), Order1:=${3}, _
+    Key2:=Range(${4}), Order2:=${5}, _
+    Header:=xlYes
+  ${6}
+
+# AutoFilter
+snippet     AutoFilter1
+abbr        AutoFilter(1-Column, 1-cond)
+  Range(${1}).AutoFilter Field:=${1:#:columnNo}, Criteria1:="${2:#:condision}"${3}
+
+
+# AutoFilter2
+snippet     AutoFilter2
+abbr        AutoFilter(1-Column, multi-cond)
+  Range(${1}).AutoFilter Field:=${1:#:columnNo}, _
+    Criteria1:="${2:#:condition1}", Operator:=xlOr, Criteria2:="${3:#:condition2}"${4}
+
+# AutoFilter3
+snippet     AutoFilter3
+abbr        AutoFilter(multi-Column, multi-cond)
+  Range(${1}).AutoFilter _
+    Field:=${1:#:columnNo}, _
+      Criteria1:="${2:#:condition1}", Operator:=xlOr, Criteria2:="${3:#:condition2}"
+    Field:=${4:#:columnNo}, _
+      Criteria1:="${5:#:condition1}", Operator:=xlOr, Criteria2:="${6:#:condition2}"${7}
+
+# PivotTable
+snippet     PivotTable
+abbr        PivotTable
+ '   Dim wkbName As String
+ '   Dim wksName As String   'データのあるシート名
+ '   Dim pvtName As String   'ピボットテーブル名
+ '   Dim cntR As Long        'Max行 (売上一覧)
+ '   Dim cntC As Long        'Max列 (売上一覧)
+ '   Dim i As Long
+ '   Dim strTmp As String
+ '   
+ '   wkbName = ActiveWorkbook.Name
+ '   wksName = "売上一覧"         'シート名格納
+ '   pvtName = "PivotTableNew"
+ '   
+ '   With Worksheets(wksName).Range("a1").CurrentRegion
+ '       cntR = .Rows.Count      '行数
+ '       cntC = .Columns.Count   '列数
+ '   End With
+ '   
+ '   'データ取得範囲格納
+ '   strTmp = wksName & "!R1C1:R" & cntR & "C" & cntC
+ '   
+ '   '新規シートにピボットテーブル作成
+ '   With Workbooks(wkbName).PivotCaches.Add( _
+ '       SourceType:=xlDatabase, _
+ '       SourceData:=strTmp)
+ '       .CreatePivotTable TableDestination:="", _
+ '           TableName:=pvtName
+ '   End With
+ ' 
+ '   'ピボットテーブルの設定
+ '   With ActiveSheet.PivotTables(pvtName)
+ '       .SmallGrid = False
+ '       '行フィールド
+ '       .AddFields RowFields:=Array("店番号", "店名")
+ '       '列フィールド
+ '       With .PivotFields("名称")
+ '           .Orientation = xlColumnField
+ '           .Position = 1
+ '       End With
+ '       'データフィールド
+ '       With .PivotFields("金額")
+ '           .Orientation = xlDataField
+ '           .Position = 1
+ '           .NumberFormat = "#,##0_ "
+ '       End With
+ '       '集計行非表示
+ '       .PivotFields("店番号").Subtotals(1) = False
+ '   End With
+ '   
+ '   ActiveWorkbook.ShowPivotTableFieldList = False
+ '   ActiveSheet.Range("A1").Select
+

@@ -21,6 +21,14 @@ InStr
 Left
 Mid
 Right
+Year
+Month
+Day
+Now
+Today
+Date
+Time
+Format
 xltoLeft
 xltoRight
 xlUp
