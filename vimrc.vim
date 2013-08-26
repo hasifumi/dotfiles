@@ -221,6 +221,22 @@ if has('vim_starting')
 endif
 
 NeoBundle	'Shougo/neobundle.vim'
+
+function! s:bundle_tap(bundle) " {{{
+  let s:tapped_bundle = neobundle#get(a:bundle)
+  return neobundle#is_installed(a:bundle)
+endfunction " }}}
+ 
+function! s:bundle_config(config) " {{{
+  if exists("s:tapped_bundle") && s:tapped_bundle != {}
+    call neobundle#config(s:tapped_bundle.name, a:config)
+  endif
+endfunction " }}}
+ 
+function! s:bundle_untap() " {{{
+  let s:tapped_bundle = {}
+endfunction " }}}
+
 NeoBundle	'Shougo/neocomplcache'
 "NeoBundle	'Shougo/vimproc'
 NeoBundle 'Shougo/vimproc', {
@@ -272,7 +288,7 @@ NeoBundleLazy 'kchmck/vim-coffee-script', {
 "NeoBundleLazy 'Refactoring', { 'type' : 'nosync', 'base' : '~/vimfiles/bundle/manual/' }
 NeoBundleLazy "tyru/open-browser.vim", {
 \   'autoload' : {
-\       'functions' : "OpenBrowser",
+\       'functions' : "OpenBrowser()",
 \       'commands'  : "OpenBrowserSearch",
 \       'mappings'  : "<Plug>(openbrowser-smart-search)"
 \   },
@@ -1082,53 +1098,96 @@ augroup END
 "*****************
 "* Align
 "*****************
-NeoBundle 'Align'
-"NeoBundleLazy 'Align', {
+"NeoBundle 'Align'
+NeoBundleLazy 'Align', {
+\   'autoload' : { 
+\       'mappings' : [ "<Plug>AM_tsp" ], 
+\       'commands' : [ "Align", 
+\                      "AlignCtrl" ],
+\   }
+\}
+let s:bundle = neobundle#get("Align")
+function! s:bundle.hooks.on_source(bundle)
+  let g:Align_xstrlen = 3
+endfunction
+unlet s:bundle
+
+map <unique> <Leader>tsp	<Plug>AM_tsp
+
+""*****************
+""* vim-prettyprint
+""*****************
+"NeoBundleLazy 'thinca/vim-prettyprint', {
 "\   'autoload' : { 
-"\       'mappings' : [ "<Plug>AM_Tsp" ], 
-"\       'commands' : [ "Align", 
-"\                      "AlignCtrl" ],
+"\       'functions' : [ "PrettyPrint()",
+"\                       "PP()" ],
+"\       'commands' : [ "PP", 
+"\                      "PrettyPrint" ],
 "\   }
 "\}
-"let s:bundle = neobundle#get("Align")
-"function! s:bundle.hooks.on_source(bundle)
-"  let g:Align_xstrlen = 3
-"endfunction
-"unlet s:bundle
 
 "*****************
 "* vim-prettyprint
 "*****************
-NeoBundleLazy 'thinca/vim-prettyprint', {
-\   'autoload' : { 
-\       'functions' : [ "PrettyPrint()",
-\                       "PP()" ],
-\       'commands' : [ "PP", 
-\                      "PrettyPrint" ],
-\   }
-\}
+NeoBundleLazy 'thinca/vim-prettyprint'
+if s:bundle_tap('vim-prettyprint') " {{{
+  call s:bundle_config({
+        \   'autoload' : {
+        \     'functions' : [ "PrettyPrint()",
+        \                     "PP()" ],
+        \     'commands'  : [ "PP", 
+        \                     "PrettyPrint" ],
+        \   }
+        \ })
+  call s:bundle_untap()
+endif " }}}
+
+""*****************
+""* rbtnn/vimconsole.vim
+""*****************
+"NeoBundleLazy 'rbtnn/vimconsole.vim', {
+"\   'autoload' : { 
+"\       'commands' : [ "VimConsole", 
+"\                      "VimConsoleToggle", 
+"\                      "VimConsoleOpen", 
+"\                      "VimConsoleClear", 
+"\                      "VimConsoleRedraw", 
+"\                      "VimConsoleClose" ],
+"\   }
+"\}
+"let s:bundle = neobundle#get("vimconsole.vim")
+"function! s:bundle.hooks.on_source(bundle)
+"  let g:vimconsole#height = 10
+"endfunction
+"unlet s:bundle
+"
+"" Plugin key-mappings.
+"nmap ,vct  VimConsoleToggle<CR>
 
 "*****************
 "* rbtnn/vimconsole.vim
 "*****************
-NeoBundleLazy 'rbtnn/vimconsole.vim', {
-\   'autoload' : { 
-\       'commands' : [ "VimConsole", 
-\                      "VimConsoleToggle", 
-\                      "VimConsoleOpen", 
-\                      "VimConsoleClear", 
-\                      "VimConsoleRedraw", 
-\                      "VimConsoleClose" ],
-\   }
-\}
-let s:bundle = neobundle#get("vimconsole.vim")
-function! s:bundle.hooks.on_source(bundle)
-  let g:vimconsole#height = 10
-endfunction
-unlet s:bundle
-
-" Plugin key-mappings.
-nmap ,vct  VimConsoleToggle<CR>
+NeoBundleLazy 'rbtnn/vimconsole.vim'
+if s:bundle_tap('vimconsole.vim') " {{{
+  call s:bundle_config({
+        \   'autoload' : {
+        \     'commands'  : [ "VimConsole", 
+        \                     "VimConsoleToggle", 
+        \                     "VimConsoleOpen", 
+        \                     "VimConsoleClear", 
+        \                     "VimConsoleRedraw", 
+        \                     "VimConsoleClose" ],
+        \   }
+        \ })
+ 
+  function! s:tapped_bundle.hooks.on_source(bundle)
+    let g:vimconsole#height = 10
+  endfunction
+ 
+  nmap ,vct  VimConsoleToggle<CR>
+ 
+  call s:bundle_untap()
+endif " }}}
 
 "*****************
 "* plugin neobundle setting templete
