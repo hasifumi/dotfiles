@@ -407,7 +407,10 @@ nnoremap <silent> ,vsp :VimShellPop<CR>
 "*****************
 NeoBundleLazy 'Shougo/vimfiler', {
 \   'depends' : ["Shougo/unite.vim"] , 
-\   'autoload' : { 'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer" ] }
+\   'autoload' : { 
+\       'function-prefix' : "vimfiler",
+\       'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer" ],
+\   },
 \}
 let s:bundle = neobundle#get("vimfiler")
 function! s:bundle.hooks.on_source(bundle)
@@ -461,6 +464,8 @@ NeoBundleLazy 'Shougo/unite.vim', {
 \       'functions' : [ 
 \            'unite#start_complete', 
 \            'unite#version', 
+\            'unite#custom_action', 
+\            'unite#custom_default_action', 
 \       ],
 \       'mappings' : [ 
 \            '<Plug>(unite_exit)', 
@@ -505,12 +510,20 @@ function! s:bundle.hooks.on_source(bundle)
   endfunction
   let g:unite_source_menu_menus["shortcut"] = deepcopy(s:commands)
   unlet s:commands
-  
 endfunction
 unlet s:bundle
 
 " バッファ一覧
 nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+let my_testfunc = {
+  \  'description': 'my test function',
+  \  'is_selectable': 1,
+  \}
+function! my_testfunc.func(candidates)
+  "echo "MyTest1"
+  execute "VimFiler"
+endfunction
+call unite#custom_action('buffer', 'mytestfunc', my_testfunc)
 " ファイル一覧
 nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 " レジスタ一覧
@@ -518,6 +531,7 @@ nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 " 最近使用したファイル一覧
 nnoremap <silent> ,ur :<C-u>Unite file_mru<CR>
 " ブックマーク
+"nnoremap <silent> ,uc :<C-u>Unite -default-action=vimfiler bookmark<CR>
 nnoremap <silent> ,uc :<C-u>Unite bookmark<CR>
 " 常用セット
 nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
