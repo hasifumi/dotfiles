@@ -247,7 +247,7 @@ NeoBundle 'Shougo/vimproc', {
   \ },
 \ }
     "\ 'windows' : 'make -f make_mingw32.mak',
-NeoBundle 'kana/vim-smartinput'
+NeoBundleLazy 'kana/vim-smartinput'
 NeoBundle 'kana/vim-smartchr'
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'w0ng/vim-hybrid'
@@ -1126,7 +1126,7 @@ function! s:bundle.hooks.on_source(bundle)
 endfunction
 unlet s:bundle
 
-map <unique> <Leader>tsp	<Plug>AM_tsp
+map! <unique> <Leader>tsp	<Plug>AM_tsp
 
 ""*****************
 ""* vim-prettyprint
@@ -1199,6 +1199,27 @@ if s:bundle_tap('vimconsole.vim') " {{{
   endfunction
  
   nmap ,vct  VimConsoleToggle<CR>
+ 
+  call s:bundle_untap()
+endif " }}}
+
+"*****************
+"* thinca/vim-scall
+"*****************
+NeoBundleLazy 'thinca/vim-scall'
+if s:bundle_tap('vim-scall') " {{{
+  call s:bundle_config({
+        \   'autoload' : {
+        \     'function_prefix' : "scall",
+        \     'functions' : [ "scall#call",
+        \                     "Scall",
+        \                     "scall#search" ],
+        \   }
+        \ })
+ 
+  function! s:tapped_bundle.hooks.on_source(bundle)
+    let g:scall_function_name = 'S'
+  endfunction
  
   call s:bundle_untap()
 endif " }}}
