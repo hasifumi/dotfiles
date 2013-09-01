@@ -1,0 +1,46 @@
+@echo off
+
+SETLOCAL
+rem SET SPathMux="C:\windows\system32\bontsdemux.exe"
+rem SET SPathCap="C:\windows\system32\caption2ass.exe"
+SET SPathCap="C:\Users\fumio\Documents\PXW3U2\Caption2Ass\caption2ass.exe"
+SET SParamCap1=-format srt
+SET SPathHB="C:\windows\system32\handbrakecli.exe"
+SET SParamHB1="_EngJpnNC.mkv"
+SET SParamHB2="2,1"
+SET SParamHB3="English,Japanese"
+SET SParamHB4="iPhone & iPod Touch"
+
+:start
+IF "%~1"=="" GOTO syoriend
+IF  NOT "%~x1" == ".ts" GOTO next
+
+:syori
+cd /d %~dp0
+
+rem echo "%~1" 処理開始  > "%~dpn1_HB.log"
+
+:caption
+rem @echo %DATE% %TIME% caption2ass_%~nx1  字幕抽出開始 >> "%~dpn1_HB.log"
+rem %SPathCap% %SParamCap1% "%~1"
+rem @echo %DATE% %TIME% caption2ass_%~nx1  字幕抽出終了 >> "%~dpn1_HB.log"
+
+:convert
+set datetime=%date:~5,2%%date:~8,2%%time:~0,2%%time:~3,2%
+rem @echo %DATE% %TIME% HandbrakeCLI_%~nx1 変換開始　   >> "%~dpn1_HB.log"
+%SPathHB% -i "%~1" -o "%~dpn1_%datetime%%SParamHB1%" --preset %SParamHB4% --audio %SParamHB2% --aname %SParamHB3%
+rem C:\Users\fumio>handbrakecli.exe -i "c:\Users\fumio\Desktop\CnvTest\glee1\glee1_1.ts" -o "c:\Users\fumio\Desktop\CnvTest\glee1\Handbreak\CLI\glee1_1.mkv" --srt-file "c:\Users\fumio\Desktop\CnvTest\glee1\glee1_1.srt" --srt-codeset utf-8 --srt-lang jpn --audio "2" --aname "English"
+rem @echo %DATE% %TIME% HandbrakeCLI_%~nx1 変換終了     >> "%~dpn1_HB.log"
+
+rem echo "%~1" 処理終了 >> "%~dpn1_HB.log"
+
+:next
+SHIFT
+GOTO start
+
+:syoriend
+rem @echo %DATE% %TIME% Mp4English_"%~1" 処理完了 >> "%~n1.log"
+rem ↓pause不要なら削除
+pause
+
+ENDLOCAL

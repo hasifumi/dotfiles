@@ -349,7 +349,7 @@ inoremap <expr><BS>   neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 nnoremap nce  :<C-u>NeoComplCacheEnable<CR>
-imap <C-u> <Plug>(neocomplcache_start_unite_quick_match)
+"imap <C-u> <Plug>(neocomplcache_start_unite_quick_match)
 imap <C-y> <Plug>(neocomplcache_start_unite_complete)
 
 "*****************
@@ -682,7 +682,7 @@ function! MyOpenBrowserOpen(url)
   execute ":VimProcBang start '" . a:url . "'"
 endfunction
 function! MyOpenBrowserSearch()
-  execute ":VimProcBang start 'http://www.google.co.jp/search?q=" . expand('<cWORD>') . "'"
+  call MyOpenBrowserOpen('http://www.google.co.jp/#q=' . expand('<cword>'))
 endfunction
 command! MyOpenBrowser :call MyOpenBrowser()<CR>
 command! MyOpenBrowserSearch :call MyOpenBrowser()<CR>
