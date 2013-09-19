@@ -27,8 +27,8 @@ nmap ,zz :<C-u>set scrolloff=999<CR>
 nmap ,zzf :<C-u>set scrolloff=0<CR>
 set shellslash
 set diffopt=vertical
-inoremap '  ''<Left>
-inoremap "  ""<Left>
+"inoremap '  ''<Left>
+"inoremap "  ""<Left>
 
  
 "*****************
