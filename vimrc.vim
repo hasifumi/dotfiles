@@ -27,8 +27,8 @@ nmap ,zz :<C-u>set scrolloff=999<CR>
 nmap ,zzf :<C-u>set scrolloff=0<CR>
 set shellslash
 set diffopt=vertical
-inoremap '  ''<Left>
-inoremap "  ""<Left>
+"inoremap '  ''<Left>
+"inoremap "  ""<Left>
 
  
 "*****************
@@ -278,7 +278,7 @@ NeoBundleLazy 'hakobe/unite-script'
 NeoBundleLazy 'tacroe/unite-mark'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundleLazy	'honza/snipmate-snippets'
-NeoBundleLazy 'thinca/vim-quickrun'
+"NeoBundleLazy 'thinca/vim-quickrun'
 NeoBundleLazy 'kchmck/vim-coffee-script', {
 \ 'autoload' : {
 \     'filetypes' : ['coffee'],
@@ -1081,36 +1081,36 @@ nmap # <Plug>(anzu-sharp-with-echo)
 "*****************
 "* im_control.vim
 "*****************
-NeoBundle 'fuenor/im_control.vim'
+NeoBundleLazy 'fuenor/im_control.vim'
 
-if has('gui_running')
-  " 「日本語入力固定モード」の動作モード
-  let IM_CtrlMode = 4
-  " GVimで<C-^>が使える場合の「日本語入力固定モード」切替キー
-  inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
-else
-  " 非GUIの場合(この例では「日本語入力固定モード」を無効化している)
-  let IM_CtrlMode = 0
-endif
-
-function! MyIMEView()
-  if has('multi_byte_ime')
-    highlight Cursor guifg=NONE guibg=Green
-    highlight CursorIM guifg=NONE guibg=Purple
-  endif
-endfunction
-
-scriptencoding utf-8
-
-" 「日本語入力固定モード」がオンの場合、ステータス行にメッセージ表示
-set statusline+=%{IMStatus('[日本語固定]')}
-
-augroup highlightIdegraphicSpace
-  autocmd!
-  autocmd Colorscheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
-  autocmd VimEnter,WinEnter * match IdeographicSpace /　/
-  autocmd VimEnter,WinEnter * call MyIMEView()
-augroup END
+"if has('gui_running')
+"  " 「日本語入力固定モード」の動作モード
+"  let IM_CtrlMode = 4
+"  " GVimで<C-^>が使える場合の「日本語入力固定モード」切替キー
+"  inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
+"else
+"  " 非GUIの場合(この例では「日本語入力固定モード」を無効化している)
+"  let IM_CtrlMode = 0
+"endif
+"
+"function! MyIMEView()
+"  if has('multi_byte_ime')
+"    highlight Cursor guifg=NONE guibg=Green
+"    highlight CursorIM guifg=NONE guibg=Purple
+"  endif
+"endfunction
+"
+"scriptencoding utf-8
+"
+"" 「日本語入力固定モード」がオンの場合、ステータス行にメッセージ表示
+"set statusline+=%{IMStatus('[日本語固定]')}
+"
+"augroup highlightIdegraphicSpace
+"  autocmd!
+"  autocmd Colorscheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
+"  autocmd VimEnter,WinEnter * match IdeographicSpace /　/
+"  autocmd VimEnter,WinEnter * call MyIMEView()
+"augroup END
 
 "*****************
 "* Align
@@ -1226,6 +1226,38 @@ if s:bundle_tap('vim-scall') " {{{
  
   call s:bundle_untap()
 endif " }}}
+
+"*****************
+"* thinca/vim-quickrun
+"*****************
+NeoBundleLazy 'thinca/vim-quickrun', {
+\   'autoload' : { 
+\       'commands' : [ "QuickRun" ], 
+\   }
+\}
+let s:bundle = neobundle#get("vim-quickrun")
+function! s:bundle.hooks.on_source(bundle)
+  let g:quickrun_config = {
+\   "_" : {
+\       "runner" : "vimproc",
+\       "runner/vimproc/updatetime" : 60
+\   },
+\   "groovy" :{
+\       "type" : "my_groovy"
+\   },
+\   "my_groovy" : {
+\       "command"   : "/home/fumio/.gvm/groovy/current/bin/groovy",
+\       "exec" : "%c %o %s:p %a",
+\       "cmdopt" : "",
+\   },
+\}
+endfunction
+unlet s:bundle
+
+" Plugin key-mappings.
+" <C-c> で実行を強制終了させる
+" quickrun.vim が実行していない場合には <C-c> を呼び出す
+nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
 "*****************
 "* plugin neobundle setting templete
