@@ -1278,8 +1278,6 @@ function! s:bundle.hooks.on_source(bundle)
   let g:jedi#popup_select_first = 0
   " quickrunと被るため大文字に変更
   let g:jedi#rename_command = '<Leader>R'
-  " gundoと被るため大文字に変更 (2013-06-24 10:00 追記）
-  let g:jedi#goto_command = '<Leader>G'
 endfunction
 unlet s:bundle
 
