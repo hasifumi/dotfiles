@@ -1,4 +1,6 @@
 " vim: foldmethod=marker :
+"
+"
 "*****************
 "  Basic 
 "*****************
@@ -318,7 +320,7 @@ NeoBundleLazy 'hasifumi/typescript_completion.vim'
 NeoBundleLazy 'nanotech/jellybeans.vim'
 NeoBundle 'ctrlp.vim'
 NeoBundleLazy 'yuratomo/w3m.vim'
-NeoBundleLazy 'hasifumi/eclim_java_complete.vim'
+"NeoBundleLazy 'hasifumi/eclim_java_complete.vim'
 NeoBundleLazy 'jpo/vim-railscasts-theme'
 NeoBundleLazy 'vim-scripts/candy.vim'
 
@@ -873,8 +875,8 @@ nmap <F8>  :TagbarToggle<CR>
 "*****************
 "* Eclim
 "*****************
-command! EclimStart :call vimproc#system_bg('c://eclipse//eclimd.bat')
-command! EclimShutdown :ShutdownEclim
+"command! EclimStart :call vimproc#system_bg('c://eclipse//eclimd.bat')
+"command! EclimShutdown :ShutdownEclim
 
 "*****************
 "* restart.vim
@@ -1271,15 +1273,30 @@ NeoBundleLazy "davidhalter/jedi-vim", {
 \}
 let s:bundle = neobundle#get("jedi-vim")
 function! s:bundle.hooks.on_source(bundle)
-  " jediにvimの設定を任せると'completeopt+=preview'するので
-  " 自動設定機能をOFFにし手動で設定を行う
-  let g:jedi#auto_vim_configuration = 0
-  " 補完の最初の項目が選択された状態だと使いにくいためオフにする
+  autocmd FileType python setlocal omnifunc=jedi#completions
+  autocmd FileType python let b:did_ftplugin = 1
+  "let g:jedi#auto_vim_configuration = 0
+  let g:jedi#auto_initialization = 1
   let g:jedi#popup_select_first = 0
-  " quickrunと被るため大文字に変更
-  let g:jedi#rename_command = '<Leader>R'
+  let g:jedi#completions_enabled = 0
+  let g:jedi#popup_on_dot = 1
+  "let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+  let g:neocomplcache_force_omni_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+  let g:jedi#rename_command = "<Leader>R"
 endfunction
 unlet s:bundle
+
+NeoBundle 'jmcantrell/vim-virtualenv'
+
+"*****************
+"* gotcha/vimpdb
+"*****************
+NeoBundleLazy "gotcha/vimpdb", {
+\   'autoload' : { 
+\       'filetypes' : [ "python",
+\                       "python3" ],
+\   }
+\}
 
 "*****************
 "* plugin neobundle setting templete
