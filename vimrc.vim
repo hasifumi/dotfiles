@@ -242,7 +242,6 @@ function! s:bundle_untap() " {{{
   let s:tapped_bundle = {}
 endfunction " }}}
 
-NeoBundle	'Shougo/neocomplcache'
 "NeoBundle	'Shougo/vimproc'
 NeoBundle 'Shougo/vimproc', {
   \ 'build' : {
@@ -327,32 +326,56 @@ NeoBundleLazy 'vim-scripts/candy.vim'
 "filetype plugin indent on
 
 "*****************
-"* neocomplcache
+"* neocomplete / neocomplcache
 "*****************
-" Use neocomplcache 
-let g:neocomplcache_enable_at_startup = 1
-" Set smartcase
-"let g:neocomplcache_enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 2
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions',
-    \ 'vb' : $HOME.'/dotfiles/MyDict/vb.dict',
-    \ }
-"let g:neocomplcache_force_overwrite_completefunc = 1
+"NeoBundle	'Shougo/neocomplcache'
+"NeoBundle	'Shougo/neocomplete'
+NeoBundle	has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
+if neobundle#is_installed('neocomplete')
+  " Use neocomplele 
+  let g:neocomplete#enable_at_startup = 1
+  let g:neocomplete#enable_smart_case = 1
+  let g:neocomplete#min_syntax_length = 2
+  let g:neocomplete#dictionary_filetype_lists = {
+      \ 'default' : '',
+      \ 'vimshell' : $HOME.'/.vimshell_hist',
+      \ 'scheme' : $HOME.'/.gosh_completions',
+      \ 'vb' : $HOME.'/dotfiles/MyDict/vb.dict',
+      \ }
+  " Plugin key-mappings.
+  inoremap <expr><C-l>  neocomplete#complete_common_string()
+  inoremap <expr><BS>   neocomplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><C-y>  neocomplete#close_popup()
+  inoremap <expr><C-e>  neocomplete#cancel_popup()
+  nnoremap nce  :<C-u>NeoCompleteEnable<CR>
+  imap <C-y> <Plug>(neocomplete#start_unite_complete)
+elseif neobundle#is_installed('neocomplcache')
+  " Use neocomplcache 
+  let g:neocomplcache_enable_at_stArtup = 1
+  " Set smartcase
+  "let g:neocomplcache_enable_smart_case = 1
+  " Set minimum syntax keyword length.
+  let g:neocomplcache_min_syntax_length = 2
+  " Define dictionary.
+  let g:neocomplcache_dictionary_filetype_lists = {
+      \ 'default' : '',
+      \ 'vimshell' : $HOME.'/.vimshell_hist',
+      \ 'scheme' : $HOME.'/.gosh_completions',
+     \ 'vb' : $HOME.'/dotfiles/MyDict/vb.dict',
+      \ }
+  "let g:neocomplcache_force_overwrite_completefunc = 1
 
-" Plugin key-mappings.
-inoremap <expr><C-l>  neocomplcache#complete_common_string()
+  " Plugin key-mappings.
+  inoremap <expr><C-l>  neocomplcache#complete_common_string()
+  inoremap <expr><BS>   neocomplcache#smart_close_popup()."\<C-h>"
+  inoremap <expr><C-y>  neocomplcache#close_popup()
+  inoremap <expr><C-e>  neocomplcache#cancel_popup()
+  nnoremap nce  :<C-u>NeoComplCacheEnable<CR>
+  "imap <C-u> <Plug>(neocomplcache_start_unite_quick_match)
+  imap <C-y> <Plug>(neocomplcache_start_unite_complete)
+endif
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><BS>   neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-nnoremap nce  :<C-u>NeoComplCacheEnable<CR>
-"imap <C-u> <Plug>(neocomplcache_start_unite_quick_match)
-imap <C-y> <Plug>(neocomplcache_start_unite_complete)
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
 "*****************
 "* vimshell
@@ -1281,7 +1304,11 @@ function! s:bundle.hooks.on_source(bundle)
   let g:jedi#completions_enabled = 0
   let g:jedi#popup_on_dot = 1
   "let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-  let g:neocomplcache_force_omni_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+  "if neobundle#is_installed('neocomplete')
+  "  let g:neocomplete#force_omni_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+  "elseif
+  "  let g:neocomplcache_force_omni_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+  "endif
   let g:jedi#rename_command = "<Leader>R"
 endfunction
 unlet s:bundle
