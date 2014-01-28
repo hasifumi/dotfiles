@@ -67,7 +67,8 @@ nmap <Esc><Esc> :noh<CR>
 "  Help
 "*****************
 "nnoremap <C-e> :<C-u>help<Space><C-r><C-w><CR>
-nnoremap <C-i> :<C-u>help<Space><C-r><C-w><CR>
+"nnoremap <C-i> :<C-u>help<Space><C-r><C-w><CR>
+nnoremap <M-h> :<C-u>help<Space><C-r><C-w><CR>
 set helplang=ja
 
 "*****************
@@ -253,6 +254,7 @@ NeoBundle 'Shougo/vimproc', {
     "\ 'windows' : 'make -f make_mingw32.mak',
 NeoBundleLazy 'kana/vim-smartinput'
 NeoBundle 'kana/vim-smartchr'
+NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'mattn/googletranslate-vim'
@@ -942,6 +944,11 @@ NeoBundleLazy 'scrooloose/syntastic', {
 let s:bundle = neobundle#get("syntastic")
 function! s:bundle.hooks.on_source(bundle)
   let g:syntastic_check_on_open=1
+  let g:syntastic_mode_map = {
+        \ 'mode' : 'active',
+        \ 'active_filetypes' : ['sh', 'vim'],
+        \ 'passive_filetypes' : ['python', 'html']
+        \}
 endfunction
 unlet s:bundle
 
@@ -1324,6 +1331,80 @@ NeoBundleLazy "gotcha/vimpdb", {
 \                       "python3" ],
 \   }
 \}
+
+"*****************
+"* flake8-vim
+"*****************
+NeoBundleLazy 'andviro/flake8-vim', {
+\   'autoload' : { 
+\       'filetypes' : [ "python",
+\                       "python3" ],
+\   }
+\}
+let s:bundle = neobundle#get("flake8-vim")
+function! s:bundle.hooks.on_source(bundle)
+  let g:PyFlakeDisabledMessages = 'W293'
+endfunction
+unlet s:bundle
+
+"*****************
+"* vim-python-pep8-indent
+"*****************
+NeoBundleLazy 'hynek/vim-python-pep8-indent', {
+\   'autoload' : { 
+\       'filetypes' : [ "python",
+\                       "python3" ],
+\   }
+\}
+let s:bundle = neobundle#get("vim-python-pep8-indent")
+function! s:bundle.hooks.on_source(bundle)
+  let g:PyFlakeOnWrite = 1
+  let g:PyFlakeCheckers = 'pep8,mccabe,pyflakes'
+  let g:PyFlakeDefaultComplexity = 10
+  let g:PyFlakeRangeCommand = 'Q'
+endfunction
+unlet s:bundle
+
+
+"*****************
+"* vim-operator-autopep8
+"*****************
+NeoBundleLazy 'hachibeeDI/vim-operator-autopep8', {
+\   'depends' : ['kana/vim-operator-user', 'andviro/flake8-vim'],
+\   'autoload' : { 
+\       'filetypes' : [ "python",
+\                       "python3" ],
+\   }
+\}
+"let s:bundle = neobundle#get("vim-operator-autopep8")
+"function! s:bundle.hooks.on_source(bundle)
+"endfunction
+"unlet s:bundle
+
+" Plugin key-mappings.
+"nmap <Leader>p     <Plug>(operator-autopep8)
+nmap ,p     <Plug>(operator-autopep8)
+
+"*****************
+"* vim-textobj-python
+"*****************
+NeoBundleLazy 'bps/vim-textobj-python', {
+\   'depends' : 'kana/vim-operator-user',
+\   'autoload' : { 
+\       'filetypes' : [ "python",
+\                       "python3" ],
+\   }
+\}
+"let s:bundle = neobundle#get("vim-textobj-python")
+"function! s:bundle.hooks.on_source(bundle)
+"endfunction
+"unlet s:bundle
+
+" Plugin key-mappings.
+"xmap aF <Plug>(textobj-python-function-a)
+"omap aF <Plug>(textobj-python-function-a)
+"xmap iF <Plug>(textobj-python-function-i)
+"omap iF <Plug>(textobj-python-function-i)
 
 "*****************
 "* plugin neobundle setting templete
