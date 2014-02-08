@@ -286,7 +286,6 @@ NeoBundleLazy 'hakobe/unite-script'
 NeoBundleLazy 'tacroe/unite-mark'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundleLazy	'honza/snipmate-snippets'
-"NeoBundleLazy 'thinca/vim-quickrun'
 NeoBundleLazy 'kchmck/vim-coffee-script', {
 \ 'autoload' : {
 \     'filetypes' : ['coffee'],
@@ -1283,9 +1282,11 @@ endif " }}}
 "*****************
 "* thinca/vim-quickrun
 "*****************
+"NeoBundle 'thinca/vim-quickrun'
 NeoBundleLazy 'thinca/vim-quickrun', {
 \   'autoload' : { 
 \       'commands' : [ "QuickRun" ], 
+\       'functions' : [ "quickrun#" ], 
 \   }
 \}
 let s:bundle = neobundle#get("vim-quickrun")
@@ -1304,11 +1305,31 @@ function! s:bundle.hooks.on_source(bundle)
 \       "cmdopt" : "",
 \   },
 \ }
-  let g:quickrun_config['python.unit'] = {
+  let s:python_unittest_outputter = quickrun#outputter#buffer#new()
+  let s:python_unittest_outputter.name = "python_unittest_outputter"
+  let s:python_unittest_outputter.kind = "outputter"
+  function! s:python_unittest_outputter.init(session)
+    call call(quickrun#outputter#buffer#new().init, [a:session], self)
+  endfunction
+  function! s:python_unittest_outputter.finish(session)
+    highlight default unittest_ok ctermfg=DarkGreen guifg=DarkGreen guibg=White
+    highlight default unittest_fail ctermfg=DarkRed guifg=DarkRed guibg=White
+    highlight default unittest_errors ctermfg=DarkRed guifg=DarkRed guibg=White
+    highlight default unittest_assert ctermfg=DarkRed guifg=DarkRed guibg=White
+    call matchadd("unittest_ok", "\s\(ok\|pass\(ed\|\>\)\)")
+    call matchadd("unittest_fail", "/Fail\(s\|ed\|ures!\|ures\|ure\|:\|\>\)/")
+    call matchadd("unittest_errors", "/^Error\|\.\serror/")
+    call matchadd("unittest_assert", "/Assertionerror:/")
+    call call(quickrun#outputter#buffer#new().finish, [a:session], self)
+  endfunction
+  call quickrun#module#register(s:python_unittest_outputter, 1)
+  let g:quickrun_config['python.unittest'] = {
 \    "command" : "python", 
 \    "exec" : "%c %o %s:p %a",
-\    "cmdpt" : "-m unittest"
+\    "cmdpt" : "-m unittest", 
 \ }
+  unlet s:python_unittest_outputter
+"\    "outputter" : 'python_unittest_outputter', 
 endfunction
 unlet s:bundle
 
@@ -1317,9 +1338,9 @@ unlet s:bundle
 " quickrun.vim が実行していない場合には <C-c> を呼び出す
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 nnoremap ,qr <C-c>:QuickRun<CR>
-augroup QuickRunUnitTest
+augroup QuickRunPythonUnitTest
   autocmd!
-  autocmd BufWinEnter,BufNewFile test*.py setlocal filetype=python.unit
+  autocmd BufWinEnter,BufNewFile test*.py set filetype=python.unittest
 augroup END
 
 "*****************
