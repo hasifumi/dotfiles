@@ -1,0 +1,13 @@
+# OnError
+snippet     base_unittest
+abbr        Base Unittest
+options     head
+  from ${1} import ${2}
+
+  class Test$2(unittest.TestCase):
+  
+      def ${3}(self):
+        ${4}
+
+  if __name__ == '__main__':
+      unittest.main()

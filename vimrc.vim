@@ -62,6 +62,11 @@ set display+=lastline
 "  Search
 "*****************
 nmap <Esc><Esc> :noh<CR>
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+
 
 "*****************
 "  Help
@@ -145,7 +150,7 @@ inoremap <silent> <C-f> <S-Left>
 inoremap <silent> <C-b> <S-Right>
 
 "カーソル前の文字削除
-inoremap <silent> <BS>  <C-g>u<BS>
+"inoremap <silent> <BS>  <C-g>u<BS>
 inoremap <silent> <C-h> <C-g>u<C-h>
 "カーソル後の文字削除
 inoremap <silent> <Del> <C-g>u<Del>
@@ -168,14 +173,14 @@ set clipboard+=unnamedplus,unnamed
 "*****************
 " command-line 
 "*****************
-" F5キーでコマンド履歴を開く
-" F6キーで検索履歴を開く
-nnoremap <F5> <CR>q:
-nnoremap <F6> <CR>q/
-" q:、q/、q? は無効化
-nnoremap q: <NOP>
-nnoremap q/ <NOP>
-nnoremap q? <NOP>
+"" F5キーでコマンド履歴を開く
+"" F6キーで検索履歴を開く
+"nnoremap <F5> <CR>q:
+"nnoremap <F6> <CR>q/
+"" q:、q/、q? は無効化
+"nnoremap q: <NOP>
+"nnoremap q/ <NOP>
+"nnoremap q? <NOP>
 
 "*****************
 "  GUI Option
@@ -539,6 +544,22 @@ function! s:bundle.hooks.on_source(bundle)
   \}
   endfunction
   let g:unite_source_menu_menus["shortcut"] = deepcopy(s:commands)
+  unlet s:commands
+  let s:commands = {
+  \   'description' : 'VimPdb',
+  \}
+  let s:commands.candidates = {
+  \   "F5 : PdbStartDebug" : "call PdbStartDebug(1, [])" , 
+  \   "F2 : PdbToggleBreakpointOnCurrentLine" : "call PdbToggleBreakpointOnCurrentLine()" ,
+  \}
+  function s:commands.map(key, value)
+     return {
+  \       'word' : a:key,
+  \       'kind' : 'command',
+  \       'action__command' : a:value,
+  \}
+  endfunction
+  let g:unite_source_menu_menus["VimPdb"] = deepcopy(s:commands)
   unlet s:commands
 endfunction
 unlet s:bundle
@@ -1282,7 +1303,12 @@ function! s:bundle.hooks.on_source(bundle)
 \       "exec" : "%c %o %s:p %a",
 \       "cmdopt" : "",
 \   },
-\}
+\ }
+  let g:quickrun_config['python.unit'] = {
+\    "command" : "python", 
+\    "exec" : "%c %o %s:p %a",
+\    "cmdpt" : "-m unittest"
+\ }
 endfunction
 unlet s:bundle
 
@@ -1290,7 +1316,11 @@ unlet s:bundle
 " <C-c> で実行を強制終了させる
 " quickrun.vim が実行していない場合には <C-c> を呼び出す
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
-nnoremap qr QuickRun
+nnoremap ,qr <C-c>:QuickRun<CR>
+augroup QuickRunUnitTest
+  autocmd!
+  autocmd BufWinEnter,BufNewFile test*.py setlocal filetype=python.unit
+augroup END
 
 "*****************
 "* davidhalter/jedi-vim
@@ -1325,13 +1355,13 @@ NeoBundle 'jmcantrell/vim-virtualenv'
 "*****************
 "* gotcha/vimpdb
 "*****************
-NeoBundleLazy "gotcha/vimpdb", {
-\   'autoload' : { 
-\       'filetypes' : [ "python",
-\                       "python3" ],
-\   }
-\}
-
+"NeoBundleLazy "gotcha/vimpdb", {
+"\   'autoload' : { 
+"\       'filetypes' : [ "python",
+"\                       "python3" ],
+"\   }
+"\}
+"
 "*****************
 "* flake8-vim
 "*****************
@@ -1406,6 +1436,14 @@ NeoBundleLazy 'bps/vim-textobj-python', {
 "xmap iF <Plug>(textobj-python-function-i)
 "omap iF <Plug>(textobj-python-function-i)
 
+"*****************
+"* vim-scripts/VimPdb
+"*****************
+"NeoBundleLazy 'vim-scripts/VimPdb'
+"NeoBundleLazy 'https://github.com/vim-scripts/VimPdb.git'
+
+NeoBundle 'hasifumi/VimPdb'
+NeoBundleLazy 'KangOl/vim-pudb'
 "*****************
 "* plugin neobundle setting templete
 "*****************
