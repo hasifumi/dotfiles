@@ -2,7 +2,7 @@
 "
 "
 "*****************
-"  Basic 
+"  Basic
 "*****************
 set number
 set ruler
@@ -31,8 +31,15 @@ set shellslash
 set diffopt=vertical
 "inoremap '  ''<Left>
 "inoremap "  ""<Left>
+"次の2行で、Tab、行末の半角スペース、改行を明示的に表示
+set list
+set listchars=tab:>\ ,trail:~,eol:$
 
- 
+" 保存時に行末の空白を除去する
+autocmd BufWritePre * :%s/\s\+$//ge
+" 保存時にtabをスペースに変換する
+autocmd BufWritePre * :%s/\t/  /ge
+
 "*****************
 "  colorscheme
 "*****************
@@ -58,6 +65,31 @@ set ambiwidth=double
 "画面最後の行をできる限り表示する。
 set display+=lastline
 
+""""""""""""""""""""""""""""""
+"全角スペースを表示
+""""""""""""""""""""""""""""""
+"コメント以外で全角スペースを指定しているので scriptencodingと、
+"このファイルのエンコードが一致するよう注意！
+"全角スペースが強調表示されない場合、ここでscriptencodingを指定すると良い。
+"scriptencoding cp932
+
+"デフォルトのZenkakuSpaceを定義
+function! ZenkakuSpace()
+"  highlight ZenkakuSpace cterm=underline ctermfg=darkgrey gui=underline guifg=darkgrey
+"  highlight ZenkakuSpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
+  highlight ZenkakuSpace cterm=reverse ctermfg=LightGrey gui=reverse guifg=DarkRed
+endfunction
+
+if has('syntax')
+  augroup ZenkakuSpace
+    autocmd!
+    " ZenkakuSpaceをカラーファイルで設定するなら次の行は削除
+    "autocmd ColorScheme       * call ZenkakuSpace()
+    " 全角スペースのハイライト指定
+    autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+  augroup END
+  call ZenkakuSpace()
+endif
 "*****************
 "  Search
 "*****************
@@ -113,7 +145,7 @@ nnoremap <silent> tgl :<C-u>tags<CR>
 "set fencs=cp932,sjis,iso-2022-jp,enc-jp,utf-8
 
 set laststatus=2
-set statusline+=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=\ (%v,%l)/%L%8P\ 
+set statusline+=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=\ (%v,%l)/%L%8P\
 
 "*****************
 "  autocmd(filetype)
@@ -126,7 +158,7 @@ autocmd FileType basic,st setlocal filetype=vb
 autocmd FileType vb :call excel_vba_echodoc#echodoc()
 
 "*****************
-"  Window  
+"  Window
 "*****************
 "nnoremap <C-j> <C-w>j
 "nnoremap <C-k> <C-w>k
@@ -157,7 +189,7 @@ inoremap <silent> <Del> <C-g>u<Del>
 inoremap <silent> <C-g> <C-g>u<Del>
 
 "*****************
-"  Motion(last edited) 
+"  Motion(last edited)
 "*****************
 " g;    " backward modify list
 " g,    " forward modify list
@@ -171,7 +203,7 @@ nnoremap <C-g> g;
 set clipboard+=unnamedplus,unnamed
 
 "*****************
-" command-line 
+" command-line
 "*****************
 "" F5キーでコマンド履歴を開く
 "" F6キーで検索履歴を開く
@@ -216,10 +248,10 @@ if has('vim_starting')
   ""if has('win32') || has('win64')
   if s:is_windows
     set runtimepath+=~/vimfiles/bundle/neobundle/neobundle.vim/
-	  call neobundle#rc(expand('~/vimfiles/bundle/neobundle'))
+    call neobundle#rc(expand('~/vimfiles/bundle/neobundle'))
   else
     set runtimepath+=~/.vim/bundle/neobundle/neobundle.vim/
-	  call neobundle#rc(expand('~/.vim/bundle/neobundle'))
+    call neobundle#rc(expand('~/.vim/bundle/neobundle'))
   endif
   "if s:is_windows
   "  let s:vimdot = '~/vimfiles'
@@ -231,24 +263,24 @@ if has('vim_starting')
   "execute "call neobundle#rc(expand('" . s:vimdot . "/bundle/neobundl'))"
 endif
 
-NeoBundle	'Shougo/neobundle.vim'
+NeoBundle  'Shougo/neobundle.vim'
 
 function! s:bundle_tap(bundle) " {{{
   let s:tapped_bundle = neobundle#get(a:bundle)
   return neobundle#is_installed(a:bundle)
 endfunction " }}}
- 
+
 function! s:bundle_config(config) " {{{
   if exists("s:tapped_bundle") && s:tapped_bundle != {}
     call neobundle#config(s:tapped_bundle.name, a:config)
   endif
 endfunction " }}}
- 
+
 function! s:bundle_untap() " {{{
   let s:tapped_bundle = {}
 endfunction " }}}
 
-"NeoBundle	'Shougo/vimproc'
+"NeoBundle  'Shougo/vimproc'
 NeoBundle 'Shougo/vimproc', {
   \ 'build' : {
     \ 'cygwin' : 'make -f make_cygwin.mak',
@@ -269,9 +301,9 @@ NeoBundle 'mattn/webapi-vim'
 "NeoBundle 'supermomonga/shaberu.vim'
 
 "NeoBundle 'Shougo/unite.vim'
-"NeoBundle	'Shougo/neosnippet'
-"NeoBundle	'Shougo/vimfiler'
-"NeoBundle	'Shougo/vimshell'
+"NeoBundle  'Shougo/neosnippet'
+"NeoBundle  'Shougo/vimfiler'
+"NeoBundle  'Shougo/vimshell'
 "NeoBundle 'thinca/unite-history'
 "NeoBundle 'teramako/jscomplete-vim'
 
@@ -285,7 +317,7 @@ NeoBundleLazy 'kmnk/vim-unite-giti'
 NeoBundleLazy 'hakobe/unite-script'
 NeoBundleLazy 'tacroe/unite-mark'
 NeoBundle 'thinca/vim-unite-history'
-NeoBundleLazy	'honza/snipmate-snippets'
+NeoBundleLazy  'honza/snipmate-snippets'
 NeoBundleLazy 'kchmck/vim-coffee-script', {
 \ 'autoload' : {
 \     'filetypes' : ['coffee'],
@@ -323,7 +355,7 @@ NeoBundleLazy 'dmitry-ilyashevich/vim-typescript'
 NeoBundleLazy 'hasifumi/typescript-tools'
 NeoBundleLazy 'hasifumi/typescript_completion.vim'
 NeoBundleLazy 'nanotech/jellybeans.vim'
-NeoBundle 'ctrlp.vim'
+"NeoBundle 'ctrlp.vim'
 NeoBundleLazy 'yuratomo/w3m.vim'
 "NeoBundleLazy 'hasifumi/eclim_java_complete.vim'
 NeoBundleLazy 'jpo/vim-railscasts-theme'
@@ -334,11 +366,11 @@ NeoBundleLazy 'vim-scripts/candy.vim'
 "*****************
 "* neocomplete / neocomplcache
 "*****************
-"NeoBundle	'Shougo/neocomplcache'
-"NeoBundle	'Shougo/neocomplete'
-NeoBundle	has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
+"NeoBundle  'Shougo/neocomplcache'
+"NeoBundle  'Shougo/neocomplete'
+NeoBundle  has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
 if neobundle#is_installed('neocomplete')
-  " Use neocomplele 
+  " Use neocomplele
   let g:neocomplete#enable_at_startup = 1
   let g:neocomplete#enable_smart_case = 1
   let g:neocomplete#min_syntax_length = 2
@@ -350,13 +382,13 @@ if neobundle#is_installed('neocomplete')
       \ }
   " Plugin key-mappings.
   inoremap <expr><C-l>  neocomplete#complete_common_string()
-  inoremap <expr><BS>   neocomplete#smart_close_popup()."\<C-h>"
+  "inoremap <expr><BS>   neocomplete#smart_close_popup()."\<C-h>"
   inoremap <expr><C-y>  neocomplete#close_popup()
   inoremap <expr><C-e>  neocomplete#cancel_popup()
   nnoremap nce  :<C-u>NeoCompleteEnable<CR>
   imap <C-y> <Plug>(neocomplete#start_unite_complete)
 elseif neobundle#is_installed('neocomplcache')
-  " Use neocomplcache 
+  " Use neocomplcache
   let g:neocomplcache_enable_at_stArtup = 1
   " Set smartcase
   "let g:neocomplcache_enable_smart_case = 1
@@ -387,7 +419,7 @@ inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
 "* vimshell
 "*****************
 "if Is_Android()"{{{
-"  NeoBundle	'Shougo/vimshell'
+"  NeoBundle  'Shougo/vimshell'
 "endif"}}}
 NeoBundleLazy 'Shougo/vimshell', {
 \   'autoload' : { 'commands' : [ 'VimShell', "VimShellPop", "VimShellInteractive" ] }
@@ -400,7 +432,7 @@ function! s:bundle.hooks.on_source(bundle)
   let g:vimshell_enable_smart_case = 1
   let g:neocomplcache_max_list = 50
   "let g:vimshell_cat_command = 'view'
-  
+
   if has('win32') || has('win64')
     " Display user name on Windows.
     "let g:vimshell_prompt = $USERNAME."% "
@@ -415,7 +447,7 @@ function! s:bundle.hooks.on_source(bundle)
   let g:vimshell_prompt_pattern = '^\f\+> '
   "let g:vimshell_prompt_expr = 'fnamemodify(getcwd(), ":~"). "@" . g:user_name . "> "'
   "let g:vimshell_prompt_pattern = '^.\+> '
-  
+
   " Initialize execute file list.
   let g:vimshell_execute_file_list = {}
   "call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
@@ -423,7 +455,7 @@ function! s:bundle.hooks.on_source(bundle)
   let g:vimshell_execute_file_list['pl'] = 'perl'
   let g:vimshell_execute_file_list['py'] = 'python'
   "call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
-  
+
   autocmd FileType vimshell
   \ call vimshell#altercmd#define('l', 'll')
   \| call vimshell#altercmd#define('ll', 'ls -l')
@@ -435,13 +467,15 @@ unlet s:bundle
 
 nnoremap <silent> ,vs :VimShell<CR>
 nnoremap <silent> ,vsp :VimShellPop<CR>
+nnoremap <silent> ,vspy :VimShellInteractive python<CR>
+nnoremap <silent> ,vss <S-v>:VimShellSendString<CR>
 
 "*****************
 "* vimfiler
 "*****************
 NeoBundleLazy 'Shougo/vimfiler', {
-\   'depends' : ["Shougo/unite.vim"] , 
-\   'autoload' : { 
+\   'depends' : ["Shougo/unite.vim"] ,
+\   'autoload' : {
 \       'function-prefix' : "vimfiler",
 \       'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer" ],
 \   },
@@ -495,20 +529,20 @@ nnoremap <silent> ,vf :VimFiler -simple -winwidth=65 -no-quit<CR>
 "*****************
 NeoBundleLazy 'Shougo/unite.vim', {
 \   'autoload' : {
-\       'functions' : [ 
-\            'unite#start_complete', 
-\            'unite#version', 
-\            'unite#custom_action', 
-\            'unite#custom_default_action', 
+\       'functions' : [
+\            'unite#start_complete',
+\            'unite#version',
+\            'unite#custom_action',
+\            'unite#custom_default_action',
 \       ],
-\       'mappings' : [ 
-\            '<Plug>(unite_exit)', 
-\            '<Plug>(unite_insert_leave)', 
+\       'mappings' : [
+\            '<Plug>(unite_exit)',
+\            '<Plug>(unite_insert_leave)',
 \       ],
-\       'commands' : [ 
-\            'Unite', 
-\            'UniteWithBufferDir', 
-\            'UniteWithCursorWord', 
+\       'commands' : [
+\            'Unite',
+\            'UniteWithBufferDir',
+\            'UniteWithCursorWord',
 \       ],
 \   },
 \}
@@ -527,7 +561,7 @@ function! s:bundle.hooks.on_source(bundle)
   \   'description' : 'Shortcut',
   \}
   let s:commands.candidates = {
-  \   "HOME(VimFiler)" : "VimFiler $HOME" , 
+  \   "HOME(VimFiler)" : "VimFiler $HOME" ,
   \   "Google" : "VimProcBang start 'http://www.google.co.jp/'" ,
   \   "vimfiles(VimFiler)" : "VimFiler $HOME/vimfiles" ,
   \   "MyProject(VimFiler)" : "VimFiler $HOME/MyProject" ,
@@ -548,7 +582,7 @@ function! s:bundle.hooks.on_source(bundle)
   \   'description' : 'VimPdb',
   \}
   let s:commands.candidates = {
-  \   "F5 : PdbStartDebug" : "call PdbStartDebug(1, [])" , 
+  \   "F5 : PdbStartDebug" : "call PdbStartDebug(1, [])" ,
   \   "F2 : PdbToggleBreakpointOnCurrentLine" : "call PdbToggleBreakpointOnCurrentLine()" ,
   \}
   function s:commands.map(key, value)
@@ -593,11 +627,11 @@ nnoremap <silent> ,utb :<C-u>Unite tab<CR>
 nnoremap <silent> ,utg :<C-u>Unite tag<CR>
 " neosnippet
 nnoremap <silent> ,us  :<C-u>Unite snippet<CR>
-" neobundle 
+" neobundle
 nnoremap <silent> ,unb  :<C-u>Unite neobundle<CR>
 " menu
 nnoremap <silent> ,um :<C-u>Unite menu:shortcut<CR>
-" history/yank 
+" history/yank
 nnoremap <silent> ,uhy :<C-u>Unite history/yank<CR>
 " history/command
 nnoremap <silent> ,uhc :<C-u>Unite history/command<CR>
@@ -620,7 +654,7 @@ endfunction
 
 " Unite-vimshell-history
 inoremap <buffer><expr> <C-l> unite#start_complete(
-  \ ['vimshell/history'], {                                                                                                                  
+  \ ['vimshell/history'], {
   \ 'start_insert' : 1,
   \ 'input' : vimshell#get_cur_text()})
 
@@ -630,10 +664,10 @@ inoremap <buffer><expr> <C-l> unite#start_complete(
 "*****************
 "NeoBundleLazy 'Shougo/neosnippet', {
 NeoBundle 'Shougo/neosnippet', {
-\   'autoload' : { 
+\   'autoload' : {
 \       'functions' : [ "neosnippet#expandable", "neosnippet#jumpable" ],
-\       'mappings' : [ "<Plug>(neosnippet_expand_or_jump)", 
-\                      "<Plug>(neosnippet_expand_target)", 
+\       'mappings' : [ "<Plug>(neosnippet_expand_or_jump)",
+\                      "<Plug>(neosnippet_expand_target)",
 \                      "<Plug>(neosnippet_start_unite_snippet_target)" ],
 \       'commands' : [ "NeoSnippetMakeCache", "NeoSnippetEdit", "NeoComplCacheEdit", "NeoSnippetSource" ]
 \   }
@@ -662,10 +696,10 @@ smap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ?
  \: "\<TAB>"
 
 "*****************
-"* vim-ref 
+"* vim-ref
 "*****************
 NeoBundleLazy 'thinca/vim-ref', {
-\   'autoload' : { 
+\   'autoload' : {
 \       'commands' : [ 'Ref' ],
 \   }
 \}
@@ -698,7 +732,7 @@ function! s:bundle.hooks.on_source(bundle)
   endfunction
 endfunction
 unlet s:bundle
- 
+
 nmap <Leader>rj :<C-u>Ref webdict je<Space>
 nmap <Leader>re :<C-u>Ref webdict ej<Space>
 nmap ,re :<C-u>execute "Ref webdict ej " . expand('<cword>')
@@ -718,8 +752,8 @@ endfunction
 "* MyScripts
 "*****************
 "function! Test()
-"	:e test.test
-"	:set filetype=test
+"  :e test.test
+"  :set filetype=test
 "endfunction
 function! MyOpenBrowser()
   execute ":VimProcBang start '" . expand('<cWORD>') . "'"
@@ -788,8 +822,8 @@ vmap gx <Plug>(openbrowser-smart-search)
 "*****************
 "NeoBundle 'hasifumi/visualmark'
 NeoBundleLazy 'hasifumi/visualmark', {
-\   'autoload' : { 
-\       'functions' : [ "visualmark#Vm_toggle_sign", 
+\   'autoload' : {
+\       'functions' : [ "visualmark#Vm_toggle_sign",
 \                       "visualmark#Vm_goto_next_sign",
 \                       "visualmark#Vm_goto_prev_sign"],
 \   }
@@ -808,10 +842,10 @@ nmap <C-F3>  :call visualmark#Vm_goto_prev_sign()<CR>
 "* shaberu.vim
 "*****************
 NeoBundleLazy 'supermomonga/shaberu.vim', {
-\   'autoload' : { 
-\       'commands' : [ "ShaberuSay", 
-\                      "ShaberuMuteOn", 
-\                      "ShaberuMuteOff", 
+\   'autoload' : {
+\       'commands' : [ "ShaberuSay",
+\                      "ShaberuMuteOn",
+\                      "ShaberuMuteOff",
 \                      "ShaberuMuteToggle" ],
 \   }
 \}
@@ -834,16 +868,16 @@ let g:tcomment_types = {
 ""* tcomment_vim
 ""*****************
 "NeoBundleLazy 'tomtom/tcomment_vim', {
-"\   'autoload' : { 
+"\   'autoload' : {
 "\       'functions' : [ "tcomment#SetOption()",
 "\                       "tcomment#Operator()",
 "\                       "tcomment#OperatorLine()",
 "\                       "tcomment#OperatorAnyway()",
 "\                       "tcomment#OperatorLineAnyway()" ],
-"\       'commands' : [ "TComment", 
-"\                      "TCommentAs", 
-"\                      "TCommentInline", 
-"\                      "TCommentRight", 
+"\       'commands' : [ "TComment",
+"\                      "TCommentAs",
+"\                      "TCommentInline",
+"\                      "TCommentRight",
 "\                      "Comment" ],
 "\   }
 "\}
@@ -877,9 +911,9 @@ hi EasyMotionShade  ctermbg=none ctermfg=blue
 "*****************
 "NeoBundle 'majutsushi/tagbar'
 NeoBundleLazy 'majutsushi/tagbar', {
-\   'autoload' : { 
-\       'commands' : [ "TagbarToggle", 
-\                      "TagbarOpen", 
+\   'autoload' : {
+\       'commands' : [ "TagbarToggle",
+\                      "TagbarOpen",
 \                      "TagbarClose" ],
 \   }
 \}
@@ -927,8 +961,8 @@ nmap <F8>  :TagbarToggle<CR>
 "* restart.vim
 "*****************
 NeoBundleLazy 'tyru/restart.vim', {
-\   'autoload' : { 
-\       'commands' : [ "Restart" ], 
+\   'autoload' : {
+\       'commands' : [ "Restart" ],
 \   }
 \}
 
@@ -936,8 +970,8 @@ NeoBundleLazy 'tyru/restart.vim', {
 "* dbg.vim
 "*****************
 NeoBundleLazy 'yuratomo/dbg.vim', {
-\   'autoload' : { 
-\       'commands' : [ "Dbg", 
+\   'autoload' : {
+\       'commands' : [ "Dbg",
 \                      "DbgShell" ],
 \   }
 \}
@@ -954,10 +988,10 @@ unlet s:bundle
 "* syntastic
 "*****************
 NeoBundleLazy 'scrooloose/syntastic', {
-\   'autoload' : { 
-\       'commands' : [ "Errors", 
-\                      "SyntasticToggleMode", 
-\                      "SyntasticCheck", 
+\   'autoload' : {
+\       'commands' : [ "Errors",
+\                      "SyntasticToggleMode",
+\                      "SyntasticCheck",
 \                      "SyntasticInfo" ],
 \   }
 \}
@@ -976,7 +1010,7 @@ unlet s:bundle
 "* vim-gorilla-script
 "*****************
 NeoBundleLazy 'unc0/vim-gorilla-script', {
-\   'autoload' : { 
+\   'autoload' : {
 \       'filetypes' : [ "gorilla" ]
 \   }
 \}
@@ -985,9 +1019,9 @@ NeoBundleLazy 'unc0/vim-gorilla-script', {
 "* vim-indent-guides
 "*****************
 NeoBundle 'nathanaelkane/vim-indent-guides', {
-\   'autoload' : { 
-\       'commands' : [ "IndentGuidesToggle", 
-\                      "IndentGuidesEnable", 
+\   'autoload' : {
+\       'commands' : [ "IndentGuidesToggle",
+\                      "IndentGuidesEnable",
 \                      "IndentGuidesDisable" ],
 \   }
 \}
@@ -1011,8 +1045,8 @@ nnoremap <silent> ,gt :<C-u>IndentGuidesToggle<CR>
 "* vim-hier
 "*****************
 NeoBundleLazy 'jceb/vim-hier', {
-\   'autoload' : { 
-\       'commands' : [ "HierUpdate", 
+\   'autoload' : {
+\       'commands' : [ "HierUpdate",
 \                      "HierClear" ],
 \   }
 \}
@@ -1028,8 +1062,8 @@ unlet s:bundle
 "* quickfixstatus
 "*****************
 NeoBundleLazy 'dannyob/quickfixstatus', {
-\   'autoload' : { 
-\       'commands' : [ "QuickfixStatusEnable", 
+\   'autoload' : {
+\       'commands' : [ "QuickfixStatusEnable",
 \                      "QuickfixStatusDisable" ],
 \   }
 \}
@@ -1050,7 +1084,7 @@ NeoBundle 'yomi322/vim-gitcomplete'
 "* echodoc
 "*****************
 NeoBundleLazy 'Shougo/echodoc',{
-\   'autoload' : { 
+\   'autoload' : {
 \       'commands' : [ "EchoDocEnable",],
 \   }
 \}
@@ -1059,7 +1093,7 @@ NeoBundleLazy 'Shougo/echodoc',{
 "* excel_vba_echodoc
 "*****************
 NeoBundleLazy 'hasifumi/excel_vba_echodoc', {
-\   'autoload' : { 
+\   'autoload' : {
 \       'functions' : [ "excel_vba_echodoc#echodoc()" ],
 \   }
 \}
@@ -1076,8 +1110,8 @@ NeoBundle 'rhysd/clever-f.vim'
 "* sonictemplate
 "*****************
 NeoBundleLazy 'mattn/sonictemplate-vim',{
-\   'autoload' : { 
-\       'commands' : [ "Template" ], 
+\   'autoload' : {
+\       'commands' : [ "Template" ],
 \   }
 \}
 let s:bundle = neobundle#get("sonictemplate-vim")
@@ -1093,8 +1127,8 @@ unlet s:bundle
 "* MiSawa/sniplate.vim
 "*****************
 NeoBundleLazy 'MiSawa/sniplate.vim', {
-\   'autoload' : { 
-\       'commands' : [ "SniplateLoad" ], 
+\   'autoload' : {
+\       'commands' : [ "SniplateLoad" ],
 \   }
 \}
 let s:bundle = neobundle#get("sniplate.vim")
@@ -1107,10 +1141,10 @@ unlet s:bundle
 "*  vim-anzu
 "*****************
 NeoBundleLazy 'osyo-manga/vim-anzu', {
-\   'autoload' : { 
-\       'mappings' : [ "<Plug>(anzu-n-with-echo)", 
-\                      "<Plug>(anzu-N-with-echo)", 
-\                      "<Plug>(anzu-star-with-echo)", 
+\   'autoload' : {
+\       'mappings' : [ "<Plug>(anzu-n-with-echo)",
+\                      "<Plug>(anzu-N-with-echo)",
+\                      "<Plug>(anzu-star-with-echo)",
 \                      "<Plug>(anzu-sharp-with-echo)" ],
 \   }
 \}
@@ -1169,9 +1203,9 @@ NeoBundleLazy 'fuenor/im_control.vim'
 "*****************
 "NeoBundle 'Align'
 NeoBundleLazy 'Align', {
-\   'autoload' : { 
-\       'mappings' : [ "<Plug>AM_tsp" ], 
-\       'commands' : [ "Align", 
+\   'autoload' : {
+\       'mappings' : [ "<Plug>AM_tsp" ],
+\       'commands' : [ "Align",
 \                      "AlignCtrl" ],
 \   }
 \}
@@ -1181,16 +1215,16 @@ function! s:bundle.hooks.on_source(bundle)
 endfunction
 unlet s:bundle
 
-map! <unique> <Leader>tsp	<Plug>AM_tsp
+map! <unique> <Leader>tsp  <Plug>AM_tsp
 
 ""*****************
 ""* vim-prettyprint
 ""*****************
 "NeoBundleLazy 'thinca/vim-prettyprint', {
-"\   'autoload' : { 
+"\   'autoload' : {
 "\       'functions' : [ "PrettyPrint()",
 "\                       "PP()" ],
-"\       'commands' : [ "PP", 
+"\       'commands' : [ "PP",
 "\                      "PrettyPrint" ],
 "\   }
 "\}
@@ -1204,7 +1238,7 @@ if s:bundle_tap('vim-prettyprint') " {{{
         \   'autoload' : {
         \     'functions' : [ "PrettyPrint()",
         \                     "PP()" ],
-        \     'commands'  : [ "PP", 
+        \     'commands'  : [ "PP",
         \                     "PrettyPrint" ],
         \   }
         \ })
@@ -1215,12 +1249,12 @@ endif " }}}
 ""* rbtnn/vimconsole.vim
 ""*****************
 "NeoBundleLazy 'rbtnn/vimconsole.vim', {
-"\   'autoload' : { 
-"\       'commands' : [ "VimConsole", 
-"\                      "VimConsoleToggle", 
-"\                      "VimConsoleOpen", 
-"\                      "VimConsoleClear", 
-"\                      "VimConsoleRedraw", 
+"\   'autoload' : {
+"\       'commands' : [ "VimConsole",
+"\                      "VimConsoleToggle",
+"\                      "VimConsoleOpen",
+"\                      "VimConsoleClear",
+"\                      "VimConsoleRedraw",
 "\                      "VimConsoleClose" ],
 "\   }
 "\}
@@ -1240,21 +1274,21 @@ NeoBundleLazy 'rbtnn/vimconsole.vim'
 if s:bundle_tap('vimconsole.vim') " {{{
   call s:bundle_config({
         \   'autoload' : {
-        \     'commands'  : [ "VimConsole", 
-        \                     "VimConsoleToggle", 
-        \                     "VimConsoleOpen", 
-        \                     "VimConsoleClear", 
-        \                     "VimConsoleRedraw", 
+        \     'commands'  : [ "VimConsole",
+        \                     "VimConsoleToggle",
+        \                     "VimConsoleOpen",
+        \                     "VimConsoleClear",
+        \                     "VimConsoleRedraw",
         \                     "VimConsoleClose" ],
         \   }
         \ })
- 
+
   function! s:tapped_bundle.hooks.on_source(bundle)
     let g:vimconsole#height = 10
   endfunction
- 
+
   nmap ,vct  VimConsoleToggle<CR>
- 
+
   call s:bundle_untap()
 endif " }}}
 
@@ -1271,11 +1305,11 @@ if s:bundle_tap('vim-scall') " {{{
         \                     "scall#search" ],
         \   }
         \ })
- 
+
   function! s:tapped_bundle.hooks.on_source(bundle)
     let g:scall_function_name = 'S'
   endfunction
- 
+
   call s:bundle_untap()
 endif " }}}
 
@@ -1284,9 +1318,9 @@ endif " }}}
 "*****************
 "NeoBundle 'thinca/vim-quickrun'
 NeoBundleLazy 'thinca/vim-quickrun', {
-\   'autoload' : { 
-\       'commands' : [ "QuickRun" ], 
-\       'functions' : [ "quickrun#" ], 
+\   'autoload' : {
+\       'commands' : [ "QuickRun" ],
+\       'functions' : [ "quickrun#" ],
 \   }
 \}
 let s:bundle = neobundle#get("vim-quickrun")
@@ -1324,12 +1358,12 @@ function! s:bundle.hooks.on_source(bundle)
   endfunction
   call quickrun#module#register(s:python_unittest_outputter, 1)
   let g:quickrun_config['python.unittest'] = {
-\    "command" : "python", 
+\    "command" : "python",
 \    "exec" : "%c %o %s:p %a",
-\    "cmdpt" : "-m unittest", 
+\    "cmdpt" : "-m unittest",
 \ }
   unlet s:python_unittest_outputter
-"\    "outputter" : 'python_unittest_outputter', 
+"\    "outputter" : 'python_unittest_outputter',
 endfunction
 unlet s:bundle
 
@@ -1347,7 +1381,7 @@ augroup END
 "* davidhalter/jedi-vim
 "*****************
 NeoBundleLazy "davidhalter/jedi-vim", {
-\   'autoload' : { 
+\   'autoload' : {
 \       'filetypes' : [ "python",
 \                       "python3" ],
 \   }
@@ -1377,17 +1411,18 @@ NeoBundle 'jmcantrell/vim-virtualenv'
 "* gotcha/vimpdb
 "*****************
 "NeoBundleLazy "gotcha/vimpdb", {
-"\   'autoload' : { 
+"\   'autoload' : {
 "\       'filetypes' : [ "python",
 "\                       "python3" ],
 "\   }
 "\}
+NeoBundle 'hasifumi/VimPdb'
 "
 "*****************
 "* flake8-vim
 "*****************
 NeoBundleLazy 'andviro/flake8-vim', {
-\   'autoload' : { 
+\   'autoload' : {
 \       'filetypes' : [ "python",
 \                       "python3" ],
 \   }
@@ -1402,7 +1437,7 @@ unlet s:bundle
 "* vim-python-pep8-indent
 "*****************
 NeoBundleLazy 'hynek/vim-python-pep8-indent', {
-\   'autoload' : { 
+\   'autoload' : {
 \       'filetypes' : [ "python",
 \                       "python3" ],
 \   }
@@ -1422,7 +1457,7 @@ unlet s:bundle
 "*****************
 NeoBundleLazy 'hachibeeDI/vim-operator-autopep8', {
 \   'depends' : ['kana/vim-operator-user', 'andviro/flake8-vim'],
-\   'autoload' : { 
+\   'autoload' : {
 \       'filetypes' : [ "python",
 \                       "python3" ],
 \   }
@@ -1441,7 +1476,7 @@ nmap ,p     <Plug>(operator-autopep8)
 "*****************
 NeoBundleLazy 'bps/vim-textobj-python', {
 \   'depends' : 'kana/vim-operator-user',
-\   'autoload' : { 
+\   'autoload' : {
 \       'filetypes' : [ "python",
 \                       "python3" ],
 \   }
@@ -1463,22 +1498,77 @@ NeoBundleLazy 'bps/vim-textobj-python', {
 "NeoBundleLazy 'vim-scripts/VimPdb'
 "NeoBundleLazy 'https://github.com/vim-scripts/VimPdb.git'
 
-NeoBundle 'hasifumi/VimPdb'
-NeoBundleLazy 'KangOl/vim-pudb'
+"NeoBundleLazy 'KangOl/vim-pudb'
+
+"*****************
+"* vital.vim
+"*****************
+NeoBundle 'vital.vim'
+let s:V= vital#of('vital')
+let s:Filepath = s:V.import('System.Filepath')
+
+function! MyTest(path)
+  echo s:Filepath.dirname(a:path)
+  echo s:Filepath.basename(a:path)
+endfunction
+
+let s:MyPythonUnittestUtil = {}
+function! s:func1()
+  let s:path = expand("%")
+  echo "path: " . s:path
+  "let s:dirname = s:Filepath.dirname(s:path)
+  let s:dirname = expand("%:h")
+  echo "dirname: " . s:dirname
+  "let s:parent = fnamemodify(s:dirname, ":p:h:h")
+  let s:parent = expand("%:h:h")
+  "let s:parent = s:Filepath.remove_last_separator(s:dirname)
+  echo "parent: " . s:parent
+endfunction
+
+command! MyTestCommand :call s:func1()
+
+"*****************
+"* osyo-mark/vim-over
+"*****************
+NeoBundle 'osyo-manga/vim-over'
+
+" Plugin key-mappings.
+" over.vimの起動
+nnoremap <silent> ,ov :OverCommandLine<CR>
+nnoremap <silent> ; :OverCommandLine<CR>
+" カーソル下の単語をハイライト付きで置換
+nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
+" コピーした文字列をハイライト付きで置換
+nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
+
+"*****************
+"* LeafCage/yankround.vim
+"*****************
+NeoBundle 'LeafCage/yankround.vim'
+
+" Plugin key-mappings.
+"" キーマップ
+nmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap <C-p> <Plug>(yankround-prev)
+nmap <C-n> <Plug>(yankround-next)
+"" 履歴取得数
+let g:yankround_max_history = 50
+
 "*****************
 "* plugin neobundle setting templete
 "*****************
 "NeoBundle 'xxx/yyyy'
 "NeoBundleLazy 'xxx/yyyy', {
-"\   'autoload' : { 
+"\   'autoload' : {
 "\       'functions' : [ "",
 "\                       "",
 "\                       "" ],
-"\       'mappings' : [ "<Plug>()", 
-"\                      "<Plug>()", 
+"\       'mappings' : [ "<Plug>()",
+"\                      "<Plug>()",
 "\                      "<Plug>()" ],
-"\       'commands' : [ "", 
-"\                      "", 
+"\       'commands' : [ "",
+"\                      "",
 "\                      "" ],
 "\   }
 "\}
