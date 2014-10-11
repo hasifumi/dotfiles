@@ -297,6 +297,7 @@ NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'mattn/googletranslate-vim'
 NeoBundle 'mattn/excitetranslate-vim'
 NeoBundle 'mattn/webapi-vim'
+NeoBundle 'Shougo/neomru.vim'
 "NeoBundle 'YankRing.vim'
 "NeoBundle 'supermomonga/shaberu.vim'
 
@@ -1500,33 +1501,33 @@ NeoBundleLazy 'bps/vim-textobj-python', {
 
 "NeoBundleLazy 'KangOl/vim-pudb'
 
-"*****************
-"* vital.vim
-"*****************
-NeoBundle 'vital.vim'
-let s:V= vital#of('vital')
-let s:Filepath = s:V.import('System.Filepath')
-
-function! MyTest(path)
-  echo s:Filepath.dirname(a:path)
-  echo s:Filepath.basename(a:path)
-endfunction
-
-let s:MyPythonUnittestUtil = {}
-function! s:func1()
-  let s:path = expand("%")
-  echo "path: " . s:path
-  "let s:dirname = s:Filepath.dirname(s:path)
-  let s:dirname = expand("%:h")
-  echo "dirname: " . s:dirname
-  "let s:parent = fnamemodify(s:dirname, ":p:h:h")
-  let s:parent = expand("%:h:h")
-  "let s:parent = s:Filepath.remove_last_separator(s:dirname)
-  echo "parent: " . s:parent
-endfunction
-
-command! MyTestCommand :call s:func1()
-
+""*****************
+""* vital.vim
+""*****************
+"NeoBundle 'vim-jp/vital.vim'
+"let s:V= vital#of('vital')
+"let s:Filepath = s:V.import('System.Filepath')
+"
+"function! MyTest(path)
+"  echo s:Filepath.dirname(a:path)
+"  echo s:Filepath.basename(a:path)
+"endfunction
+"
+"let s:MyPythonUnittestUtil = {}
+"function! s:func1()
+"  let s:path = expand("%")
+"  echo "path: " . s:path
+"  "let s:dirname = s:Filepath.dirname(s:path)
+"  let s:dirname = expand("%:h")
+"  echo "dirname: " . s:dirname
+"  "let s:parent = fnamemodify(s:dirname, ":p:h:h")
+"  let s:parent = expand("%:h:h")
+"  "let s:parent = s:Filepath.remove_last_separator(s:dirname)
+"  echo "parent: " . s:parent
+"endfunction
+"
+"command! MyTestCommand :call s:func1()
+"
 "*****************
 "* osyo-mark/vim-over
 "*****************
@@ -1554,6 +1555,54 @@ nmap <C-p> <Plug>(yankround-prev)
 nmap <C-n> <Plug>(yankround-next)
 "" 履歴取得数
 let g:yankround_max_history = 50
+
+"*****************
+"* plugin neobundle setting templete
+"*****************
+"NeoBundle 'tyru/skk.vim'
+"let g:skk_large_jisyo = expand('~/dotfiles/MyDict/skk/SKK-JISYO.L')
+
+"*****************
+"* plugin neobundle setting templete
+"*****************
+NeoBundle 'tyru/eskk.vim'
+let g:eskk#large_dictionary = expand('~/dotfiles/MyDict/skk/SKK-JISYO.L')
+" Use google-ime-skk
+let g:eskk#server = {
+\  'host': 'localhost',
+\  'port': 55100,
+\  'type': 'notfound',
+\}
+let g:eskk#show_annotation = 1
+let g:eskk#tab_select_completion = 1
+
+"let g:eskk#enable_completion = 0
+"
+""NeoBundleLazy 'tyru/eskk.vim', {
+""\   'autoload' : {
+""\       'functions' : [ "",
+""\                       "",
+""\                       "" ],
+""\       'mappings' : [ "<Plug>()",
+""\                      "<Plug>()",
+""\                      "<Plug>()" ],
+""\       'commands' : [ "",
+""\                      "",
+""\                      "" ],
+""\   }
+""\}
+"let s:bundle = neobundle#get("eskk.vim")
+"function! s:bundle.hooks.on_source(bundle)
+"  if has('vim_starting')
+"    let g:eskk#large_dictionary = expand('~/dotfiles/MyDict/skk/SKK-JISYO.L')
+"  endif
+"
+"  "let g:eskk_debug = 0
+"  "let g:eskk_egg_like_newline = 1
+"  "let g:eskk_revert_henkan_style = "okuri"
+"  "let g:eskk_enable_completion = 0
+"endfunction
+"unlet s:bundle
 
 "*****************
 "* plugin neobundle setting templete
