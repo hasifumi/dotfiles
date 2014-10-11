@@ -205,14 +205,14 @@ set clipboard+=unnamedplus,unnamed
 "*****************
 " command-line
 "*****************
-"" F5キーでコマンド履歴を開く
-"" F6キーで検索履歴を開く
-"nnoremap <F5> <CR>q:
-"nnoremap <F6> <CR>q/
-"" q:、q/、q? は無効化
-"nnoremap q: <NOP>
-"nnoremap q/ <NOP>
-"nnoremap q? <NOP>
+" F5キーでコマンド履歴を開く
+" F6キーで検索履歴を開く
+nnoremap <F5> q:
+nnoremap <F6> q/
+" q:、q/、q? は無効化
+nnoremap q: <NOP>
+nnoremap q/ <NOP>
+nnoremap q? <NOP>
 
 "*****************
 "  GUI Option
@@ -297,6 +297,7 @@ NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'mattn/googletranslate-vim'
 NeoBundle 'mattn/excitetranslate-vim'
 NeoBundle 'mattn/webapi-vim'
+NeoBundle 'Shougo/neomru.vim'
 "NeoBundle 'YankRing.vim'
 "NeoBundle 'supermomonga/shaberu.vim'
 
@@ -1500,33 +1501,33 @@ NeoBundleLazy 'bps/vim-textobj-python', {
 
 "NeoBundleLazy 'KangOl/vim-pudb'
 
-"*****************
-"* vital.vim
-"*****************
-NeoBundle 'vital.vim'
-let s:V= vital#of('vital')
-let s:Filepath = s:V.import('System.Filepath')
-
-function! MyTest(path)
-  echo s:Filepath.dirname(a:path)
-  echo s:Filepath.basename(a:path)
-endfunction
-
-let s:MyPythonUnittestUtil = {}
-function! s:func1()
-  let s:path = expand("%")
-  echo "path: " . s:path
-  "let s:dirname = s:Filepath.dirname(s:path)
-  let s:dirname = expand("%:h")
-  echo "dirname: " . s:dirname
-  "let s:parent = fnamemodify(s:dirname, ":p:h:h")
-  let s:parent = expand("%:h:h")
-  "let s:parent = s:Filepath.remove_last_separator(s:dirname)
-  echo "parent: " . s:parent
-endfunction
-
-command! MyTestCommand :call s:func1()
-
+""*****************
+""* vital.vim
+""*****************
+"NeoBundle 'vim-jp/vital.vim'
+"let s:V= vital#of('vital')
+"let s:Filepath = s:V.import('System.Filepath')
+"
+"function! MyTest(path)
+"  echo s:Filepath.dirname(a:path)
+"  echo s:Filepath.basename(a:path)
+"endfunction
+"
+"let s:MyPythonUnittestUtil = {}
+"function! s:func1()
+"  let s:path = expand("%")
+"  echo "path: " . s:path
+"  "let s:dirname = s:Filepath.dirname(s:path)
+"  let s:dirname = expand("%:h")
+"  echo "dirname: " . s:dirname
+"  "let s:parent = fnamemodify(s:dirname, ":p:h:h")
+"  let s:parent = expand("%:h:h")
+"  "let s:parent = s:Filepath.remove_last_separator(s:dirname)
+"  echo "parent: " . s:parent
+"endfunction
+"
+"command! MyTestCommand :call s:func1()
+"
 "*****************
 "* osyo-mark/vim-over
 "*****************
@@ -1535,7 +1536,7 @@ NeoBundle 'osyo-manga/vim-over'
 " Plugin key-mappings.
 " over.vimの起動
 nnoremap <silent> ,ov :OverCommandLine<CR>
-nnoremap <silent> ; :OverCommandLine<CR>
+"nnoremap <silent> ; :OverCommandLine<CR>
 " カーソル下の単語をハイライト付きで置換
 nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
 " コピーした文字列をハイライト付きで置換
@@ -1554,6 +1555,22 @@ nmap <C-p> <Plug>(yankround-prev)
 nmap <C-n> <Plug>(yankround-next)
 "" 履歴取得数
 let g:yankround_max_history = 50
+
+"*****************
+"* eskk.vim
+"*****************
+NeoBundle 'tyru/eskk.vim'
+let g:eskk#large_dictionary = expand('~/dotfiles/MyDict/skk/SKK-JISYO.L')
+let g:eskk#enable_completion = 1
+let g:eskk#show_annotation = 1
+let g:eskk#tab_select_completion = 1
+"
+"" Use google-ime-skk
+let g:eskk#server = {
+\  'host': 'localhost',
+\  'port': 55100,
+\  'type': 'notfound',
+\}
 
 "*****************
 "* plugin neobundle setting templete
