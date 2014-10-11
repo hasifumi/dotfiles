@@ -33,7 +33,7 @@ set diffopt=vertical
 "inoremap "  ""<Left>
 "次の2行で、Tab、行末の半角スペース、改行を明示的に表示
 set list
-set listchars=tab:>\ ,trail:~,eol:$
+"set listchars=tab:>\ ,trail:~,eol:$
 
 " 保存時に行末の空白を除去する
 autocmd BufWritePre * :%s/\s\+$//ge
