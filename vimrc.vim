@@ -1084,11 +1084,12 @@ NeoBundle 'yomi322/vim-gitcomplete'
 "*****************
 "* echodoc
 "*****************
-NeoBundleLazy 'Shougo/echodoc',{
-\   'autoload' : {
-\       'commands' : [ "EchoDocEnable",],
-\   }
-\}
+NeoBundle 'Shougo/echodoc'
+"NeoBundleLazy 'Shougo/echodoc',{
+"\   'autoload' : {
+"\       'commands' : [ "EchoDocEnable",],
+"\   }
+"\}
 
 "*****************
 "* excel_vba_echodoc
@@ -1337,6 +1338,11 @@ function! s:bundle.hooks.on_source(bundle)
 \   "my_groovy" : {
 \       "command"   : "/home/fumio/.gvm/groovy/current/bin/groovy",
 \       "exec" : "%c %o %s:p %a",
+\       "cmdopt" : "",
+\   },
+\   "go" : {
+\       "command"   : "go",
+\       "exec" : ['%c run %s'],
 \       "cmdopt" : "",
 \   },
 \ }
