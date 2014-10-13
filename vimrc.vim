@@ -115,6 +115,17 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
 "*****************
+"* neosnippet
+"*****************
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
+"let g:neosnippet#snippets_directory = '~/vimfiles/bundle/neobundle/neosnippet-snippets/snippets'
+let g:neosnippet#snippets_directory = '~/vimfiles/bundle/neobundle/neosnippet-snippets/snippets, ~/dotfiles/MySnippets'
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+
+"*****************
 "* for Golang
 "*****************
 NeoBundle "nsf/gocode"
@@ -145,6 +156,26 @@ let g:eskk#server = {
 NeoBundle 'thinca/vim-quickrun'
 nnoremap ,qr <C-c>:QuickRun<CR>
 
+let g:quickrun_config = {
+\   "_" : {
+\       "runner" : "vimproc",
+\       "runner/vimproc/updatetime" : 60
+\   },
+\   "groovy" :{
+\       "type" : "my_groovy"
+\   },
+\   "my_groovy" : {
+\       "command"   : "/home/fumio/.gvm/groovy/current/bin/groovy",
+\       "exec" : "%c %o %s:p %a",
+\       "cmdopt" : "",
+\   },
+\   "go" : {
+\       "command"   : "go",
+\       "exec" : ['%c run %s'],
+\       "cmdopt" : "",
+\   },
+\ }
+
 "*****************
 "* etc
 "*****************
@@ -154,6 +185,7 @@ let g:echodoc_enable_at_startup = 1
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'yomi322/vim-gitcomplete'
 
 "*****************
 "* after loading Plugins
