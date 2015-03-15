@@ -1,0 +1,6 @@
+---
+- hosts: all
+  sudo: yes
+  tasks:
+   - name: add a new user
+     user: name=taguchi
