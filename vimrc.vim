@@ -69,7 +69,7 @@ NeoBundleFetch  'Shougo/neobundle.vim'
 "*****************
 "* vimproc
 "*****************
-NeoBundle 'Shougo/vimproc'
+NeoBundleFetch 'Shougo/vimproc'
 
 "*****************
 "* Unite
@@ -94,6 +94,7 @@ endfunction
 "* vimshell
 "*****************
 NeoBundle "Shougo/vimshell"
+NeoBundle "ujihisa/vimshell-ssh"
 nnoremap <silent> ,vs :VimShell<CR>
 
 "*****************
@@ -102,7 +103,7 @@ nnoremap <silent> ,vs :VimShell<CR>
 NeoBundle "Shougo/vimfiler"
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_safe_mode_by_default = 0
-nnoremap <silent> ,vf :VimFiler -simple -winwidth=65 -no-quit<CR>
+nnoremap <silent> ,vf :VimFiler -simple -winwidth=20 -no-quit<CR>
 
 "*****************
 "* neocomplele
@@ -186,6 +187,11 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'yomi322/vim-gitcomplete'
+
+NeoBundle 'Lokaltog/vim-easymotion'
+nmap s <Plug>(easymotion-s2)
+
+NeoBundle 'thinca/vim-themis'
 
 "*****************
 "* after loading Plugins
