@@ -2,8 +2,8 @@ colorscheme hybrid
 "colorscheme railscasts
 autocmd GUIEnter * simalt ~x
 
-".gvimrc J[Ýè
-"J[Ýèµ½ãÉCursorIMðè`·éû@
+".gvimrc ?J???[?Y?e
+"?J???[?Y?e?μ???a?ECursorIM?d?e?`?・?e?u?@
 "colorscheme mycolor
 
 if has('multi_byte_ime')

@@ -51,6 +51,12 @@ nnoremap <C-h> :<C-u>tabprevious<CR>
 nnoremap <C-t> :<C-u>tabedit<CR>
 
 "*****************
+"  ctags
+"*****************
+"nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
+nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
+
+"*****************
 "* neobundle
 "*****************
 let s:is_windows  = has('win32') || has('win64')
@@ -156,6 +162,7 @@ let g:eskk#server = {
 "*****************
 NeoBundle 'thinca/vim-quickrun'
 nnoremap ,qr <C-c>:QuickRun<CR>
+nnoremap <F11> <C-c>:QuickRun<CR>
 
 let g:quickrun_config = {
 \   "_" : {
@@ -192,6 +199,24 @@ NeoBundle 'Lokaltog/vim-easymotion'
 nmap s <Plug>(easymotion-s2)
 
 NeoBundle 'thinca/vim-themis'
+NeoBundle 'vim-scripts/dbext.vim'
+let g:dbext_default_SQLITE_bin = 'sqlite3'
+let g:dbext_default_profile_test = 'type=SQLITE:dbname=c:\users\fumio\MyProject\scrapy\appbank\appbank\spiders\sqlite\pdappbank.db'
+let g:dbext_default_profile = 'test'
+
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'mattn/vdbi-vim'
+
+NeoBundle 'tomtom/tcomment_vim'
+
+NeoBundle 'vim-scripts/taglist.vim'
+let Tlist_Use_Right_Window = 1
+let Tlist_WinWidth = 30
+
+NeoBundle "nathanaelkane/vim-indent-guides"
+let g:indent_guides_guide_size = 1
+
+" NeoBundle 'vim-scripts/python_fold'
 
 "*****************
 "* after loading Plugins
